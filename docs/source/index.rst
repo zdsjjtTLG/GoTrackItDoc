@@ -1,4 +1,4 @@
-Welcome to Lumache's documentation!
+Welcome to GoTrackIt's documentation!
 ===================================
 
 **Lumache** (/lu'make/) is a Python library for cooks and food lovers
@@ -21,6 +21,7 @@ Contents
 --------
 
 .. toctree::
+
 
    地图匹配简介
    地图匹配原理
