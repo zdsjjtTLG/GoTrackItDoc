@@ -1,7 +1,7 @@
 Welcome to GoTrackIt's documentation!
 ===================================
 
-Welcome to GoTrackIt's documentation!
+GoTrackIt 是一个基于隐马尔可夫模型算法实现的地图匹配包, 通过概率图建模的方式将车辆的GPS数据匹配到道路路网, 获取车辆的时空轨迹.
 
 
 .. note::
@@ -14,7 +14,6 @@ Contents
 .. toctree::
 
 
-    地图匹配简介
-    地图匹配原理
+    简介
     如何使用
-    test
+    类方法汇总
