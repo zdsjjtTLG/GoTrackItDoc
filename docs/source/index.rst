@@ -22,8 +22,6 @@ Contents
 
 .. toctree::
 
-   usage
-   api
    地图匹配简介
    地图匹配原理
    如何使用
