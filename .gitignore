@@ -22,6 +22,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+PrivateDoc/
 .idea/
 
 # C extensions
