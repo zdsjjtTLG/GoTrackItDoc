@@ -39,7 +39,7 @@ geopandas为最新版本, 如果不是最新版本可能会报错(有个函数�
 
 2.1. 模块概览
 ````````````````
-包括了三个模块：数据生产、地图匹配和可视化。
+包括了三个模块：GPS数据生产、地图匹配 和 匹配过程可视化。
 
 
 2.1.1. GPS数据生产
@@ -47,15 +47,47 @@ geopandas为最新版本, 如果不是最新版本可能会报错(有个函数�
 该模块依托路网文件模拟车辆行驶并且产生GPS数据，当用户没有实际的GPS数据时可以借助该模块生产数据。
 
 
+基本流程为：
+
+.. image:: images/GpsGenGraph.png
+    :align: center
+
+----------------------------------------
+
+具体的代码实操见下文示例代码。
+
+
+
 2.1.2. 地图匹配
 ::::::::::::::::::::::::::
+
 依托路网文件、GPS数据，对GPS数据进行地图匹配，匹配结果给出每个GPS点实际匹配路段信息。
+
+基本流程为：
+
+.. image:: images/MatchGraph.png
+    :align: center
+
+----------------------------------------
+
+具体的代码实操见下文示例代码。
+
 
 
 2.1.3. kepler可视化
 ::::::::::::::::::::::::::
-依托匹配结果生产HTML文件，用户可以使用浏览器打开该文件播放匹配动画。
 
+
+将匹配结果统一输出到HTML文件，用户可以使用浏览器打开该文件播放匹配动画。
+
+基本流程为：
+
+.. image:: images/visualization.png
+    :align: center
+
+----------------------------------------
+
+具体的代码实操见下文示例代码。
 
 2.2. 数据要求
 ````````````````
@@ -163,12 +195,12 @@ geopandas为最新版本, 如果不是最新版本可能会报错(有个函数�
     "353811","1","175.06","82793","7449","科技八路辅路","LINESTRING (108.84178453991281 34.204420171642816, 108.8409632885549 34.20423679420731, 108.83996876020116 34.20398312458892)"
 
 
-(2) 点层、线层关联关系
+(3) 点层、线层关联关系
 ''''''''''''''''''''''''''
 
-按照以上样例数据准备路网文件，shp、csv、geojson等格式都可以
+按照以上样例数据准备路网文件，shp、geojson等格式都可以。
 
-样例数据在QGIS(或者TransCAD等其他GIS软件)中进行可视化，大概是这个样子
+样例数据在QGIS(或者TransCAD等其他GIS软件)中进行可视化，大概是这个样子：
 
 .. image:: images/sample_net.png
     :align: center
@@ -240,8 +272,14 @@ GPS数据字段要求如下：
 3.1. 所需数据
 `````````````
 
-
 本模块只需路网数据作为输入，先依据路网数据初始化一个Net对象，然后初始化一个路径对象和一个Car车辆对象，然后新建一个行程信息收集器对象RouteInfoCollector，即可获取GPS数据。
+
+基本流程为：
+
+.. image:: images/GpsGenGraph.png
+    :align: center
+
+----------------------------------------
 
 
 3.2. 代码示例
@@ -324,20 +362,118 @@ GPS数据字段要求如下：
         # 指定存储文件类型参数: file_type(geojson或者csv)
         # 指定存储文件目录参数: out_fldr
         # 指定存储文件名称(不带后缀): file_name
-        trajectory_gdf = data_col.save_trajectory(file_type='geojson', out_fldr=r'./data/output/trajectory/', file_name='test129')
-        gps_gdf = data_col.save_gps_info(file_type='geojson', out_fldr=r'./data/output/gps/', file_name='test129')
-        mix_gdf = data_col.save_mix_info(file_type='geojson', out_fldr=r'./data/output/mix/', file_name='test129')
+        trajectory_gdf = data_col.save_trajectory(file_type='geojson', out_fldr=r'./data/output/trajectory/', file_name='test_xa')
+        gps_gdf = data_col.save_gps_info(file_type='geojson', out_fldr=r'./data/output/gps/', file_name='test_xa')
+        mix_gdf = data_col.save_mix_info(file_type='geojson', out_fldr=r'./data/output/mix/', file_name='test_xa')
 
 
 4. 从路径规划接口获取路网
 -------------------------
 
+该模块功能已经开发完毕，测试中，尚未上线......
+
 
 5. 地图匹配
 ----------------------------
-使用地图匹配接口，你需要准备路网数据和GPS数据
+
+5.1. 所需数据
+`````````````
+
+使用地图匹配接口，你需要准备路网数据和GPS数据。
+
+基本流程如下：
+
+
+.. image:: images/MatchGraph.png
+    :align: center
+
+----------------------------------------
+
+
+5.2. 代码示例
+`````````````
+
+.. code-block:: python
+    :linenos:
+
+    # 1. 从gotrackit导入相关模块Net, GpsPointsGdf, HiddenMarkov, VisualizationCombination, 字段名称常量(这一步是固定操作)
+    import geopandas as gpd
+    from gotrackit.map.Net import Net
+    from gotrackit.gps.LocGps import GpsPointsGdf
+    from gotrackit.model.Markov import HiddenMarkov
+    from gotrackit.GlobalVal import NetField, GpsField
+    from gotrackit.visualization import VisualizationCombination
+
+    net_field = NetField()
+    gps_field = GpsField()
+
+
+    if __name__ == '__main__':
+        # 2. 新建一个路网对象, 并且指定其地理坐标系(shp源文件的crs)以及要使用的投影坐标系
+        # 示例为西安的路网, 使用6度带中的EPSG:32649(这个投影坐标系的指定, 用户需要依据自己的数据所在的城市来自定义修改)
+        plain_crs = 'EPSG:32649'
+        geo_crs = 'EPSG:4326'
+
+        # 这里使用的是西安一个小片区的路网, 我已经提前把路网做好了, 只需指定link层和node层的文件路径(可以去我的GitHub上找到这个数据)
+        # weight_field指明使用link图层中的哪一个字段作为路径搜索的权重字段(必须是浮点数类型的字段)
+        # 同时传入地理坐标系、平面投影坐标系参数
+        my_net = Net(link_path=r'data/input/net/xian/link.shp',
+                     node_path=r'data/input/net/xian/node.shp',
+                     weight_field='length', geo_crs=geo_crs, plane_crs=plain_crs)
+
+        # 路网对象初始化(一定要做)
+        my_net.init_net()
+
+        # 3.读取GPS文件(这一步不固定, 用户可以在这之前去做很多的清洗操作)
+        gps_df = gpd.read_file(r'./data/output/gps/test_xa.geojson')
+
+        # 4.初始化一个匹配结果管理器
+        vc = VisualizationCombination(use_gps_source=True)
+
+        for agent_id, gps_df in gps_df.groupby(gps_field.AGENT_ID_FIELD):
+            _gps_df = gps_df[gps_df[gps_field.AGENT_ID_FIELD] == agent_id].copy()
+            _gps_df.reset_index(inplace=True, drop=True)
+
+            # 为该车的该次行程创建一个GpsPointsGd对象
+            gps_obj = GpsPointsGdf(gps_points_df=_gps_df, time_format="%Y-%m-%d %H:%M:%S", buffer=100.0,
+                                   geo_crs=geo_crs, plane_crs=plain_crs, max_increment_times=1)
+
+            # 降频处理(如有需要)
+            gps_obj.lower_frequency(n=2)
+
+            # 做一次滑动窗口平均(如有需要)
+            # gps_obj.rolling_average(window=2)
+
+            # 5.依据当前的GPS数据(源数据)创建一个子网络
+            sub_net = my_net.create_computational_net(gps_array_buffer=gps_obj.get_gps_array_buffer(buffer=200.0))
+
+            # 6. 初始化一个隐马尔可夫模型
+            hmm_obj = HiddenMarkov(net=sub_net, gps_points=gps_obj, beta=31.2, gps_sigma=10.0, search_method='single')
+            hmm_obj.generate_markov_para()  # 计算匹配参数
+            hmm_obj.solve()  # 求解
+
+            # 7. 获取匹配结果
+            # 'agent_id', 'time', 'heading', 'lng', 'lat', 'geometry', 'seq', 'origin_seq', 'single_link_id', 'link_id', 'dir', 'from_node','to_node', 'sub_seq'
+            match_res_df = hmm_obj.acquire_res()
+
+            # 8. 将结果放到可视化收集器里面, 方便可视化输出
+            # vc.collect_hmm(hmm_obj)
 
 
 
-5. 匹配结果可视化
+
+6. 匹配结果可视化
 ----------------------------
+
+
+.. image:: images/visualization.png
+    :align: center
+
+----------------------------------------
+
+
+.. code-block:: python
+    :linenos:
+
+    vc.visualization(zoom=15, out_fldr=r'./data/output/match_visualization/', file_name='testXA')
+
