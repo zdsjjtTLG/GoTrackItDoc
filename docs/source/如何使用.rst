@@ -210,7 +210,7 @@ geopandas为最新版本, 如果不是最新版本可能会报错(有个函数�
 
 
 * 点层node_id与线层from_node、to_node关联
-    线层的箭头方向为拓扑方向(即link层geometry中的折点行进方向)，dir字段所描述的行车方向就是与之关联的，dir为1代表该条link是单向路段，行车方向与拓扑方向一致，dir为0代表该条link是双向路段
+    Link层中：一条link的from_node、to_node属性对应节点层的node_id
 
 .. image:: images/LinkNodeCon.png
     :align: center
@@ -457,7 +457,7 @@ GPS数据字段要求如下：
             match_res_df = hmm_obj.acquire_res()
 
             # 8. 将结果放到可视化收集器里面, 方便可视化输出
-            # vc.collect_hmm(hmm_obj)
+            vc.collect_hmm(hmm_obj)
 
 
 
