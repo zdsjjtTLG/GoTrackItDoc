@@ -236,7 +236,7 @@ GPS数据字段要求如下：
     :header: "字段名称", "字段类型", "字段说明"
     :widths: 15, 15, 40
 
-    "agent_id","string","节点唯一编码"
+    "agent_id","string","车辆唯一编码,准确来说这个字段标注的是车辆的某一次完整出行"
     "lng","float","经度"
     "lat","float","纬度"
     "time","string","定位时间戳"
