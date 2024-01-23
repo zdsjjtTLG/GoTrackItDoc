@@ -13,16 +13,12 @@ Welcome to test!
 有空更，待完善...
 
 
-3. HiddenMarkov类
+
+3. GpsPointsGdf类
 --------------------
 有空更，待完善...
 
 
-4. GpsPointsGdf类
---------------------
-有空更，待完善...
-
-
-5. Viterbi类
+4. Viterbi类
 --------------------
 有空更，待完善...
