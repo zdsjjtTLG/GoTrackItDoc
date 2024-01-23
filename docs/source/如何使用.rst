@@ -239,7 +239,7 @@ GPS数据字段要求如下：
     "agent_id","string","节点唯一编码"
     "lng","float","经度"
     "lat","float","纬度"
-    "time","string","节点坐标几何列"
+    "time","string","定位时间戳"
     "heading","float","航向角,该字段不是必需字段"
     "其他非必需字段","...","..."
 
