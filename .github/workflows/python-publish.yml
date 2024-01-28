@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: output string
-      run: echo "🎉 The job was automatically triggered by a ${{ test.PYPI_API_TOKEN }} event."
+      run: echo "🎉 The job was automatically triggered by a ${{ secrets.PYPI_API_TOKEN }} event."
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v3
