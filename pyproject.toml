@@ -1,8 +1,24 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "GoTrackIt"
-authors = [{name = "Kai Tang", email = "794568794@qq.com"}]
-dynamic = ["version", "description"]
+name = "gotrackitdoc"
+version = "0.0.1"
+dependencies = ["geopandas>=0.14.1", "shapely", "networkx", "pandas", "numpy", "keplergl"]
+requires-python = ">=3.8"
+authors = [
+  { name="Kai Tang", email="794568794@qq.com" },
+]
+description = "A Python Package test"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+license = {text = "LICENCE"}
+keywords = ["test"]
+
+[project.urls]
+Homepage = "https://github.com/zdsjjtTLG/GoTrackItDoc"
