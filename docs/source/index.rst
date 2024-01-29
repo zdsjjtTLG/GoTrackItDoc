@@ -1,22 +1,20 @@
-Welcome to Lumache's documentation!
-===================================
+Welcome to GoTrackIt's documentation!
+=========================================
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
+作者：唐铠
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+邮箱：794568794@qq.com，tangkai@zhechengdata.com
+
+文档已经迁移至这个地址了：`gotrackit文档 <https://gotrackit.readthedocs.io/en/latest/>`_
 
 .. note::
 
-   This project is under active development.
+   这个项目正处在频繁的升级迭代期...
 
-Contents
+
+文档内容
 --------
 
 .. toctree::
 
-   usage
-   api
+
