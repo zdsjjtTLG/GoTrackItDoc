@@ -8,17 +8,21 @@ This map matching package implements probabilistic modeling of continuous GPS po
 
 * Comprehensive data preprocessing tools😻
     Provide road network processing optimization tools；
+
     Provide GPS sample data production module to solve the problem of no GPS data;
+
     Provides GPS data cleaning interface, including itinerary segmentation, sliding window noise reduction, data frequency reduction, stop point identification, and point density enhancement.
 
 
 * Complete documentation☑️
     Chinese and English documents with detailed operation instructions;
+
     The explanation of the algorithm principle does not involve complex formula derivation, and uses animation to analyze the algorithm principle, which is concise and clear.
 
 
 * Matching algorithm optimization🚀
     Support FastMapMatching based on path pre-calculation, support multi-core parallel matching, and support grid parameter search;
+
     The preliminary path based on HMM matching is optimized, and the disconnected locations will be automatically searched and completed. For the locations that are disconnected in the actual road network, warning messages will be output to facilitate users to trace back the problems.
 
 
