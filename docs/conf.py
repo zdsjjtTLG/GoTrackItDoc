@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # The master toctree document.
 master_doc = 'index'
 
-project = 'GoTrackIt'
+project = 'GoTrackItDoc'
 copyright = '2024, Kai Tang'
 author = 'Kai Tang'
 
