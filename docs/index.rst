@@ -35,8 +35,7 @@ GoTrackIt is a map matching package based on the Hidden Markov Model. It matches
 
 .. toctree::
 
-    简介
-    如何使用
-    地图匹配流程
-    类方法汇总
-    迭代记录
+    Introduction
+    HowToUse
+    ClassMethod
+    IterationRecords
