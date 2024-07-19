@@ -1,8 +1,8 @@
-💡简介
+💡Introduction
 ===================================
 
-1. 关于gotrackit
---------------------
+1. About Gotrackit
+--------------------------
 
 This map matching package implements probabilistic modeling of continuous GPS points based on Hidden Markov Model (HMM). This package can be used to easily perform map matching on GPS data. The main features of this open source package are：
 
