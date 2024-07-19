@@ -22,10 +22,17 @@ GoTrackIt is a map matching package based on the Hidden Markov Model. It matches
 -----------------------------------------------------
 
 
-.. image:: _static/images/application.PNG
-    :align: center
+* Application of MapMatch
+    travel navigation: General Navigation、Lane Level Navigation、Traffic behavior warning
 
------------------------------------------------------------------------------
+    traffic monitoring: Real-time traffic calculation、Intersection delay calculation、Real-time public transportation、Traffic monitoring
+
+    traffic management: Traffic tracing analysis、Travel behavior analysis、Traffic congestion analysis
+
+    carbon emission accounting: Emissions accounting、Road network emission characteristics
+
+    traffic modeling and other directions: Road network integration、Bus/road network matching
+
 
 .. note::
 
@@ -36,7 +43,7 @@ GoTrackIt is a map matching package based on the Hidden Markov Model. It matches
 
 
 文档内容
---------
+-----------
 
 .. toctree::
 
