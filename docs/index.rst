@@ -14,7 +14,9 @@ Email：tangkai@zhechengdata.com、794568794@qq.com
 
 Project source code：`GitHub <https://github.com/zdsjjtTLG/TrackIt>`_ --- Current version v0.3.7
 
-GoTrackIt is a map matching package based on the Hidden Markov Model. It matches the vehicle's GPS trajectory data to the road network through probabilistic graph modeling, and obtains the standardized spatiotemporal trajectory of the vehicle. It can effectively support travel navigation, traffic monitoring, traffic management, carbon emission accounting, traffic modeling and other directions.
+GoTrackIt is a Map-Matching python package based on the Hidden Markov Model.
+
+It matches the vehicle's GPS trajectory data to the road network through probabilistic graph modeling, and obtains the standardized spatiotemporal trajectory of the vehicle.It can effectively support travel navigation, traffic monitoring, traffic management, carbon emission accounting, traffic modeling and other directions.
 
 .. image:: _static/images/MapMatch.PNG
     :align: center
