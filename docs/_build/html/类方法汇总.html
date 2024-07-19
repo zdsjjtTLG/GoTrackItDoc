@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔎类方法汇总 &mdash; GoTrackIt 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b489f392"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🖥️迭代记录" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html" />
+    <link rel="prev" title="🐧 地图匹配流程" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GoTrackIt
+          </a>
+              <div class="version">
+                0.3.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html">💡简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html">🚀 如何使用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html">🐧 地图匹配流程</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🔎类方法汇总</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#netreverse">1. NetReverse类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1.1. NetReverse类初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#NetReverse"><code class="docutils literal notranslate"><span class="pre">NetReverse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">(1)  第一组（总体信息）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">(2)  第二组（路径解析、拆分参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">(3)  第三组（拓扑关联参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">(4)  第四组（拓扑优化参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">(5)  第五组（重叠路段处理参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">(6)  第六组（联通性修复参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">(7)  第七组（分区逆向参数）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">1.2. 初始化中三个并行参数的区别</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#multi-core-parse">(1)  multi_core_parse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-core-merge">(2) multi_core_merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-core-reverse">(3) multi_core_reverse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">1.3. NetReverse类方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generate-net-from-request">(1) generate_net_from_request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-net-from-pickle">(2) generate_net_from_pickle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-node-from-link">(3) create_node_from_link</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#topology-optimization">(4) topology_optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modify-conn">(5) modify_conn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redivide-link-node">(4) redivide_link_node</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html">🖥️迭代记录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GoTrackIt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">🔎类方法汇总</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/类方法汇总.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>🔎类方法汇总<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="netreverse">
+<h2>1. NetReverse类<a class="headerlink" href="#netreverse" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>1.1. NetReverse类初始化<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NetReverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'深圳市'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plain_prj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EPSG:32650'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_head_tail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generate_rod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_rod_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_region_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_split_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modify_minimum_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_streets_before_modify_minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_streets_after_modify_minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_tpr_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_ring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accu_l_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">35.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_preliminary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_process_dup_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_dup_link_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dup_link_buffer_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">60.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_out_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_modify_conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#NetReverse" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<p>可以将参数分为5组：参数含义如下：</p>
+<section id="id3">
+<h4>(1)  第一组（总体信息）<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>flag_name</dt><dd><p>项目名称</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>plain_prj</dt><dd><p>平面投影坐标系</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>net_out_fldr</dt><dd><p>最终路网的存储目录</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>net_file_type</dt><dd><p>路网的输出文件类型，shp 或者 geojson</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h4>(2)  第二组（路径解析、拆分参数）<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>multi_core_parse</dt><dd><p>是否启用多核解析(解析二进制路径文件)，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>parse_core_num</dt><dd><p>多核解析时使用的核数，默认2</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ignore_head_tail</dt><dd><p>是否忽略路径首尾的无名道路, 这种一般是小区内部道路，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cut_slice</dt><dd><p>拆分路段时，是否分片处理，内存不够时可以指定为True，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>slice_num</dt><dd><p>拆分路段时，拆分为几个slice处理</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>generate_rod</dt><dd><p>是否生成连杆, 只有当参数ignore_head_tail为false时该参数才生效，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_rod_length</dt><dd><p>最小连杆长度，米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>restrict_region_gdf</dt><dd><p>限制区域gdf，若传入此区域，那么仅仅只对在区域范围内的路网进行逆向</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_split_link</dt><dd><p>是否保存拆分路径后的link层文件，默认False</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h4>(3)  第三组（拓扑关联参数）<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>modify_minimum_buffer</dt><dd><p>极小间隔节点优化的buffer, m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_streets_before_modify_minimum</dt><dd><p>是否保存优化前的结果，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_streets_after_modify_minimum</dt><dd><p>是否保存优化后的结果，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_tpr_link</dt><dd><p>是否保存优化后且进行方向处理的文件，默认False</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id6">
+<span id="id7"></span><h4>(4)  第四组（拓扑优化参数）<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>limit_col_name</dt><dd><p>路段合并时，用于限制路段合并的线层属性字段，默认’road_name’，如果你要使用其他字段来限制合并，请自定义该参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ignore_dir</dt><dd><p>路段合并时，是否忽略行车方向，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>allow_ring</dt><dd><p>是否允许路段合并后出现环，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>restrict_angle</dt><dd><p>是否启用最大转角限制来约束路段合并，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>restrict_length</dt><dd><p>是否启用最大路段长度限制来约束路段合并，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>accu_l_threshold</dt><dd><p>允许的最长的路段长度，米，默认200米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>angle_threshold</dt><dd><p>允许的最大的路段内转角，度，默认35度</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_length</dt><dd><p>允许的最小的路段长度，米，默认50米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_preliminary</dt><dd><p>是否保留重复路段处理前的文件，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>multi_core_merge</dt><dd><p>是否启用多进程进行合并，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>merge_core_num</dt><dd><p>启用几个核，默认1</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h4>(5)  第五组（重叠路段处理参数）<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>is_process_dup_link</dt><dd><p>是否处理重复路段，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>process_dup_link_buffer</dt><dd><p>处理重复路段所使用的buffer长度，米，使用默认值即可</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dup_link_buffer_ratio</dt><dd><p>重叠率检测阈值，使用默认值即可</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id9">
+<span id="id10"></span><h4>(6)  第六组（联通性修复参数）<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<ul>
+<li><dl class="simple">
+<dt>is_modify_conn</dt><dd><p>是否检查潜在的联通性问题并且进行修复，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>conn_buffer</dt><dd><p>检查联通性问题时使用的检测半径大小,单位米</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>conn_period</dt><dd><p>取值 ‘final’ or ‘start’, ‘final’表示在拓扑优化之后修复联通性, ‘start’表示在拓扑优化之前修复联通性</p>
+<p>final: 可能矫正不足</p>
+<p>start：更耗时，可能会过度矫正，比如：将立交和地面道路进行了联通</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id11">
+<h4>(7)  第七组（分区逆向参数）<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>multi_core_reverse</dt><dd><p>是否启用多进程对路网进行并行逆向计算，默认False，大范围路网请求时可以指定为True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>reverse_core_num</dt><dd><p>逆向并行计算要启用的核数，默认2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="id12">
+<h3>1.2. 初始化中三个并行参数的区别<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="multi-core-parse">
+<h4>(1)  multi_core_parse<a class="headerlink" href="#multi-core-parse" title="Link to this heading"></a></h4>
+<p>指的是从磁盘读取二进制路径文件并进行解析这一步骤的并行，路径文件数量较多：推荐multi_core_parse=True</p>
+</section>
+<section id="multi-core-merge">
+<h4>(2) multi_core_merge<a class="headerlink" href="#multi-core-merge" title="Link to this heading"></a></h4>
+<p>指的是拓扑优化的并行，这里的并行不会对路网进行分块处理，最终输出的是一个整体的路网</p>
+</section>
+<section id="multi-core-reverse">
+<h4>(3) multi_core_reverse<a class="headerlink" href="#multi-core-reverse" title="Link to this heading"></a></h4>
+<p>指的是路网生产过程的并行(不包括路径解析这一步)，他会将整体路网分块，分别在不同的块上计算，最终输出的路网个数 = reverse_core_num</p>
+<p>大范围区域路网获取：推荐multi_core_reverse指定为True，然后再用合并接口进行路网合并</p>
+</section>
+</section>
+<section id="id13">
+<h3>1.3. NetReverse类方法<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="generate-net-from-request">
+<h4>(1) generate_net_from_request<a class="headerlink" href="#generate-net-from-request" title="Link to this heading"></a></h4>
+<p>请求路径规划计算得到路网</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.generate_net_from_request">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">generate_net_from_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_path_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">od_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">od_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pd.DataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">od_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rnd'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_hh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_his</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">od_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap_n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_od_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1200.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#NetReverse.generate_net_from_request" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<p>可以将参数分为5组：参数含义如下：</p>
+<p><strong>第一组（输出结果参数）：</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>binary_path_fldr</dt><dd><p>请求得到的路径源文件的存储目录，必须参数</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>第二组（请求设置参数）：</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>key_list</dt><dd><p>开发者key值列表，必须参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_times</dt><dd><p>路径文件缓存数，即每请求cache_times次缓存一次数据到binary_path_fldr下，可选，默认300</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ignore_hh</dt><dd><p>是否忽略时段限制进行请求，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>remove_his</dt><dd><p>是否对已经请求的OD重复(指的是在请求被意外中断的情况下，od_id为判断依据)请求，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_log_file</dt><dd><p>是否保存日志文件</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>log_fldr</dt><dd><p>日志文件的存储目录</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>第三组（OD构造参数）：</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>od_file_path</dt><dd><p>用于请求的od文件路径，可选参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>od_df</dt><dd><p>用于请求的od数据，该参数和od_file_path任意指定一个即可，可选参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>region_gdf</dt><dd><p>用于构造od的面域数据</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_lng</dt><dd><p>矩形区域的左下角经度</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_lat</dt><dd><p>矩形区域的左下角纬度</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>w</dt><dd><p>矩形区域的宽度，米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>h</dt><dd><p>矩形区域的高度，米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>boundary_buffer</dt><dd><p>区域边界buffer，米，可选</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>od_type</dt><dd><p>用于构造od的方法，rand_od、region_od、diy_od</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>od_num</dt><dd><p>请求的od数，od数越多，请求的路径就越多，路网覆盖率就越完整，默认100，只有od_type为rand_od时起效</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gap_n</dt><dd><p>网格个数，默认1000，只有od_type为rand_od时起效</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_od_length</dt><dd><p>od之间最短直线距离，只有od_type为rand_od时起效</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="generate-net-from-pickle">
+<h4>(2) generate_net_from_pickle<a class="headerlink" href="#generate-net-from-pickle" title="Link to this heading"></a></h4>
+<p>从路径源文件计算得到路网</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.generate_net_from_pickle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">generate_net_from_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_path_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_file_name_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#NetReverse.generate_net_from_pickle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><dl class="simple">
+<dt>binary_path_fldr</dt><dd><p>请求得到的路径源文件的存储目录，必须参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pickle_file_name_list</dt><dd><p>需要使读取的路径源文件列表，如果不指定，则默认读取binary_path_fldr下的所有源文件</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="create-node-from-link">
+<h4>(3) create_node_from_link<a class="headerlink" href="#create-node-from-link" title="Link to this heading"></a></h4>
+<p>静态方法：从线层创建点层并且添加拓扑关联</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.create_node_from_link">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">create_node_from_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_link_field_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_from_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plain_prj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EPSG:32650'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_merge_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modify_minimum_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execute_modify</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auxiliary_judge_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_streets_before_modify_minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_streets_after_modify_minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#NetReverse.create_node_from_link" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><dl class="simple">
+<dt>link_gdf</dt><dd><p>路网线层gdf数据，必须数据</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>update_link_field_list</dt><dd><p>需要更新的字段列表, 生产拓扑关联后需要更新的线层基本字段，从(link_id, from_node, to_node, dir, length)中选取，</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>using_from_to</dt><dd><p>是否使用输入线层中的from_node字段和to_node字段，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>fill_dir</dt><dd><p>用于填充dir方向字段的值，如果update_link_field_list中包含dir字段，那么该参数需要传入值，允许的值为1或者0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>plain_prj</dt><dd><p>所使用的平面投影坐标系</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ignore_merge_rule</dt><dd><p>是否忽略极小间隔优化的规则，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>auxiliary_judge_field</dt><dd><p>用于判断是否可以合并的线层字段, 只有当ignore_merge_rule为False才起效</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>execute_modify</dt><dd><p>是否执行极小间隔节点优化，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>modify_minimum_buffer</dt><dd><p>极小间隔节点优化的buffer, 米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>out_fldr</dt><dd><p>输出文件的存储目录</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_streets_before_modify_minimum</dt><dd><p>是否存储极小间隔优化前的数据，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_streets_after_modify_minimum</dt><dd><p>是否存储极小间隔优化后的数据，默认True</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="topology-optimization">
+<h4>(4) topology_optimization<a class="headerlink" href="#topology-optimization" title="Link to this heading"></a></h4>
+<p>路段拓扑优化</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.topology_optimization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">topology_optimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_fldr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#NetReverse.topology_optimization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<p>单独使用该类方法优化已有路网，请在初始化NetReverse类时指定 <a class="reference internal" href="#id6">拓扑优化参数</a></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>link_gdf</dt><dd><p>请求得到的路径源文件的存储目录，必须参数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>node_gdf</dt><dd><p>需要使读取的路径源文件列表，如果不指定，则默认读取binary_path_fldr下的所有源文件</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>out_fldr：</dt><dd><p>存储拓扑优化路网文件的目录</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>路段拓扑优化的相关参数的图解：</p>
+<p>下图标注了每个路段的长度值，限制条件：合并后路段长度不超过150米，路段长度不得小于30米</p>
+<img alt="_images/merge_1.png" class="align-center" src="_images/merge_1.png" />
+<hr class="docutils" />
+<p>若指定了limit_col_name为’road_name’，下图标注了每个路段的road_name值，限制条件：节点转角超过20°不得合并</p>
+<img alt="_images/merge_2.png" class="align-center" src="_images/merge_2.png" />
+<hr class="docutils" />
+<p>不少场景下，无法完全满足所有的限制条件，各限制条件的服从优先级为：</p>
+<img alt="_images/merge_rule.png" class="align-center" src="_images/merge_rule.png" />
+</section>
+<hr class="docutils" />
+<section id="modify-conn">
+<h4>(5) modify_conn<a class="headerlink" href="#modify-conn" title="Link to this heading"></a></h4>
+<p>路网联通性修复</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.modify_conn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">modify_conn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">gpd.GeoDataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#NetReverse.modify_conn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<p>单独使用该类方法优化已有路网的联通性，请在初始化NetReverse类时指定 <a class="reference internal" href="#id9">联通性修复参数</a></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>link_gdf</dt><dd><p>有标准字段的路网线层</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>node_gdf</dt><dd><p>有标准字段的路网点层</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="redivide-link-node">
+<h4>(4) redivide_link_node<a class="headerlink" href="#redivide-link-node" title="Link to this heading"></a></h4>
+<p>路段、节点重塑、连通性修复</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetReverse.redivide_link_node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NetReverse.</span></span><span class="sig-name descname"><span class="pre">redivide_link_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_gdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">gpd.GeoDataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#NetReverse.redivide_link_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><dl class="simple">
+<dt>link_gdf</dt><dd><p>至少包含geometry字段的线层数据</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>生成的新路网在net_out_fldr(NetReverse类初始化参数)下存储</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html" class="btn btn-neutral float-left" title="🐧 地图匹配流程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html" class="btn btn-neutral float-right" title="🖥️迭代记录" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kai Tang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

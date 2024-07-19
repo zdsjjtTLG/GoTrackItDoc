@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💡简介 &mdash; GoTrackIt 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b489f392"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🚀 如何使用" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html" />
+    <link rel="prev" title="Welcome to GoTrackIt’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GoTrackIt
+          </a>
+              <div class="version">
+                0.3.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">💡简介</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gotrackit">1. 关于gotrackit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2. 地图匹配问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">3. 相关视频教程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html">🚀 如何使用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html">🐧 地图匹配流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html">🔎类方法汇总</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html">🖥️迭代记录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GoTrackIt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">💡简介</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/简介.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>💡简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="gotrackit">
+<h2>1. 关于gotrackit<a class="headerlink" href="#gotrackit" title="Link to this heading"></a></h2>
+<p>本地图匹配包基于隐马尔可夫模型(HMM)实现了连续GPS点位的概率建模，利用这个包可以轻松对GPS数据进行地图匹配，本开源包的特点如下:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>数据无忧😻</dt><dd><p>提供路网生产模块(只需提供一个key即可获取路网)以及大量路网处理优化工具，您不需要准备任何路网和GPS数据即可玩转地图匹配；
+提供GPS样例数据生产模块，解决没有GPS数据的难题；
+提供GPS数据清洗接口，包括行程切分、滑动窗口降噪、数据降频、停留点识别、点位增密。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>文档齐全☑️</dt><dd><p>中文文档，有详细的操作指引；
+算法原理讲解部分不涉及复杂的公式推导，使用动画形式剖析算法原理,简洁明了。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>匹配算法优化🚀</dt><dd><p>支持基于路径预存储的FastMapMatching、支持多核并行匹配、支持网格参数搜索；
+对基于HMM匹配的初步路径进行了优化，对于不连通的位置会自动搜路补全，对于实际路网不连通的位置会输出警告信息，方便用户回溯问题。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>匹配结果支持动画可视化🌈</dt><dd><p>匹配结果提供三种输出形式：GPS点匹配结果表(csv)、匹配结果矢量化图层、矢量图层匹配动画(HTML文件)，HTML动画方便用户直观地感受匹配结果，同时可以提高问题排查的效率。</p>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="_images/%E6%9E%81%E7%A8%80%E7%96%8F%E8%BD%A8%E8%BF%B9%E5%8C%B9%E9%85%8D.gif" class="align-center" src="_images/%E6%9E%81%E7%A8%80%E7%96%8F%E8%BD%A8%E8%BF%B9%E5%8C%B9%E9%85%8D.gif" />
+<hr class="docutils" />
+<img alt="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B1.gif" class="align-center" src="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B1.gif" />
+<hr class="docutils" />
+<img alt="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B2.gif" class="align-center" src="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B2.gif" />
+<hr class="docutils" />
+<img alt="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B3.gif" class="align-center" src="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B3.gif" />
+<hr class="docutils" />
+<img alt="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B4.gif" class="align-center" src="_images/%E5%8C%B9%E9%85%8D%E5%8A%A8%E7%94%BB%E6%A0%B7%E4%BE%8B4.gif" />
+<hr class="docutils" />
+<img alt="_images/geojson_res.jpg" class="align-center" src="_images/geojson_res.jpg" />
+<hr class="docutils" />
+<p><strong>交流群</strong></p>
+<img alt="_images/wxq.jpg" class="align-center" src="_images/wxq.jpg" />
+</section>
+<section id="id2">
+<h2>2. 地图匹配问题<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>地图匹配问题指的是：如何从连续的车辆GPS定位信息推测出车辆实际行驶的路段,将GPS定位数据规范化表示为路段时空序列.</p>
+<p>车辆产生的GPS数据会有定位误差，往往会和真实位置有较大的出入，在路网密度较大的时候，最近邻匹配效果会很差，而且最近邻匹配算法极其不稳定，没有充分挖掘GPS点之间的联通性。</p>
+<img alt="_images/MapMatch.PNG" class="align-center" src="_images/MapMatch.PNG" />
+<hr class="docutils" />
+<p>为了准确获取车辆的实际路段轨迹，我们的匹配算法不能仅仅考虑单点信息，而是要纵观全局，单点的误差不可避免，长期连续的观测所获取的信息可以将这些误差充分平滑，因此基于连续状态的概率图建模是我们的技术路线。</p>
+</section>
+<section id="id3">
+<h2>3. 相关视频教程<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://www.bilibili.com/video/BV1gQ4y1w7dC">基于隐马尔可夫模型(HMM)的地图匹配算法动画版！学不会你来打我！</a></p>
+<p><a class="reference external" href="https://www.bilibili.com/video/BV1nC411z7Vg">一个python包搞定路网获取+地图匹配！</a></p>
+<p><a class="reference external" href="https://www.bilibili.com/video/BV1qK421Y7hV">gotrackit地图匹配包参数详解与问题排查</a></p>
+<p><a class="reference external" href="https://www.bilibili.com/video/BV1Sq421F7QX">QGIS路网拓扑显示、底图加载、样式复用、map保存</a></p>
+</div></blockquote>
+<div role="list" class="citation-list">
+<div class="citation" id="ref" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Ref<span class="fn-bracket">]</span></span>
+<p>《Hidden Markov map matching through noise and sparseness》,Paul Newson &amp; John Krumm</p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to GoTrackIt’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html" class="btn btn-neutral float-right" title="🚀 如何使用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kai Tang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

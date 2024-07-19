@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to GoTrackIt’s documentation! &mdash; GoTrackIt 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b489f392"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="💡简介" href="%E7%AE%80%E4%BB%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            GoTrackIt
+          </a>
+              <div class="version">
+                0.3.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html">💡简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html">🚀 如何使用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html">🐧 地图匹配流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html">🔎类方法汇总</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html">🖥️迭代记录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GoTrackIt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to GoTrackIt’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-gotrackit-s-documentation">
+<h1>Welcome to GoTrackIt’s documentation!<a class="headerlink" href="#welcome-to-gotrackit-s-documentation" title="Link to this heading"></a></h1>
+<p>作者：唐铠</p>
+<p>邮箱：<a class="reference external" href="mailto:tangkai&#37;&#52;&#48;zhechengdata&#46;com">tangkai<span>&#64;</span>zhechengdata<span>&#46;</span>com</a>、<a class="reference external" href="mailto:794568794&#37;&#52;&#48;qq&#46;com">794568794<span>&#64;</span>qq<span>&#46;</span>com</a></p>
+<p>项目源码：<a class="reference external" href="https://github.com/zdsjjtTLG/TrackIt">项目GitHub主页</a> — 当前版本v0.3.7</p>
+<p>GoTrackIt 是一个基于隐马尔可夫模型实现的地图匹配包, 通过概率图建模的方式将车辆的GPS轨迹数据匹配到道路路网, 获取车辆的标准化时空轨迹, 可以有效支撑出行导航、交通监测、交通治理、碳排核算、交通建模等方向.</p>
+<img alt="_images/MapMatch.PNG" class="align-center" src="_images/MapMatch.PNG" />
+<hr class="docutils" />
+<img alt="_images/application.PNG" class="align-center" src="_images/application.PNG" />
+<hr class="docutils" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>这个项目正处在频繁的升级迭代期, 当前版本v0.3.7, 请用户及时更新.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>由于不同用户的电脑差异，geopandas中crs输出格式难以统一，从v0.3.5开始, 全面移除对地理矢量文件的crs检查，用户自己需要确保输入的几何矢量图层的crs为EPSG:4326</p>
+</div>
+<section id="id1">
+<h2>文档内容<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html">💡简介</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html#gotrackit">1. 关于gotrackit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html#id2">2. 地图匹配问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html#id3">3. 相关视频教程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html">🚀 如何使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#gotrackit">1. 安装gotrackit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id2">1.1. 前置依赖库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id3">1.2. 安装gotrackit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id4">2. 算法包概览</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id5">2.1. 模块概览</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id6">2.1.1. 路网生产</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#gps">2.1.2. GPS数据生产</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id10">2.1.3. GPS数据行程切分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id12">2.1.4. 地图匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#kepler">2.1.5. kepler可视化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id15">2.2. 数据要求</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id16">2.2.1. 路网数据</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id19">(1) 路网-点层</a></li>
+<li class="toctree-l5"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id20">(2) 路网-线层</a></li>
+<li class="toctree-l5"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id21">(3) 点层、线层关联关系</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id22">2.2.2. GPS定位数据</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id24">3. 路网模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id26">3.1. 路网生产</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id28">3.1.1. 参数详解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id29">3.1.2. 基于矩形区域随机构造OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id30">3.1.3. 基于自定义区域随机构造OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id31">3.1.4. 基于区域-区域OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id32">3.1.5. 基于自定义OD请求路径，获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id33">3.1.6. 解析路径源文件, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id34">3.1.7. 基于已有路网线层, 生产点层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id35">3.1.8. 启用多核并行逆向路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id36">3.1.9. 合并gotrackit标准路网</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id37">3.2. 路网优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id38">3.2.1. 清洗你的路网线层数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id40">3.2.2. 基于已有标准路网, 检查路网的联通性并进行修复</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id41">3.2.3. 路段划分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id">3.2.4. id重映射</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id42">3.2.5. 路网路段、节点重塑</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#from-node-to-node">3.2.6. 处理环路和相同(from_node，to_node)的路段</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id43">4. GPS数据生产</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#tripgeneration">4.1. TripGeneration初始化参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#generate-rand-trips">4.2. generate_rand_trips相关参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id45">5. GPS数据行程切分</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id46">5.1. 行程切分</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#gpspreprocess">5.1.1. 初始化GpsPreProcess的相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#trip-segmentations">5.1.2. 类方法trip_segmentations相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id50">5.1.3. 如何理解主行程和子行程？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#gpsod">5.2. 从GPS数据计算途径点OD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#sampling-waypoints-od">5.2.1. sampling_waypoints_od相关参数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id52">6. 地图匹配</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id53">6.1. 所需数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#net">6.2. 匹配接口参数解释 - 构建Net的参数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id56">6.2.1. 路网参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id57">6.2.2. 截断搜索参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id58">6.2.3. 路径预计算参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id59">6.2.4. 分层空间索引参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id60">6.2.5. 平面投影系参数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#mapmatch">6.3. 匹配接口参数解释 - MapMatch参数解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id62">6.3.1. 项目标记参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id63">6.3.2. 基础参数(必须指定)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id64">6.3.3. 时间列构建参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id67">6.3.4. 候选范围参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id68">6.3.5. 发射概率、状态转移概率参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id69">6.3.6. GPS预处理参数 - 停留点处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id70">6.3.7. GPS预处理参数 - 点位降频</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id71">6.3.8. GPS预处理参数 - 滑动窗口平均</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id72">6.3.9. GPS预处理参数 - 点位增密</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id73">6.3.10. 发射概率修正 - 航向角修正</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id74">6.3.11. 结果输出设置参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id75">6.3.12. 可视化输出参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id76">6.3.13. 网格参数搜索设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id77">6.4. 常规匹配代码示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#match-res">6.4.1. 匹配结果表(match_res)字段含义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id79">6.4.2. 警告信息和错误信息含义</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id80">6.5. 启用路径预计算(存储)进行加速</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id81">6.6. 启用多核进行并行匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id82">6.7. 简化路网线型加速匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id83">6.8. 利用分层索引加速空间关联效率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id84">6.9. 使用网格参数确定合理的匹配参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id85">6.10. 匹配结果可视化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#html">6.10.1 HTML动画可视化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#geojson">6.10.2 geojson矢量文件可视化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id87">6.11. 匹配结果不正确的调参方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id88">6.11.1. 程序提示-预处理后GPS点不足两个,无法匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id89">6.11.2. 在html可视化结果中看到匹配路径不连续</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id90">6.11.3. 确定合理参数的思路</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id91">6.12. 关于匹配速度</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id92">7. 一些地信处理小工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id93">7.1.  切分栅格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id94">7.2.  坐标转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id95">7.3.  直线转弧线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id96">7.4.  地理配准</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id97">8. 常见报错以及解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id98">8.1. 构建net对象错误报坐标系不匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#jupyternetplanar-crs">8.2. 使用jupyter报net对象无planar_crs属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#pyogrio-errors-fielderror">8.3. pyogrio.errors.FieldError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#shapely">8.4.  shapely库警告</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#invalid-projection-epsg-nan">8.5.  Invalid projection: EPSG:nan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#id99">8.6.  输出的路网文件字段中：中文变为乱码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#html-object-of-type-bytes-is-not-json-serializable">8.7.  输出HTML失败： Object of type bytes is not JSON serializable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#valueerror-cannot-convert-float-nan-to-integer">8.8.  计算发射矩阵出错:ValueError(cannot convert float NaN to integer )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#valueerror-cannot-insert-node-id-already-exists">8.9. 路网获取报错/地图匹配报错:ValueError: cannot insert node_id, already exists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#html-one-of-the-arguments-is-of-incorrect-type">8.10. 输出HTML失败：One of the arguments is of incorrect type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8.html#futurewarning">8.11. FutureWarning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html">🐧 地图匹配流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#gps">1. 清洗GPS数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id2">1.1. 坐标系核查</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id3">1.2. 基本数据清洗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id4">1.3. 行程切分</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id5">2. 校核路网数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id6">2.1. 认识路网数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id7">2.2 路网文件的常见存储类型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#id8">2.3. 认识连通性</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html#gpsgotrackit">3. 依据GPS数据质量合理选择gotrackit的匹配参数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html">🔎类方法汇总</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#netreverse">1. NetReverse类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id2">1.1. NetReverse类初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse"><code class="docutils literal notranslate"><span class="pre">NetReverse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id3">(1)  第一组（总体信息）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id4">(2)  第二组（路径解析、拆分参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id5">(3)  第三组（拓扑关联参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id6">(4)  第四组（拓扑优化参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id8">(5)  第五组（重叠路段处理参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id9">(6)  第六组（联通性修复参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id11">(7)  第七组（分区逆向参数）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id12">1.2. 初始化中三个并行参数的区别</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#multi-core-parse">(1)  multi_core_parse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#multi-core-merge">(2) multi_core_merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#multi-core-reverse">(3) multi_core_reverse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#id13">1.3. NetReverse类方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#generate-net-from-request">(1) generate_net_from_request</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.generate_net_from_request"><code class="docutils literal notranslate"><span class="pre">NetReverse.generate_net_from_request</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#generate-net-from-pickle">(2) generate_net_from_pickle</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.generate_net_from_pickle"><code class="docutils literal notranslate"><span class="pre">NetReverse.generate_net_from_pickle</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#create-node-from-link">(3) create_node_from_link</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.create_node_from_link"><code class="docutils literal notranslate"><span class="pre">NetReverse.create_node_from_link</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#topology-optimization">(4) topology_optimization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.topology_optimization"><code class="docutils literal notranslate"><span class="pre">NetReverse.topology_optimization</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#modify-conn">(5) modify_conn</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.modify_conn"><code class="docutils literal notranslate"><span class="pre">NetReverse.modify_conn</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#redivide-link-node">(4) redivide_link_node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html#NetReverse.redivide_link_node"><code class="docutils literal notranslate"><span class="pre">NetReverse.redivide_link_node</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html">🖥️迭代记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-1">1. v0.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-3">2. v0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-5">3. v0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-6">4. v0.1.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-7">5. v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-8">6. v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-1-9">7. v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-0">8. v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-1">9. v0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-2">10. v0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-3">11. v0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-4">12. v0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-7">13. v0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-2-9">14. v0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-0">15. v0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-1">16. v0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-3">17. v0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-5">18. v0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-6">19. v0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html#v0-3-7">19. v0.3.7</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%E7%AE%80%E4%BB%8B.html" class="btn btn-neutral float-right" title="💡简介" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kai Tang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

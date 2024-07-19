@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚀 如何使用 &mdash; GoTrackIt 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b489f392"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🐧 地图匹配流程" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html" />
+    <link rel="prev" title="💡简介" href="%E7%AE%80%E4%BB%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GoTrackIt
+          </a>
+              <div class="version">
+                0.3.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="%E7%AE%80%E4%BB%8B.html">💡简介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🚀 如何使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gotrackit">1. 安装gotrackit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1.1. 前置依赖库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1.2. 安装gotrackit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2. 算法包概览</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.1. 模块概览</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.1.1. 路网生产</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gps">2.1.2. GPS数据生产</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2.1.3. GPS数据行程切分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">2.1.4. 地图匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kepler">2.1.5. kepler可视化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">2.2. 数据要求</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">2.2.1. 路网数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">2.2.2. GPS定位数据</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id24">3. 路网模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">3.1. 路网生产</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id28">3.1.1. 参数详解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">3.1.2. 基于矩形区域随机构造OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">3.1.3. 基于自定义区域随机构造OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">3.1.4. 基于区域-区域OD请求路径, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32">3.1.5. 基于自定义OD请求路径，获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33">3.1.6. 解析路径源文件, 获取路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id34">3.1.7. 基于已有路网线层, 生产点层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id35">3.1.8. 启用多核并行逆向路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id36">3.1.9. 合并gotrackit标准路网</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">3.2. 路网优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id38">3.2.1. 清洗你的路网线层数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id40">3.2.2. 基于已有标准路网, 检查路网的联通性并进行修复</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id41">3.2.3. 路段划分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id">3.2.4. id重映射</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id42">3.2.5. 路网路段、节点重塑</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#from-node-to-node">3.2.6. 处理环路和相同(from_node，to_node)的路段</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id43">4. GPS数据生产</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tripgeneration">4.1. TripGeneration初始化参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-rand-trips">4.2. generate_rand_trips相关参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id45">5. GPS数据行程切分</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id46">5.1. 行程切分</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gpspreprocess">5.1.1. 初始化GpsPreProcess的相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trip-segmentations">5.1.2. 类方法trip_segmentations相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id50">5.1.3. 如何理解主行程和子行程？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gpsod">5.2. 从GPS数据计算途径点OD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sampling-waypoints-od">5.2.1. sampling_waypoints_od相关参数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id52">6. 地图匹配</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id53">6.1. 所需数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#net">6.2. 匹配接口参数解释 - 构建Net的参数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id56">6.2.1. 路网参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id57">6.2.2. 截断搜索参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58">6.2.3. 路径预计算参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id59">6.2.4. 分层空间索引参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id60">6.2.5. 平面投影系参数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mapmatch">6.3. 匹配接口参数解释 - MapMatch参数解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id62">6.3.1. 项目标记参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id63">6.3.2. 基础参数(必须指定)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id64">6.3.3. 时间列构建参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id67">6.3.4. 候选范围参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id68">6.3.5. 发射概率、状态转移概率参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id69">6.3.6. GPS预处理参数 - 停留点处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id70">6.3.7. GPS预处理参数 - 点位降频</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id71">6.3.8. GPS预处理参数 - 滑动窗口平均</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id72">6.3.9. GPS预处理参数 - 点位增密</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id73">6.3.10. 发射概率修正 - 航向角修正</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id74">6.3.11. 结果输出设置参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id75">6.3.12. 可视化输出参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id76">6.3.13. 网格参数搜索设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id77">6.4. 常规匹配代码示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#match-res">6.4.1. 匹配结果表(match_res)字段含义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id79">6.4.2. 警告信息和错误信息含义</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id80">6.5. 启用路径预计算(存储)进行加速</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id81">6.6. 启用多核进行并行匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id82">6.7. 简化路网线型加速匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id83">6.8. 利用分层索引加速空间关联效率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id84">6.9. 使用网格参数确定合理的匹配参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id85">6.10. 匹配结果可视化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#html">6.10.1 HTML动画可视化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geojson">6.10.2 geojson矢量文件可视化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id87">6.11. 匹配结果不正确的调参方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id88">6.11.1. 程序提示-预处理后GPS点不足两个,无法匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id89">6.11.2. 在html可视化结果中看到匹配路径不连续</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id90">6.11.3. 确定合理参数的思路</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id91">6.12. 关于匹配速度</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id92">7. 一些地信处理小工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id93">7.1.  切分栅格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id94">7.2.  坐标转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id95">7.3.  直线转弧线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id96">7.4.  地理配准</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id97">8. 常见报错以及解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id98">8.1. 构建net对象错误报坐标系不匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jupyternetplanar-crs">8.2. 使用jupyter报net对象无planar_crs属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyogrio-errors-fielderror">8.3. pyogrio.errors.FieldError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shapely">8.4.  shapely库警告</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#invalid-projection-epsg-nan">8.5.  Invalid projection: EPSG:nan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id99">8.6.  输出的路网文件字段中：中文变为乱码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#html-object-of-type-bytes-is-not-json-serializable">8.7.  输出HTML失败： Object of type bytes is not JSON serializable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#valueerror-cannot-convert-float-nan-to-integer">8.8.  计算发射矩阵出错:ValueError(cannot convert float NaN to integer )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#valueerror-cannot-insert-node-id-already-exists">8.9. 路网获取报错/地图匹配报错:ValueError: cannot insert node_id, already exists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#html-one-of-the-arguments-is-of-incorrect-type">8.10. 输出HTML失败：One of the arguments is of incorrect type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#futurewarning">8.11. FutureWarning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html">🐧 地图匹配流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html">🔎类方法汇总</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E8%BF%AD%E4%BB%A3%E8%AE%B0%E5%BD%95.html">🖥️迭代记录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GoTrackIt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">🚀 如何使用</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/如何使用.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>🚀 如何使用<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="gotrackit">
+<h2>1. 安装gotrackit<a class="headerlink" href="#gotrackit" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>1.1. 前置依赖库<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>安装前确保python环境中有以下前置依赖库，括号中为作者使用版本(基于python3.11)，仅供参考</p>
+<ul class="simple">
+<li><p>geopy(2.4.1)</p></li>
+<li><p>gdal(3.4.3 或者 3.8.4)</p></li>
+<li><p>shapely(2.0.3)</p></li>
+<li><p>fiona(1.9.5)</p></li>
+<li><p>pyproj(3.6.1)</p></li>
+<li><p>geopandas(0.14.3)</p></li>
+<li><p>networkx(3.2.1)</p></li>
+<li><p>pandas(2.0.3)</p></li>
+<li><p>numpy(1.26.2)</p></li>
+<li><p>keplergl(0.3.2)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>截至gotrackit v0.3.5版本，暂不支持geopandas最新的v1.0.0版本，请使用geopandas v0.14.3版本</p>
+</div>
+<p>安装上述依赖推荐使用Anaconda，使用python3.11版本</p>
+<p>GDAL若安装失败，推荐直接安装whl文件，下载地址：<a class="reference external" href="https://github.com/cgohlke/geospatial-wheels/releases">https://github.com/cgohlke/geospatial-wheels/releases</a></p>
+<img alt="_images/gdal_wheel.png" class="align-center" src="_images/gdal_wheel.png" />
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h3>1.2. 安装gotrackit<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>使用pip安装</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="n">gotrackit</span>
+</pre></div>
+</div>
+<p>已经安装，可以升级已有版本</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span>  <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="n">gotrackit</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>2. 算法包概览<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id5">
+<h3>2.1. 模块概览<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>包括了五个模块：<a class="reference internal" href="#id6">路网生产</a> 、<a class="reference internal" href="#gps">GPS数据生产</a> 、<a class="reference internal" href="#id10">GPS数据行程切分</a> 、<a class="reference internal" href="#id12">地图匹配</a> 以及 <a class="reference internal" href="#id14">匹配过程可视化</a> 。</p>
+<section id="id6">
+<span id="id7"></span><h4>2.1.1. 路网生产<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>该路网获取方式利用的是高德开放平台的官方API - 路径规划接口，不涉及爬虫抓包！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>任何非官方采购形式的路网获取方法都不可能获得完整的路网数据！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>依据本开源包的开源协议：通过该方式获取的路网数据严禁用于商业行为，仅限于教育以及科学研究课题，如有商用需求请联系高德客服进行路网采购，感谢高德开放平台的免费接口！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>本开源包获取路网的原理，和OSM之类的平台获取路网的原理，是不一样的：</p>
+<p>1.osm是库里已有路网，用户框选获取属于查询获取；</p>
+<p>2.gotrackit是基于路径规划API接口返回的路径进行分析计算，从而获取路网。所以OD构造的精度和数量直接决定了路网的完整度！请留意构造OD的方式和OD数量。</p>
+</div>
+<p>路网生产工具用于帮助用户获取路网数据，以及对路网数据进行各种检查与优化，你只需寥寥几行代码便可以获得路网数据。</p>
+<p>路网生产的主要流程为：依据研究区域范围构造OD –&gt; 基于OD请求路径规划 –&gt; 基于路径规划结果执行空间优化实现路网逆向</p>
+<img alt="_images/netreverse_tech_way.png" class="align-center" src="_images/netreverse_tech_way.png" />
+<hr class="docutils" />
+<p>本开源包将相关的方法都封装为了标准函数接口，您只用提供一个key便可以进行中国境内任意区域路网的获取。</p>
+<ul>
+<li><dl>
+<dt>构造OD</dt><dd><p>提供基于任意形状区域随机构造OD的方法；</p>
+<p>提供基于地块构造形心出行OD的方法；</p>
+<p>提供基于GPS数据精准构造带途径点OD的方法；</p>
+<p>支持自定义构造OD。</p>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="_images/od_gen.png" class="align-center" id="od-type" src="_images/od_gen.png" />
+<hr class="docutils" />
+<p>三张图分别对应od_type参数为rand_od、region_od、gps_based</p>
+<p>构造OD非常重要，因为OD构造的越精准，路径规划所覆盖的道路路段就越全面，我们得到的路网覆盖率就越高。</p>
+<p id="od">如果您需要使用自定义OD，请提供以下字段要求的OD表：</p>
+<table class="docutils align-default" id="id100">
+<caption><span class="caption-text">OD表字段说明</span><a class="headerlink" href="#id100" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 66.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字段名称</p></th>
+<th class="head"><p>字段类型</p></th>
+<th class="head"><p>字段说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>od_id</p></td>
+<td><p>int</p></td>
+<td><p>OD唯一编码，不允许为空</p></td>
+</tr>
+<tr class="row-odd"><td><p>o_x</p></td>
+<td><p>float</p></td>
+<td><p>起点经度，不允许为空，GCJ-02坐标系</p></td>
+</tr>
+<tr class="row-even"><td><p>o_y</p></td>
+<td><p>float</p></td>
+<td><p>起点纬度，不允许为空，GCJ-02坐标系</p></td>
+</tr>
+<tr class="row-odd"><td><p>d_x</p></td>
+<td><p>float</p></td>
+<td><p>终点经度，不允许为空，GCJ-02坐标系</p></td>
+</tr>
+<tr class="row-even"><td><p>d_y</p></td>
+<td><p>float</p></td>
+<td><p>终点纬度，不允许为空，GCJ-02坐标系</p></td>
+</tr>
+<tr class="row-odd"><td><p>hh</p></td>
+<td><p>int</p></td>
+<td><p>请求时段(0~23)，如果对每个OD有具体的请求时段限制，请确保有该列，且将ignore_hh置为False，不允许有空值；如果没有时段限制, 该列可以不提供</p></td>
+</tr>
+<tr class="row-even"><td><p>way_points</p></td>
+<td><p>string</p></td>
+<td><p>途径点坐标串，最多支持10个途径点，允许为空值</p></td>
+</tr>
+</tbody>
+</table>
+<p>样例OD数据如下：</p>
+<table class="docutils align-default" id="id101">
+<caption><span class="caption-text">OD样例数据</span><a class="headerlink" href="#id101" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 9.1%" />
+<col style="width: 15.2%" />
+<col style="width: 15.2%" />
+<col style="width: 15.2%" />
+<col style="width: 15.2%" />
+<col style="width: 30.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>od_id</p></th>
+<th class="head"><p>o_x</p></th>
+<th class="head"><p>o_y</p></th>
+<th class="head"><p>d_x</p></th>
+<th class="head"><p>d_y</p></th>
+<th class="head"><p>way_points</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>120.73054930354505</p></td>
+<td><p>31.672649340942495</p></td>
+<td><p>120.73338512634608</p></td>
+<td><p>31.667515168299673</p></td>
+<td><p>120.73176445980103,31.6705214428833</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>120.73050669059927</p></td>
+<td><p>31.666431974714015</p></td>
+<td><p>120.74717247617396</p></td>
+<td><p>31.669917988588765</p></td>
+<td><p>120.73119124695165,31.666929583950083;120.7380010705855,31.66916745090122</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>120.74229535581601</p></td>
+<td><p>31.660716341555</p></td>
+<td><p>120.74250979515529</p></td>
+<td><p>31.652820575113125</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<ul>
+<li><dl>
+<dt>路径规划请求</dt><dd><p>您只需要申请一个 <a class="reference external" href="https://lbs.amap.com">开发者key</a> ；</p>
+<p>支持自由请求、按照时段请求。</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>空间优化</dt><dd><p>路径拆分：基于路径拓扑点拆分最小路段；</p>
+<p>拓扑关联：生产点层，添加拓扑关系；</p>
+<p>路段拓扑优化：以一定的限制规则将路段进行合并，支持属性限制、累计长度限制、最大转角限制、环检测；</p>
+<p>重叠路段识别：部分路径距离非常近，但是却没有完全重合，本包可以进行识别与优化；</p>
+<p>联通性校准：识别路网中潜在的不连通节点并进行处理。</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>空间优化的相关类参数可见：<a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html"><span class="doc">🔎类方法汇总</span></a></p>
+<p>空间优化的具体内容可以查看我的这篇博客：<a class="reference external" href="https://juejin.cn/post/7268187099526152247">从路径规划接口逆向路网的一种方法</a></p>
+<p>具体的代码实操见 <a class="reference internal" href="#id25">路网生产代码示例</a></p>
+</section>
+<section id="gps">
+<span id="id9"></span><h4>2.1.2. GPS数据生产<a class="headerlink" href="#gps" title="Link to this heading"></a></h4>
+<p>该模块依托路网文件模拟车辆行驶并且产生GPS数据，当用户没有实际GPS数据时可以借助该模块生产GPS数据。</p>
+<p>基本流程为：</p>
+<img alt="_images/GpsGenGraph.png" class="align-center" src="_images/GpsGenGraph.png" />
+<hr class="docutils" />
+<p>具体的代码实操见 <a class="reference internal" href="#id44">GPS数据生产代码示例</a> 。</p>
+</section>
+<section id="id10">
+<span id="id11"></span><h4>2.1.3. GPS数据行程切分<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<p>主行程举例： 一辆车从家出发到达公司，将车辆停在车库，熄火后，车辆不再产生GPS数据，下班后再次启动，GPS数据重新产生，早上到达公司的最后一个定位点和下班后启动车辆的第一个定位点，其时间差超过group_gap_threshold，则在此处切分主行程</p>
+<p>子行程举例： 一辆车从家出发到达公司，在到达公司之前，在加油站加油，GPS点持续产生，但是定位点集中在加油站附近，产生了停留，那么从家-加油站就是一段子行程</p>
+<p>具体的代码实操见 <a class="reference internal" href="#id46">行程切分代码示例</a></p>
+</section>
+<section id="id12">
+<span id="id13"></span><h4>2.1.4. 地图匹配<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<p>依托路网文件、GPS数据，对GPS数据进行地图匹配，匹配结果给出每个GPS点实际的匹配路段信息。</p>
+<p>基本流程为：</p>
+<img alt="_images/MatchGraph.png" class="align-center" src="_images/MatchGraph.png" />
+<hr class="docutils" />
+<p>具体的代码实操见 <a class="reference internal" href="#id77">地图匹配代码示例</a> 。</p>
+</section>
+<section id="kepler">
+<span id="id14"></span><h4>2.1.5. kepler可视化<a class="headerlink" href="#kepler" title="Link to this heading"></a></h4>
+<p>将匹配结果统一输出到HTML文件，用户可以使用浏览器打开该文件播放匹配动画。</p>
+<p>基本流程为：</p>
+<img alt="_images/visualization.png" class="align-center" src="_images/visualization.png" />
+<hr class="docutils" />
+<p>具体的代码实操见下文示例代码。</p>
+</section>
+</section>
+<section id="id15">
+<h3>2.2. 数据要求<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>这三个模块所涉及的数据说明如下：</p>
+<section id="id16">
+<h4>2.2.1. 路网数据<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
+<p id="id17">路网由线层文件和点层文件组成，两个文件存在关联关系。<a class="reference external" href="https://github.com/zdsjjtTLG/TrackIt/tree/main/data/input/net/xian">西安样例路网</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>路网点层数据和线层数据的坐标系必须为：EPSG:4326</p>
+</div>
+<section id="id19">
+<h5>(1) 路网-点层<a class="headerlink" href="#id19" title="Link to this heading"></a></h5>
+<p>一般是shp文件或者geojson文件，路网点层文件字段要求如下：</p>
+<table class="docutils align-default" id="id102">
+<caption><span class="caption-text">节点层字段说明</span><a class="headerlink" href="#id102" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 21.4%" />
+<col style="width: 21.4%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字段名称</p></th>
+<th class="head"><p>字段类型</p></th>
+<th class="head"><p>字段说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>node_id</p></td>
+<td><p>int</p></td>
+<td><p>节点唯一编码, 一定是大于0的正整数</p></td>
+</tr>
+<tr class="row-odd"><td><p>geometry</p></td>
+<td><p>geometry</p></td>
+<td><p>节点坐标几何列</p></td>
+</tr>
+<tr class="row-even"><td><p>其他非必需字段</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+<p>样例数据如下：</p>
+<table class="docutils align-default" id="id103">
+<caption><span class="caption-text">节点样例数据</span><a class="headerlink" href="#id103" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 13.0%" />
+<col style="width: 87.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>node_id</p></th>
+<th class="head"><p>geometry</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>4290</p></td>
+<td><p>POINT (108.84059274796762 34.20380728755708)</p></td>
+</tr>
+<tr class="row-odd"><td><p>7449</p></td>
+<td><p>POINT (108.83996876020116 34.20398312458892)</p></td>
+</tr>
+<tr class="row-even"><td><p>19893</p></td>
+<td><p>POINT (108.8410333043887 34.20538952458989)</p></td>
+</tr>
+<tr class="row-odd"><td><p>22765</p></td>
+<td><p>POINT (108.8396462868452 34.20358068920948)</p></td>
+</tr>
+<tr class="row-even"><td><p>29974</p></td>
+<td><p>POINT (108.84304743483109 34.20477124733548)</p></td>
+</tr>
+<tr class="row-odd"><td><p>31762</p></td>
+<td><p>POINT (108.84007099594207 34.20303962600771)</p></td>
+</tr>
+<tr class="row-even"><td><p>34152</p></td>
+<td><p>POINT (108.84337595161946 34.20450390550994)</p></td>
+</tr>
+<tr class="row-odd"><td><p>44441</p></td>
+<td><p>POINT (108.8435151462407 34.204686083275455)</p></td>
+</tr>
+<tr class="row-even"><td><p>63637</p></td>
+<td><p>POINT (108.8415703783543 34.20233450491169)</p></td>
+</tr>
+<tr class="row-odd"><td><p>68869</p></td>
+<td><p>POINT (108.842021912175 34.20431362229388)</p></td>
+</tr>
+<tr class="row-even"><td><p>82793</p></td>
+<td><p>POINT (108.84178453991281 34.204420171642816)</p></td>
+</tr>
+<tr class="row-odd"><td><p>91199</p></td>
+<td><p>POINT (108.84129068661863 34.20558291058989)</p></td>
+</tr>
+<tr class="row-even"><td><p>92706</p></td>
+<td><p>POINT (108.84207500541686 34.2041637658475)</p></td>
+</tr>
+<tr class="row-odd"><td><p>118381</p></td>
+<td><p>POINT (108.84208596575294 34.20486654570958)</p></td>
+</tr>
+<tr class="row-even"><td><p>122487</p></td>
+<td><p>POINT (108.84210722600966 34.20202954576994)</p></td>
+</tr>
+<tr class="row-odd"><td><p>124862</p></td>
+<td><p>POINT (108.83952308374874 34.20369843029777)</p></td>
+</tr>
+<tr class="row-even"><td><p>145105</p></td>
+<td><p>POINT (108.84239758378014 34.20309169152201)</p></td>
+</tr>
+<tr class="row-odd"><td><p>166381</p></td>
+<td><p>POINT (108.84139277469502 34.20644679433629)</p></td>
+</tr>
+<tr class="row-even"><td><p>169462</p></td>
+<td><p>POINT (108.84160833213731 34.20363712972413)</p></td>
+</tr>
+<tr class="row-odd"><td><p>170508</p></td>
+<td><p>POINT (108.841425074665 34.203330912749905)</p></td>
+</tr>
+<tr class="row-even"><td><p>177594</p></td>
+<td><p>POINT (108.84176365682967 34.202564765029564)</p></td>
+</tr>
+<tr class="row-odd"><td><p>181808</p></td>
+<td><p>POINT (108.84049555540867 34.20432194107051)</p></td>
+</tr>
+<tr class="row-even"><td><p>191714</p></td>
+<td><p>POINT (108.84048418194278 34.208751404812496)</p></td>
+</tr>
+<tr class="row-odd"><td><p>198856</p></td>
+<td><p>POINT (108.84627615033686 34.205495498912406)</p></td>
+</tr>
+<tr class="row-even"><td><p>199563</p></td>
+<td><p>POINT (108.84081270761097 34.208564048548254)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>点层表的geometry字段中不允许出现MultiPoint类型，不支持三维坐标。</p>
+</div>
+</section>
+<section id="id20">
+<h5>(2) 路网-线层<a class="headerlink" href="#id20" title="Link to this heading"></a></h5>
+<p>一般是shp文件或者geojson文件，路网线层文件字段要求如下：</p>
+<table class="docutils align-default" id="id104">
+<caption><span class="caption-text">线层字段说明</span><a class="headerlink" href="#id104" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字段名称</p></th>
+<th class="head"><p>字段类型</p></th>
+<th class="head"><p>字段说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>link_id</p></td>
+<td><p>int</p></td>
+<td><p>路段唯一编码, 一定是大于0的正整数</p></td>
+</tr>
+<tr class="row-odd"><td><p>from_node</p></td>
+<td><p>int</p></td>
+<td><p>路段拓扑起点节点编号, 一定是大于0的正整数</p></td>
+</tr>
+<tr class="row-even"><td><p>to_node</p></td>
+<td><p>int</p></td>
+<td><p>路段拓扑终点节点编号, 一定是大于0的正整数</p></td>
+</tr>
+<tr class="row-odd"><td><p>dir</p></td>
+<td><p>int</p></td>
+<td><p>路段方向，取值为0或者1， 0代表双向通行，1代表通行方向为路段拓扑正向</p></td>
+</tr>
+<tr class="row-even"><td><p>length</p></td>
+<td><p>float</p></td>
+<td><p>路段长度，单位米</p></td>
+</tr>
+<tr class="row-odd"><td><p>geometry</p></td>
+<td><p>geometry</p></td>
+<td><p>路段几何线型</p></td>
+</tr>
+<tr class="row-even"><td><p>其他非必需字段</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+<p>样例数据如下：</p>
+<table class="docutils align-default" id="id105">
+<caption><span class="caption-text">线层样例数据</span><a class="headerlink" href="#id105" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 7.1%" />
+<col style="width: 7.1%" />
+<col style="width: 7.1%" />
+<col style="width: 7.1%" />
+<col style="width: 7.1%" />
+<col style="width: 7.1%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>link_id</p></th>
+<th class="head"><p>dir</p></th>
+<th class="head"><p>length</p></th>
+<th class="head"><p>from_node</p></th>
+<th class="head"><p>to_node</p></th>
+<th class="head"><p>road_name</p></th>
+<th class="head"><p>geometry</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>50542</p></td>
+<td><p>1</p></td>
+<td><p>379.03</p></td>
+<td><p>191714</p></td>
+<td><p>19893</p></td>
+<td><p>西三环入口</p></td>
+<td><p>LINESTRING (108.84048418194278 34.208751404812496, 108.8410333043887 34.20538952458989)</p></td>
+</tr>
+<tr class="row-odd"><td><p>50545</p></td>
+<td><p>1</p></td>
+<td><p>112.13</p></td>
+<td><p>170508</p></td>
+<td><p>63637</p></td>
+<td><p>西三环入口</p></td>
+<td><p>LINESTRING (108.841425074665 34.203330912749905, 108.8415703783543 34.20233450491169)</p></td>
+</tr>
+<tr class="row-even"><td><p>91646</p></td>
+<td><p>1</p></td>
+<td><p>120.66</p></td>
+<td><p>177594</p></td>
+<td><p>169462</p></td>
+<td><p>西太公路</p></td>
+<td><p>LINESTRING (108.84176365682967 34.202564765029564, 108.84160833213731 34.20363712972413)</p></td>
+</tr>
+<tr class="row-odd"><td><p>117776</p></td>
+<td><p>1</p></td>
+<td><p>91.19</p></td>
+<td><p>22765</p></td>
+<td><p>4290</p></td>
+<td><p>科技八路</p></td>
+<td><p>LINESTRING (108.8396462868452 34.20358068920947, 108.84059274796762 34.20380728755708)</p></td>
+</tr>
+<tr class="row-even"><td><p>117777</p></td>
+<td><p>1</p></td>
+<td><p>142.87</p></td>
+<td><p>4290</p></td>
+<td><p>92706</p></td>
+<td><p>科技八路</p></td>
+<td><p>LINESTRING (108.84059274796762 34.20380728755708, 108.84207500541686 34.2041637658475)</p></td>
+</tr>
+<tr class="row-odd"><td><p>225724</p></td>
+<td><p>1</p></td>
+<td><p>126.28</p></td>
+<td><p>92706</p></td>
+<td><p>34152</p></td>
+<td><p>科技八路</p></td>
+<td><p>LINESTRING (108.84207500541686 34.2041637658475, 108.84337595161946 34.20450390550994)</p></td>
+</tr>
+<tr class="row-even"><td><p>353809</p></td>
+<td><p>1</p></td>
+<td><p>309.67</p></td>
+<td><p>198856</p></td>
+<td><p>29974</p></td>
+<td><p>科技八路辅路</p></td>
+<td><p>LINESTRING (108.84627615033686 34.205495498912406, 108.84304743483109 34.20477124733548)</p></td>
+</tr>
+<tr class="row-odd"><td><p>353810</p></td>
+<td><p>1</p></td>
+<td><p>123.30</p></td>
+<td><p>29974</p></td>
+<td><p>82793</p></td>
+<td><p>科技八路辅路</p></td>
+<td><p>LINESTRING (108.84304743483109 34.20477124733548, 108.84178453991281 34.204420171642816)</p></td>
+</tr>
+<tr class="row-even"><td><p>50543</p></td>
+<td><p>1</p></td>
+<td><p>232.85</p></td>
+<td><p>19893</p></td>
+<td><p>170508</p></td>
+<td><p>西三环入口</p></td>
+<td><p>LINESTRING (108.8410333043887 34.20538952458989, 108.84113550636526 34.204842890573545, 108.841425074665 34.203330912749905)</p></td>
+</tr>
+<tr class="row-odd"><td><p>60333</p></td>
+<td><p>1</p></td>
+<td><p>131.43</p></td>
+<td><p>19893</p></td>
+<td><p>181808</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.8410333043887 34.20538952458989, 108.84097922452833 34.2053414459058, 108.8409571929787 34.20530941808315, 108.84094718092301 34.205266415141416, 108.84093116775695 34.205121436415766, 108.84088210545373 34.20495040838689, 108.84082903440334 34.20481036268511, 108.84074291369149 34.204649265874245, 108.84062975122784 34.20448312297699, 108.84049555540867 34.20432194107051)</p></td>
+</tr>
+<tr class="row-even"><td><p>60342</p></td>
+<td><p>1</p></td>
+<td><p>114.48</p></td>
+<td><p>181808</p></td>
+<td><p>124862</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.84049555540867 34.20432194107051, 108.84036636411828 34.20419775516095, 108.84024318008004 34.20409657182006, 108.84004387862637 34.203972261359624, 108.83952308374874 34.20369843029777)</p></td>
+</tr>
+<tr class="row-odd"><td><p>72528</p></td>
+<td><p>1</p></td>
+<td><p>144.36</p></td>
+<td><p>44441</p></td>
+<td><p>68869</p></td>
+<td><p>科技八路</p></td>
+<td><p>LINESTRING (108.8435151462407 34.204686083275455, 108.84276803395724 34.20449685714005, 108.842021912175 34.20431362229388)</p></td>
+</tr>
+<tr class="row-even"><td><p>72530</p></td>
+<td><p>1</p></td>
+<td><p>241.31</p></td>
+<td><p>68869</p></td>
+<td><p>124862</p></td>
+<td><p>科技八路</p></td>
+<td><p>LINESTRING (108.842021912175 34.20431362229388, 108.84045752847501 34.20392001061749, 108.83999080892261 34.20380622377766, 108.83952308374874 34.20369843029777)</p></td>
+</tr>
+<tr class="row-odd"><td><p>91647</p></td>
+<td><p>1</p></td>
+<td><p>219.39</p></td>
+<td><p>169462</p></td>
+<td><p>91199</p></td>
+<td><p>西太公路</p></td>
+<td><p>LINESTRING (108.84160833213731 34.20363712972413, 108.84159129993026 34.20371207446149, 108.84158127801764 34.20379302941826, 108.84129068661863 34.20558291058989)</p></td>
+</tr>
+<tr class="row-even"><td><p>91650</p></td>
+<td><p>1</p></td>
+<td><p>336.01</p></td>
+<td><p>91199</p></td>
+<td><p>199563</p></td>
+<td><p>西太公路</p></td>
+<td><p>LINESTRING (108.84129068661863 34.20558291058989, 108.8412796652767 34.20563687282872, 108.8412686439326 34.205690835063145, 108.84115642068461 34.20631242560034, 108.84081270761097 34.208564048548254)</p></td>
+</tr>
+<tr class="row-odd"><td><p>117778</p></td>
+<td><p>1</p></td>
+<td><p>210.78</p></td>
+<td><p>92706</p></td>
+<td><p>145105</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.84207500541686 34.2041637658475, 108.84246760555624 34.204148454345315, 108.84259079504238 34.204121677386546, 108.84270897833433 34.204073898662514, 108.84278409570048 34.20403104344158, 108.84285420666204 34.203972184904536, 108.84290829376307 34.20390730060347, 108.84296138178485 34.20381142505641, 108.84298842958638 34.20372550103973, 108.84300445983821 34.203650554222975, 108.8430044667493 34.203564583429824, 108.84298844855175 34.20348958118876, 108.84295640699884 34.20340355495798, 108.84291334698771 34.20333950217767, 108.84283823977152 34.203258399651446, 108.84274109807303 34.203189254785585, 108.84262893217804 34.20313507862982, 108.84249973838324 34.20310286525956, 108.84239758378014 34.20309169152201)</p></td>
+</tr>
+<tr class="row-even"><td><p>117796</p></td>
+<td><p>1</p></td>
+<td><p>101.54</p></td>
+<td><p>145105</p></td>
+<td><p>169462</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.84239758378014 34.20309169152201, 108.84226337833424 34.20310245441332, 108.84214018818257 34.20312823114287, 108.84201599437151 34.20317699810311, 108.84191984203596 34.20324080868778, 108.84186074674892 34.20329968553512, 108.84168846217199 34.20355129904852, 108.84166642567236 34.203584249318894, 108.84160833213731 34.20363712972413)</p></td>
+</tr>
+<tr class="row-odd"><td><p>142834</p></td>
+<td><p>1</p></td>
+<td><p>137.18</p></td>
+<td><p>44441</p></td>
+<td><p>118381</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.8435151462407 34.204686083275455, 108.84286516861593 34.20465297225673, 108.84270392291693 34.20466868749383, 108.84255369259174 34.20469541771726, 108.8423543849143 34.204749053102546, 108.84220415103883 34.204807771645406, 108.84208596575294 34.20486654570958)</p></td>
+</tr>
+<tr class="row-even"><td><p>142840</p></td>
+<td><p>1</p></td>
+<td><p>109.65</p></td>
+<td><p>118381</p></td>
+<td><p>91199</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.84208596575294 34.20486654570958, 108.84193572856508 34.20495725275265, 108.84187062536941 34.20500012448543, 108.84174241973271 34.205111862398475, 108.84152206339351 34.2053314019811, 108.84138183320681 34.205508095978935, 108.84129068661863 34.20558291058989)</p></td>
+</tr>
+<tr class="row-odd"><td><p>313011</p></td>
+<td><p>1</p></td>
+<td><p>185.48</p></td>
+<td><p>170508</p></td>
+<td><p>31762</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.841425074665 34.203330912749905, 108.84138201087228 34.20329884814687, 108.8413549721588 34.20326181330508, 108.84133394278078 34.20322378932678, 108.84130691144021 34.20309478566952, 108.84126886083386 34.20299375316963, 108.84121578539629 34.2029126874992, 108.84113566851988 34.20282657599954, 108.84107557946284 34.2027784867213, 108.84098444236022 34.20272934315392, 108.84090432074107 34.20269821275392, 108.84078013032108 34.202671003329115, 108.84065193124133 34.202670777488386, 108.84052272903759 34.202686544240095, 108.8404205674005 34.20271835309855, 108.84031840430188 34.20276615639653, 108.84024328324365 34.202814007367984, 108.84015714222738 34.20289482758925, 108.8401090614738 34.20296471879859, 108.84007099594207 34.20303962600771)</p></td>
+</tr>
+<tr class="row-even"><td><p>313030</p></td>
+<td><p>1</p></td>
+<td><p>107.96</p></td>
+<td><p>31762</p></td>
+<td><p>4290</p></td>
+<td><p>丈八立交</p></td>
+<td><p>LINESTRING (108.84007099594207 34.20303962600771, 108.84004995701892 34.20311456333897, 108.84003893335381 34.20319451669712, 108.84004393467363 34.203275498082384, 108.8400609552723 34.203350502775116, 108.8401090222339 34.20345255324469, 108.8401681085395 34.20352763233158, 108.8402271964761 34.2035817184994, 108.84032334095258 34.20365086500884, 108.84044152120677 34.20370005708676, 108.84059274796762 34.20380728755708)</p></td>
+</tr>
+<tr class="row-odd"><td><p>336493</p></td>
+<td><p>1</p></td>
+<td><p>268.77</p></td>
+<td><p>122487</p></td>
+<td><p>82793</p></td>
+<td><p>西三环辅路</p></td>
+<td><p>LINESTRING (108.84210722600966 34.20202954576994, 108.84186570306134 34.20393847725639, 108.84178453991281 34.204420171642816)</p></td>
+</tr>
+<tr class="row-even"><td><p>336495</p></td>
+<td><p>1</p></td>
+<td><p>229.43</p></td>
+<td><p>82793</p></td>
+<td><p>166381</p></td>
+<td><p>西三环辅路</p></td>
+<td><p>LINESTRING (108.84178453991281 34.204420171642816, 108.84169935963888 34.205036812701614, 108.84162421311767 34.20542354934598, 108.84139277469502 34.20644679433629)</p></td>
+</tr>
+<tr class="row-odd"><td><p>353811</p></td>
+<td><p>1</p></td>
+<td><p>175.06</p></td>
+<td><p>82793</p></td>
+<td><p>7449</p></td>
+<td><p>科技八路辅路</p></td>
+<td><p>LINESTRING (108.84178453991281 34.204420171642816, 108.8409632885549 34.20423679420731, 108.83996876020116 34.20398312458892)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>线层表的geometry字段中不允许出现MultiLineString类型，只允许LineString类型，不支持三维坐标。</p>
+</div>
+</section>
+<section id="id21">
+<h5>(3) 点层、线层关联关系<a class="headerlink" href="#id21" title="Link to this heading"></a></h5>
+<p>按照以上样例数据准备路网文件，shp、geojson等格式都可以。</p>
+<p>样例数据在QGIS(或者TransCAD等其他GIS软件)中进行可视化，大概是这个样子：</p>
+<img alt="_images/sample_net.png" class="align-center" src="_images/sample_net.png" />
+<ul class="simple">
+<li><dl class="simple">
+<dt>线层dir字段与拓扑方向</dt><dd><p>线层的箭头方向为拓扑方向(即link层geometry中的折点行进方向)，dir字段所描述的行车方向就是与之关联的，dir为1代表该条link是单向路段，行车方向与拓扑方向一致，dir为0代表该条link是双向路段</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>点层node_id与线层from_node、to_node关联</dt><dd><p>Link层中：一条link的from_node、to_node属性对应节点层的node_id</p>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="_images/LinkNodeCon.png" class="align-center" src="_images/LinkNodeCon.png" />
+<hr class="docutils" />
+<p>在本地图匹配包中，使用Net对象来管理路网，用户需要指定Link层和Node层文件路径或者传入link层和node层的GeoDataFrame，便可以创建一个Net对象，这个Net对象是我们开展GPS数据生产、地图匹配的基准Net，这个Net对象提供了很多操作路网的方法，方便我们对路网进行操作。</p>
+<img alt="_images/create_net.png" class="align-center" src="_images/create_net.png" />
+<hr class="docutils" />
+<p>如果您没有路网数据，请参考 <a class="reference internal" href="#id6">路网生产</a> 。</p>
+</section>
+</section>
+<section id="id22">
+<h4>2.2.2. GPS定位数据<a class="headerlink" href="#id22" title="Link to this heading"></a></h4>
+<p id="id23">GPS数据字段要求如下：</p>
+<table class="docutils align-default" id="id106">
+<caption><span class="caption-text">GPS数据字段说明</span><a class="headerlink" href="#id106" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 21.4%" />
+<col style="width: 21.4%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字段名称</p></th>
+<th class="head"><p>字段类型</p></th>
+<th class="head"><p>字段说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>agent_id</p></td>
+<td><p>string</p></td>
+<td><p>车辆唯一编码,准确来说这个字段标注的是车辆的某一次完整出行</p></td>
+</tr>
+<tr class="row-odd"><td><p>lng</p></td>
+<td><p>float</p></td>
+<td><p>经度</p></td>
+</tr>
+<tr class="row-even"><td><p>lat</p></td>
+<td><p>float</p></td>
+<td><p>纬度</p></td>
+</tr>
+<tr class="row-odd"><td><p>time</p></td>
+<td><p>string</p></td>
+<td><p>定位时间戳</p></td>
+</tr>
+<tr class="row-even"><td><p>其他非必需字段</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+<p>GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字段为gotrackit的内置计算字段</p>
+<p>样例数据如下：</p>
+<table class="docutils align-default" id="id107">
+<caption><span class="caption-text">GPS样例数据</span><a class="headerlink" href="#id107" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 14.3%" />
+<col style="width: 28.6%" />
+<col style="width: 28.6%" />
+<col style="width: 28.6%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>agent_id</p></th>
+<th class="head"><p>lng</p></th>
+<th class="head"><p>lat</p></th>
+<th class="head"><p>time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>22413</p></td>
+<td><p>113.8580665194923</p></td>
+<td><p>22.774040768110932</p></td>
+<td><p>2024-01-15 16:00:29</p></td>
+</tr>
+<tr class="row-odd"><td><p>22413</p></td>
+<td><p>113.85816528930164</p></td>
+<td><p>22.774241671596673</p></td>
+<td><p>2024-01-15 16:00:59</p></td>
+</tr>
+<tr class="row-even"><td><p>22413</p></td>
+<td><p>113.86015961029372</p></td>
+<td><p>22.77713838336715</p></td>
+<td><p>2024-01-15 16:01:29</p></td>
+</tr>
+<tr class="row-odd"><td><p>22413</p></td>
+<td><p>113.86375221173896</p></td>
+<td><p>22.779334473598812</p></td>
+<td><p>2024-01-15 16:02:00</p></td>
+</tr>
+<tr class="row-even"><td><p>22413</p></td>
+<td><p>113.864148301839</p></td>
+<td><p>22.77953193554016</p></td>
+<td><p>2024-01-15 16:02:29</p></td>
+</tr>
+<tr class="row-odd"><td><p>22413</p></td>
+<td><p>113.86793876830578</p></td>
+<td><p>22.78092681645836</p></td>
+<td><p>2024-01-15 16:02:59</p></td>
+</tr>
+</tbody>
+</table>
+<p>在本地图匹配包中，使用GpsPointsGdf对象来管理一辆车的一次出行轨迹数据，用户在构建GpsPointsGdf之前应该先对GPS数据做预处理如行程切分，然后使用一个车辆唯一编码agent_id来标注这次出行，GpsPointsGdf提供了很多操作GPS数据的方法</p>
+<img alt="_images/gps_obj.png" class="align-center" src="_images/gps_obj.png" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id24">
+<h2>3. 路网模块<a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<p>该模块提供了一系列的方法帮助您生产gotrackit标准路网，亦或是 帮助您 将 其他数据来源的路网 转化为gotrackit标准路网。gotrackit的标准路网数据结构见：<a class="reference internal" href="#id17">路网数据要求</a></p>
+<p id="id25">使用路网生产工具，先从gotrackit导入相关模块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gotrackit.netreverse.NetGen</span> <span class="k">as</span> <span class="nn">ng</span>
+</pre></div>
+</div>
+<section id="id26">
+<h3>3.1. 路网生产<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>该路网获取方式利用的是高德开放平台的官方API - 路径规划接口，不涉及爬虫抓包！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>任何非官方采购形式的路网获取方法都不可能获得完整的路网数据！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>依据本开源包的开源协议：通过该方式获取的路网数据严禁用于商业行为，仅限于教育以及科学研究课题，如有商用需求请联系高德客服进行路网采购，感谢高德开放平台的免费接口！</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>请注意：通过该方式获取的路网的坐标系是GCJ-02，一般的GPS数据坐标系都是WGS-84。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>本开源包获取路网的原理，和osm之类的平台获取路网的原理，是不一样的：</p>
+<p>1.osm是库里已有路网，用户框选获取属于查询获取；</p>
+<p>2.gotrackit是基于路径规划API接口返回的路径进行分析计算，从而获取路网。所以OD构造的精度和数量直接决定了路网的完整度！请留意构造OD的方式和OD数量。</p>
+</div>
+<p>路网生产的相关函数不需要您提供任何的空间地理信息文件，只需指定范围、和申请 <a class="reference external" href="https://lbs.amap.com">开发者key</a> 即可获取路网。</p>
+<section id="id28">
+<h4>3.1.1. 参数详解<a class="headerlink" href="#id28" title="Link to this heading"></a></h4>
+<ul>
+<li><dl>
+<dt>初始化NetReverse类</dt><dd><p>flag_name：项目名称，必须指定；</p>
+<p>net_out_fldr：最终路网的存储目录，必须指定</p>
+<p>plain_crs：依据你的研究范围的经纬度(EPSG:4326)选择一个合适的平面投影坐标系，必须指定，参见: <a class="reference internal" href="#id49">6度带划分规则</a></p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>请求参数</dt><dd><p>key_list：开发者key值列表，必须指定</p>
+<p>binary_path_fldr：请求路径源文件的存储目录(最好建立一个专门的目录)，必须指定</p>
+<p>save_log_file：是否保存日志文件，非必须指定，默认False</p>
+<p>log_fldr：日志的存储目录，非必须指定，默认None</p>
+<p>min_lng，min_lat：矩形区域左下角经纬度坐标(GCJ-02坐标)，必须指定</p>
+<p>w，h：矩形区域的宽度和高度(米)，必须指定，默认值2000，2000</p>
+<p>od_type：生成OD的类型，必须指定，含义见：<a class="reference internal" href="#od-type">od_type</a></p>
+<p>od_num：生成的od数，od数目越多，请求的路径就越多，路网覆盖率就越完整，默认100个</p>
+<p>gap_n，min_od_length：划分网格数、最小的od直线距离限制，非必须指定，默认100，1000，1200</p>
+<p>指定矩形区域的左下点经纬度坐标(GCJ-02坐标系)，以及矩形区域的宽度和长度(单位米)，必须指定</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>所有参数解释见 <a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html"><span class="doc">🔎类方法汇总</span></a></p>
+</section>
+<section id="id29">
+<h4>3.1.2. 基于矩形区域随机构造OD请求路径, 获取路网<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;test_rectangle&#39;</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/reverse/test_rectangle/&#39;</span><span class="p">,</span>
+<span class="linenos"> 3</span>                   <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>    <span class="c1"># 参数od_num：依据自己需求确定，od_num越大，请求的路径越多，路网覆盖率越高</span>
+<span class="linenos"> 6</span>    <span class="n">nv</span><span class="o">.</span><span class="n">generate_net_from_request</span><span class="p">(</span><span class="n">key_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;你的Key&#39;</span><span class="p">],</span>
+<span class="linenos"> 7</span>                                 <span class="n">log_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">save_log_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 8</span>                                 <span class="n">binary_path_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/test_rectangle/&#39;</span><span class="p">,</span>
+<span class="linenos"> 9</span>                                 <span class="n">w</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">min_lng</span><span class="o">=</span><span class="mf">126.665019</span><span class="p">,</span> <span class="n">min_lat</span><span class="o">=</span><span class="mf">45.747539</span><span class="p">,</span> <span class="n">od_type</span><span class="o">=</span><span class="s1">&#39;rand_od&#39;</span><span class="p">,</span>
+<span class="linenos">10</span>                                 <span class="n">od_num</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">gap_n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">min_od_length</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行该代码后，先在目录./data/output/request/test_rectangle/下生成路径源文件，然后在目录./data/output/reverse/test_rectangle/下生成FinalLink.shp和FinalNode.shp文件</p>
+</section>
+<section id="id30">
+<h4>3.1.3. 基于自定义区域随机构造OD请求路径, 获取路网<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
+<p>我们通过读取diy_region.shp来指定我们构造随机OD的区域范围：</p>
+<img alt="_images/diy_region.png" class="align-center" src="_images/diy_region.png" />
+<hr class="docutils" />
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;test_diy_region&#39;</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/reverse/test_diy_region/&#39;</span><span class="p">,</span>
+<span class="linenos"> 3</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="n">target_region_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/region/diy_region.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">target_region_gdf</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="c1"># 参数od_num：依据自己需求确定，od_num越大，请求的路径越多，路网覆盖率越高</span>
+<span class="linenos"> 8</span>    <span class="n">nv</span><span class="o">.</span><span class="n">generate_net_from_request</span><span class="p">(</span><span class="n">key_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;你的Key&#39;</span><span class="p">],</span>
+<span class="linenos"> 9</span>                                 <span class="n">log_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">save_log_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">10</span>                                 <span class="n">binary_path_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/test_diy_region/&#39;</span><span class="p">,</span>
+<span class="linenos">11</span>                                 <span class="n">region_gdf</span><span class="o">=</span><span class="n">target_region_gdf</span><span class="p">,</span> <span class="n">od_type</span><span class="o">=</span><span class="s1">&#39;rand_od&#39;</span><span class="p">,</span> <span class="n">gap_n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="linenos">12</span>                                 <span class="n">min_od_length</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">od_num</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id31">
+<h4>3.1.4. 基于区域-区域OD请求路径, 获取路网<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
+<p>读取交通小区文件，指定od_type为region_od，会自动构造两两地块形心之间的OD。使用该方法构造OD，需要确保面域文件中包含region_id字段。</p>
+<img alt="_images/test_taz.png" class="align-center" src="_images/test_taz.png" />
+<hr class="docutils" />
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;test_taz&#39;</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/reverse/test_taz/&#39;</span><span class="p">,</span>
+<span class="linenos"> 3</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="n">target_region_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/region/simple_taz.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">target_region_gdf</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="c1"># 参数od_num在区域-区域OD下不生效，OD数 = N * N - N, N为区域数量</span>
+<span class="linenos"> 8</span>    <span class="n">nv</span><span class="o">.</span><span class="n">generate_net_from_request</span><span class="p">(</span><span class="n">key_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;你的Key&#39;</span><span class="p">],</span>
+<span class="linenos"> 9</span>                                 <span class="n">log_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">save_log_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">10</span>                                 <span class="n">binary_path_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/test_taz/&#39;</span><span class="p">,</span>
+<span class="linenos">11</span>                                 <span class="n">region_gdf</span><span class="o">=</span><span class="n">target_region_gdf</span><span class="p">,</span> <span class="n">od_type</span><span class="o">=</span><span class="s1">&#39;region_od&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id32">
+<h4>3.1.5. 基于自定义OD请求路径，获取路网<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
+<p>你可以通过自己的相关算法去构造OD，确保OD表符合 <a class="reference internal" href="#od">OD表要求</a> ，然后可以使用自定义OD去请求路径、构造路网</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;test_diy_od&#39;</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/reverse/test_diy_od/&#39;</span><span class="p">,</span>
+<span class="linenos"> 3</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32651&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="n">nv</span><span class="o">.</span><span class="n">generate_net_from_request</span><span class="p">(</span><span class="n">binary_path_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/test_diy_od/&#39;</span><span class="p">,</span>
+<span class="linenos"> 5</span>                                 <span class="n">key_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;你的Key&#39;</span><span class="p">],</span>
+<span class="linenos"> 6</span>                                 <span class="n">od_file_path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/od/苏州市.csv&#39;</span><span class="p">,</span> <span class="n">od_type</span><span class="o">=</span><span class="s1">&#39;diy_od&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 或者</span>
+<span class="linenos"> 9</span>    <span class="c1"># diy_od_df = pd.read_csv(r&#39;./data/output/od/苏州市.csv&#39;)</span>
+<span class="linenos">10</span>    <span class="c1"># nv.generate_net_from_request(binary_path_fldr=r&#39;./data/output/request/test_diy_od/&#39;,</span>
+<span class="linenos">11</span>    <span class="c1">#                              key_list=[&#39;你的Key&#39;],</span>
+<span class="linenos">12</span>    <span class="c1">#                              od_df=diy_od_df,</span>
+<span class="linenos">13</span>    <span class="c1">#                              od_type=&#39;diy_od&#39;)</span>
+</pre></div>
+</div>
+<p>本算法包提供了一个依据GPS数据来生产自定义OD的接口，参见 <a class="reference internal" href="#id51">途径点OD计算</a></p>
+</section>
+<section id="id33">
+<h4>3.1.6. 解析路径源文件, 获取路网<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
+<p>如果已经有了请求好的路径源文件，可以直接从路径源文件中创建路网，只需要指定路径源文件目录和路径源文件名称列表</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;test_pickle&#39;</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/reverse/test_pickle/&#39;</span><span class="p">,</span>
+<span class="linenos">3</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="n">nv</span><span class="o">.</span><span class="n">generate_net_from_pickle</span><span class="p">(</span><span class="n">binary_path_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/test_taz/&#39;</span><span class="p">,</span>
+<span class="linenos">5</span>                                <span class="n">pickle_file_name_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;14_test_taz_gd_path_1&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="id34">
+<h4>3.1.7. 基于已有路网线层, 生产点层<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
+<p>如果你已经有了路网线层(从osm或者其他任何途径获取的)，缺少拓扑关联关系以及点层，你可以使用以下方式构建点层以及添加点层、线层的关联关系</p>
+<p>该接口为NetReverse类的静态方法</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="c1"># 对link.shp的要求: 只需要有geometry字段即可, 但是geometry字段的几何对象必须为LineString类型(不允许Z坐标)</span>
+<span class="linenos"> 3</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/create_node/link.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="nb">print</span><span class="p">(</span><span class="n">link_gdf</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="c1"># update_link_field_list是需要更新的路网基本属性字段：link_id，from_node，to_node，length，dir</span>
+<span class="linenos"> 6</span>    <span class="c1"># 示例中：link_gdf本身已有dir字段，所以没有指定更新dir</span>
+<span class="linenos"> 7</span>    <span class="n">new_link_gdf</span><span class="p">,</span> <span class="n">new_node_gdf</span><span class="p">,</span> <span class="n">node_group_status_gdf</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">create_node_from_link</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link_gdf</span><span class="p">,</span> <span class="n">using_from_to</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos"> 8</span>                                                                                 <span class="n">update_link_field_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;link_id&#39;</span><span class="p">,</span>
+<span class="linenos"> 9</span>                                                                                                         <span class="s1">&#39;from_node&#39;</span><span class="p">,</span>
+<span class="linenos">10</span>                                                                                                         <span class="s1">&#39;to_node&#39;</span><span class="p">,</span>
+<span class="linenos">11</span>                                                                                                         <span class="s1">&#39;length&#39;</span><span class="p">],</span>
+<span class="linenos">12</span>                                                                                 <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32651&#39;</span><span class="p">,</span>
+<span class="linenos">13</span>                                                                                 <span class="n">modify_minimum_buffer</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<span class="linenos">14</span>                                                                                 <span class="n">execute_modify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">15</span>                                                                                 <span class="n">ignore_merge_rule</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">16</span>                                                                                 <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/create_node/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id35">
+<h4>3.1.8. 启用多核并行逆向路网<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<p>若需要获取大范围的路网，我们推荐使用多核并行请求，即在初始化NetReverse类时，指定multi_core_reverse=True，reverse_core_num=x</p>
+<p>程序会自动将路网划分为x个子区域，在每个子区域内进行并行计算，示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="c1"># 初始化ng.NetReverse类指定multi_core_reverse=True, reverse_core_num=x</span>
+<span class="linenos">3</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span>
+<span class="linenos">4</span>                       <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/shanghai/net/&#39;</span><span class="p">,</span>
+<span class="linenos">5</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32651&#39;</span><span class="p">,</span> <span class="n">save_tpr_link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">multi_core_reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">6</span>                       <span class="n">reverse_core_num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos">7</span>
+<span class="linenos">8</span>    <span class="c1"># 然后可以使用nv.generate_net_from_pickle或者nv.generate_net_from_request或者nv.redivide_link_node进行路网生产或优化</span>
+</pre></div>
+</div>
+<img alt="_images/multi_region.png" class="align-center" src="_images/multi_region.png" />
+<hr class="docutils" />
+<p>计算结束后，在net_out_fldr下会生成x个子文件夹，分别存放最终的子区域路网，如果你想将这些路网进行合并，请使用路网合并接口</p>
+</section>
+<section id="id36">
+<h4>3.1.9. 合并gotrackit标准路网<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<p>合并多个地区的标准路网，示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="n">fldr</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;F:\PyPrj\TrackIt\data\input\net\test\all_sichuan_path\net&#39;</span>
+<span class="linenos">3</span>    <span class="n">net_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">4</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+<span class="linenos">5</span>        <span class="n">net_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fldr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;region-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;FinalLink.shp&#39;</span><span class="p">)),</span>
+<span class="linenos">6</span>                         <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fldr</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;region-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;FinalNode.shp&#39;</span><span class="p">))])</span>
+<span class="linenos">7</span>
+<span class="linenos">8</span>    <span class="n">l</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">merge_net</span><span class="p">(</span><span class="n">net_list</span><span class="o">=</span><span class="n">net_list</span><span class="p">,</span> <span class="n">conn_buffer</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="linenos">9</span>                                   <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;F:\PyPrj\TrackIt\data\input\net\test\all_sichuan_path\net\merge&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id37">
+<h3>3.2. 路网优化<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<p>以下优化操作不是必须要做的，大家依据自己的路网情况选择使用即可</p>
+<section id="id38">
+<span id="id39"></span><h4>3.2.1. 清洗你的路网线层数据<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
+<p>如果你已经有了路网线层数据(从osm或者其他任何途径获取的), 你可能想使用nv.create_node_from_link函数来生产点层以及生产拓扑关联以得到标准的路网数据，但是nv.create_node_from_link可能会报错，因为你的路网线层数据可能包含了Multi类型或者是带有z坐标或者是线对象中含有大量的重叠点，你可以使用nv类的静态方法clean_link_geo来消除z坐标以及multi类型</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>    <span class="c1"># 读取数据</span>
+<span class="linenos"> 4</span>    <span class="n">df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/0304/道路双线20230131_84.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>    <span class="c1"># 处理geometry</span>
+<span class="linenos"> 7</span>    <span class="c1"># l_threshold表示将线型中距离小于l_threshold米的折点进行合并，简化路网，同时消除重叠折点</span>
+<span class="linenos"> 8</span>    <span class="c1"># l_threshold推荐 1m ~ 5m，过大会导致线型细节失真</span>
+<span class="linenos"> 9</span>    <span class="c1"># plain_crs是要使用的平面投影坐标系</span>
+<span class="linenos">10</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">clean_link_geo</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32649&#39;</span><span class="p">,</span> <span class="n">l_threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id40">
+<h4>3.2.2. 基于已有标准路网, 检查路网的联通性并进行修复<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<p>如果你已经有了路网线层和点层(且字段和拓扑关联关系满足本算法包的要求)，你可以使用以下方式来检查路网的联通性</p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/sz/FinalLink.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 3</span>    <span class="n">node_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/sz/FinalNode.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>    <span class="c1"># net_file_type指的是输出路网文件的类型</span>
+<span class="linenos"> 6</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">net_file_type</span><span class="o">=</span><span class="s1">&#39;shp&#39;</span><span class="p">,</span> <span class="n">conn_buffer</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/sz/&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span>    <span class="n">new_link_gdf</span><span class="p">,</span> <span class="n">new_node_gdf</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">modify_conn</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link_gdf</span><span class="p">,</span> <span class="n">node_gdf</span><span class="o">=</span><span class="n">node_gdf</span><span class="p">,</span> <span class="n">book_mark_name</span><span class="o">=</span><span class="s1">&#39;sz_conn_test&#39;</span><span class="p">,</span> <span class="n">generate_mark</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="nb">print</span><span class="p">(</span><span class="n">new_link_gdf</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="nb">print</span><span class="p">(</span><span class="n">new_node_gdf</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在net_out_fldr下会生成联通性修复完成后的路网文件以及xml空间书签文件，将xml文件导入到QGIS可以查看修复的点位情况以便排查是否所有修复都是合理的</p>
+<p>什么是联通性修复？</p>
+<img alt="_images/conn_1.png" class="align-center" src="_images/conn_1.png" />
+<hr class="docutils" />
+<img alt="_images/conn_2.png" class="align-center" src="_images/conn_2.png" />
+</section>
+<hr class="docutils" />
+<section id="id41">
+<h4>3.2.3. 路段划分<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
+<p>你已经有了一套link和node文件, 你希望对link层进行路段重塑，即将长度大于L(m)的路段都进打断，同时点层数据也会随之自动变化</p>
+<p>该接口为NetReverse类的静态方法</p>
+<p>划分前：</p>
+<img alt="_images/before_divide.png" class="align-center" src="_images/before_divide.png" />
+<hr class="docutils" />
+<p>划分后：</p>
+<img alt="_images/after_divide.png" class="align-center" src="_images/after_divide.png" />
+<hr class="docutils" />
+<p>从gotrackit导入相关模块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gotrackit.netreverse.NetGen</span> <span class="k">as</span> <span class="nn">ng</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0317/link1.geojson&#39;</span><span class="p">)</span>
+<span class="linenos"> 3</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0317/node1.geojson&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">()</span>
+<span class="linenos"> 6</span>    <span class="c1"># 执行划分路网</span>
+<span class="linenos"> 7</span>    <span class="c1"># divide_l: 所有长度大于divide_l的路段都将按照divide_l进行划分</span>
+<span class="linenos"> 8</span>    <span class="c1"># min_l: 划分后如果剩下的路段长度小于min_l, 那么此次划分将不被允许</span>
+<span class="linenos"> 9</span>    <span class="n">new_link</span><span class="p">,</span> <span class="n">new_node</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">divide_links</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span> <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">divide_l</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">min_l</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="n">new_link</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0317/divide_link.geojson&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;gbk&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">new_node</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0317/divide_node.geojson&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;gbk&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id">
+<h4>3.2.4. id重映射<a class="headerlink" href="#id" title="Link to this heading"></a></h4>
+<p>从gotrackit导入相关模块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gotrackit.netreverse.NetGen</span> <span class="k">as</span> <span class="nn">ng</span>
+</pre></div>
+</div>
+<p>如果你的link表的link_id或者node表的node_id是一个非常大的整数, 使用这样的路网存在风险，你可以使用下面的函数进行ID重映射</p>
+<p>该接口为NetReverse类的静态方法</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="n">l</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">3</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">[[</span><span class="s1">&#39;link_id&#39;</span><span class="p">,</span> <span class="s1">&#39;from_node&#39;</span><span class="p">,</span> <span class="s1">&#39;to_node&#39;</span><span class="p">]])</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">[[</span><span class="s1">&#39;node_id&#39;</span><span class="p">]])</span>
+<span class="linenos">6</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">()</span>
+<span class="linenos">7</span>    <span class="n">nv</span><span class="o">.</span><span class="n">remapping_link_node_id</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">8</span>    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">[[</span><span class="s1">&#39;link_id&#39;</span><span class="p">,</span> <span class="s1">&#39;from_node&#39;</span><span class="p">,</span> <span class="s1">&#39;to_node&#39;</span><span class="p">]])</span>
+<span class="linenos">9</span>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">[[</span><span class="s1">&#39;node_id&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</section>
+<section id="id42">
+<h4>3.2.5. 路网路段、节点重塑<a class="headerlink" href="#id42" title="Link to this heading"></a></h4>
+<p>你已经有了一套link文件，但是其存在折点联通性问题，如下图：</p>
+<img alt="_images/before_redivide.jpg" class="align-center" src="_images/before_redivide.jpg" />
+<hr class="docutils" />
+<p>可以使用该接口进行路段和节点的重塑以及联通性的优化，你只需要输入一个线层，该函数会帮你重塑节点划分以及路段划分，并且修复联通性</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="c1"># 读取数据</span>
+<span class="linenos"> 3</span>    <span class="n">origin_link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0402BUG/load/test_link.geojson&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="nb">print</span><span class="p">(</span><span class="n">origin_link</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>    <span class="c1"># 为防止线层线型有重复点，先做清洗</span>
+<span class="linenos"> 7</span>    <span class="n">origin_link</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">clean_link_geo</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">origin_link</span><span class="p">,</span> <span class="n">l_threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="c1"># multi_core_merge=True表示启用多进程进行拓扑优化</span>
+<span class="linenos">10</span>    <span class="c1"># merge_core_num表示启用两个核</span>
+<span class="linenos">11</span>    <span class="n">nv</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="p">(</span><span class="n">net_out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/test/0402BUG/redivide&#39;</span><span class="p">,</span>
+<span class="linenos">12</span>                       <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;new_divide&#39;</span><span class="p">,</span> <span class="n">multi_core_merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">13</span>                       <span class="n">merge_core_num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>    <span class="c1"># 路段、节点重新划分、联通性修复，新的网络文件在net_out_fldr下生成</span>
+<span class="linenos">16</span>    <span class="n">nv</span><span class="o">.</span><span class="n">redivide_link_node</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">origin_link</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>重塑修复后：</p>
+<img alt="_images/after_redivide.jpg" class="align-center" src="_images/after_redivide.jpg" />
+</section>
+<hr class="docutils" />
+<section id="from-node-to-node">
+<h4>3.2.6. 处理环路和相同(from_node，to_node)的路段<a class="headerlink" href="#from-node-to-node" title="Link to this heading"></a></h4>
+<p>gotrackit不允许路网出现环路以及(from_node，to_node)相同的link存在(如下图), 在构建Net时会自动识别这些link并且进行删除, 如果你想保留这些link请使用circle_process进行路网处理</p>
+<p>该接口为NetReverse类的静态方法</p>
+<img alt="_images/circle_before.jpg" class="align-center" src="_images/circle_before.jpg" />
+<hr class="docutils" />
+<img alt="_images/same_ft_before.jpg" class="align-center" src="_images/same_ft_before.jpg" />
+<hr class="docutils" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">gotrackit.netreverse.NetGen</span> <span class="k">as</span> <span class="nn">ng</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 4</span>    <span class="n">l</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;./data/input/net/test/0506yg/link.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;./data/input/net/test/0506yg/node.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="c1"># 处理环路和相同from_node - to_node的link</span>
+<span class="linenos"> 8</span>    <span class="n">new_link</span><span class="p">,</span> <span class="n">new_node</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">circle_process</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">node_gdf</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># circle_process处理后输出的路网是平面投影坐标系, 需要转化为EPSG:4326</span>
+<span class="linenos">11</span>    <span class="n">new_link</span> <span class="o">=</span> <span class="n">new_link</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">new_node</span> <span class="o">=</span> <span class="n">new_node</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="n">new_link</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;./data/input/net/test/0506yg/new_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="n">new_node</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;./data/input/net/test/0506yg/new_node.shp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>circle_process处理后如图</p>
+<img alt="_images/circle_after.jpg" class="align-center" src="_images/circle_after.jpg" />
+<hr class="docutils" />
+<img alt="_images/same_ft_after.jpg" class="align-center" src="_images/same_ft_after.jpg" />
+<hr class="docutils" />
+<p>路网模块函数方法的相关参数见 <a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html"><span class="doc">🔎类方法汇总</span></a></p>
+</section>
+</section>
+</section>
+<section id="id43">
+<h2>4. GPS数据生产<a class="headerlink" href="#id43" title="Link to this heading"></a></h2>
+<p>本模块提供了一个接口，你只需要指定一个路网，该模块可以模拟行车并且生成轨迹数据、GPS数据，示例代码和参数解释如下：</p>
+<p>路网的数据要求见：<a class="reference internal" href="#id17">路网数据要求</a></p>
+<div class="highlight-python notranslate" id="id44"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 从gotrackit导入相关模块：Net和TripGeneration</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">gotrackit.generation.SampleTrip</span> <span class="kn">import</span> <span class="n">TripGeneration</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 7</span>    <span class="c1"># 1.构建一个net, 要求路网线层和路网点层必须是WGS-84, EPSG:4326 地理坐标系</span>
+<span class="linenos"> 8</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">,</span>
+<span class="linenos"> 9</span>                 <span class="n">node_path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="c1"># 路网对象初始化</span>
+<span class="linenos">11</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>    <span class="c1"># 新建一个行程生成类</span>
+<span class="linenos">14</span>    <span class="n">ts</span> <span class="o">=</span> <span class="n">TripGeneration</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">loc_error_sigma</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">loc_frequency</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>    <span class="c1"># 随机生成行程并且输出GPS数据</span>
+<span class="linenos">17</span>    <span class="n">ts</span><span class="o">.</span><span class="n">generate_rand_trips</span><span class="p">(</span><span class="n">trip_num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/sample_gps&#39;</span><span class="p">,</span>
+<span class="linenos">18</span>                           <span class="n">agent_flag</span><span class="o">=</span><span class="s1">&#39;0527-agent&#39;</span><span class="p">,</span> <span class="n">instant_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Net构建参数见：<a class="reference internal" href="#net">构建Net的相关参数</a></p>
+<section id="tripgeneration">
+<h3>4.1. TripGeneration初始化参数<a class="headerlink" href="#tripgeneration" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>net</dt><dd><p>路网对象，必须指定</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>time_step</dt><dd><p>仿真步长(s)，默认0.1s</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>speed_miu</dt><dd><p>仿真速度均值(m/s)，默认12.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>speed_sigma</dt><dd><p>仿真速度标准差(m/s)，默认3.6</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>save_gap</dt><dd><p>每多少仿真步保存一次真实轨迹数据，整数，默认1</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>loc_frequency</dt><dd><p>每多少s进行一次GPS定位，默认2.0，该值必须大于仿真步长</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>loc_error_sigma</dt><dd><p>定位误差标准差(m)，默认40.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>loc_error_miu</dt><dd><p>定位误差均值(m)，默认0.0</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="generate-rand-trips">
+<h3>4.2. generate_rand_trips相关参数<a class="headerlink" href="#generate-rand-trips" title="Link to this heading"></a></h3>
+<ul>
+<li><dl class="simple">
+<dt>trip_num</dt><dd><p>行程数，整数，一共输出多少次行程，默认10</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>instant_output</dt><dd><p>是否即时输出，即是否每计算完一次行程就存储GPS数据文件、逐帧轨迹文件，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>out_fldr</dt><dd><p>存储输出文件的目录，默认当前目录</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>time_format</dt><dd><p>输出GPS数据的时间列的格式，默认”%Y-%m-%d %H:%M:%S”，可以参照pandas中pd.to_datetime()函数的format参数</p>
+<p>参考：<a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.20/generated/pandas.to_datetime.html#">pd.to_datetime解释</a>、<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO_8601</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>start_year、start_month、start_day</dt><dd><p>起始年月日，默认2022、5、15</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>start_hour、start_minute、start_second</dt><dd><p>起始时分秒，默认10、20、12</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>agent_flag</dt><dd><p>标志字符，默认agent</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="id45">
+<h2>5. GPS数据行程切分<a class="headerlink" href="#id45" title="Link to this heading"></a></h2>
+<p>原始的GPS数据包含了一辆车的多次出行，我们需要对车辆的出行进行划分，GpsPreProcess提供了行程切分、带途径点信息的OD抽取这两大功能，你只需要传入GPS表数据即可。</p>
+<p>确保GPS数据满足 <a class="reference internal" href="#id23">GPS定位数据字段要求</a> 。</p>
+<section id="id46">
+<span id="id47"></span><h3>5.1. 行程切分<a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<p>该接口函数提供了主行程和子行程的划分功能，示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">gotrackit.gps.GpsTrip</span> <span class="kn">import</span> <span class="n">GpsPreProcess</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 5</span>    <span class="c1"># 读取GPS数据</span>
+<span class="linenos"> 6</span>    <span class="n">gps_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;data/output/gps/example/origin_gps.cssv&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 新建一个GpsPreProcess示例</span>
+<span class="linenos"> 9</span>    <span class="n">grp</span> <span class="o">=</span> <span class="n">GpsPreProcess</span><span class="p">(</span><span class="n">gps_df</span><span class="o">=</span><span class="n">gps_gdf</span><span class="p">,</span> <span class="n">use_multi_core</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># 调用trip_segmentations方法进行行程切分</span>
+<span class="linenos">12</span>    <span class="c1"># 切分后的数据会更新agent_id字段用以区分不同的出行旅程，原GPS表的agent_id会存储在origin_agent_id字段中</span>
+<span class="linenos">13</span>    <span class="n">gps_trip</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">trip_segmentations</span><span class="p">(</span><span class="n">group_gap_threshold</span><span class="o">=</span><span class="mi">1800</span><span class="p">,</span> <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32650&#39;</span><span class="p">,</span> <span class="n">min_distance_threshold</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>    <span class="n">gps_trip</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps/example/gps_trip.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="gpspreprocess">
+<h4>5.1.1. 初始化GpsPreProcess的相关参数<a class="headerlink" href="#gpspreprocess" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>gps_df</dt><dd><p>gps数据表，类型：pd.DataFrame，必须指定</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>use_multi_core</dt><dd><p>是否启用多核并行，默认False，数据量较大时可以启用</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>used_core_num</dt><dd><p>启用的核数，默认2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="trip-segmentations">
+<h4>5.1.2. 类方法trip_segmentations相关参数<a class="headerlink" href="#trip-segmentations" title="Link to this heading"></a></h4>
+<ul>
+<li><dl class="simple">
+<dt>time_unit、time_format</dt><dd><p>GPS数据相关参数，参见：<a class="reference internal" href="#mapmatch">MapMatch参数解释</a> 中的time_unit、time_format</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>plain_crs</dt><dd><p>依据研究范围，选择一个合适的平面投影坐标系</p>
+<p>坐标系相关参数查询可以参考：<a class="reference external" href="https://epsg.io/">epsg.io</a>、坐标系的相关知识讲解可以参考：<a class="reference external" href="https://mp.weixin.qq.com/s/Ot_Vo4CEtGYRblTMjMQYiw">坐标系简介</a></p>
+<p id="id49">平面投影坐标系有很多种，这里仅仅列出6度带的划分，按照经度，每6度对应一个平面投影坐标系，可以按照研究范围的中心点经纬度参照下表选取</p>
+<p>如果你的研究区域是世界范围，那么你可以使用EPSG:3857，这个平面投影坐标系适用于全球任何地区</p>
+</dd>
+</dl>
+</li>
+</ul>
+<table class="docutils align-default" id="id108">
+<caption><span class="caption-text">6度带划分</span><a class="headerlink" href="#id108" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>经度范围</p></th>
+<th class="head"><p>-180 ~ -174</p></th>
+<th class="head"><p>-174 ~ -168</p></th>
+<th class="head"><p>-168 ~ -162</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>108 ~ 114</p></th>
+<th class="head"><p>114 ~ 120</p></th>
+<th class="head"><p>120 ~ 126</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>174 ~ 180</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>6度带平面投影CRS名称</p></td>
+<td><p>EPSG:32601</p></td>
+<td><p>EPSG:32602</p></td>
+<td><p>EPSG:32603</p></td>
+<td><p>…</p></td>
+<td><p>EPSG:32649</p></td>
+<td><p>EPSG:32650</p></td>
+<td><p>EPSG:32651</p></td>
+<td><p>…</p></td>
+<td><p>EPSG:32660</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><dl class="simple">
+<dt>group_gap_threshold</dt><dd><p>时间阈值，主行程划分参数，单位秒，如果前后GPS点的定位时间超过该阈值，则在该点切分主行程，默认1800s(30分钟)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_distance_threshold</dt><dd><p>子行程切分距离阈值，单位米，默认10.0m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dwell_accu_time</dt><dd><p>子行程切分时间阈值，秒，默认60秒</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>n</dt><dd><p>子行程切分参数，整数，如果超过连续n个gps点的距离小于min_distance_threshold 且 持续时间超过dwell_accu_time，那么该处被识别为停留点，从该处切分子行程，默认5</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id50">
+<h4>5.1.3. 如何理解主行程和子行程？<a class="headerlink" href="#id50" title="Link to this heading"></a></h4>
+<p>主行程举例： 一辆车从家出发到达公司，将车辆停在车库，熄火后，车辆不再产生GPS数据，下班后再次启动，GPS数据重新产生，早上到达公司的最后一个定位点和下班后启动车辆的第一个定位点，其时间差超过group_gap_threshold，则在此处切分主行程</p>
+<p>子行程举例： 一辆车从家出发到达公司，在到达公司之前，在加油站加油，GPS点持续产生，但是定位点集中在加油站附近，产生了停留，那么从家-加油站就是一段子行程</p>
+<p>每一个段主行程、子行程，均拥有一个全局唯一的agent_id</p>
+<p>如果你只想划分主行程，则指定min_distance_threshold为负数即可</p>
+</section>
+</section>
+<section id="gpsod">
+<span id="id51"></span><h3>5.2. 从GPS数据计算途径点OD<a class="headerlink" href="#gpsod" title="Link to this heading"></a></h3>
+<p>如果你的GPS数据已经完成了行程切分，且已经按照agent_id、time两个字段升序排列，那么你可以直接使用该接口进行途径点的抽样，得到带途径点的OD数据, 其数据格式满足 <a class="reference internal" href="#od">OD表要求</a></p>
+<p>示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">gotrackit.gps.GpsTrip</span> <span class="kn">import</span> <span class="n">GpsPreProcess</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 5</span>    <span class="c1"># 读取GPS数据</span>
+<span class="linenos"> 6</span>    <span class="n">gps_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;data/output/gps/example/gps_trip.cssv&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 新建一个GpsPreProcess示例</span>
+<span class="linenos"> 9</span>    <span class="n">grp</span> <span class="o">=</span> <span class="n">GpsPreProcess</span><span class="p">(</span><span class="n">gps_df</span><span class="o">=</span><span class="n">gps_gdf</span><span class="p">,</span> <span class="n">use_multi_core</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># 返回的第一个数据是OD表(pd.DataFrame)，第二个数据是OD线(gpd.GeoDataFrame)</span>
+<span class="linenos">12</span>    <span class="n">gps_od</span><span class="p">,</span> <span class="n">od_line</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">sampling_waypoints_od</span><span class="p">(</span><span class="n">way_points_num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="n">gps_od</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps_od.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="n">od_line</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps_od.shp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="sampling-waypoints-od">
+<h4>5.2.1. sampling_waypoints_od相关参数<a class="headerlink" href="#sampling-waypoints-od" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>way_points_num</dt><dd><p>整数，OD的途径点数目，必须≤10，默认5个途径点</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id52">
+<h2>6. 地图匹配<a class="headerlink" href="#id52" title="Link to this heading"></a></h2>
+<section id="id53">
+<h3>6.1. 所需数据<a class="headerlink" href="#id53" title="Link to this heading"></a></h3>
+<p>使用地图匹配接口，你需要准备路网数据和GPS数据。</p>
+<p>路网数据要求：<a class="reference internal" href="#id17">路网数据要求</a> 、GPS数据要求：<a class="reference internal" href="#id23">GPS定位数据字段要求</a></p>
+<p>匹配过程架构图如下：</p>
+<img alt="_images/MatchGraph.png" class="align-center" src="_images/MatchGraph.png" />
+<hr class="docutils" />
+<p id="id54">地图匹配的参数由两大部分构成：构建Net的参数、MapMatch函数参数</p>
+</section>
+<section id="net">
+<span id="id55"></span><h3>6.2. 匹配接口参数解释 - 构建Net的参数<a class="headerlink" href="#net" title="Link to this heading"></a></h3>
+<section id="id56">
+<h4>6.2.1. 路网参数<a class="headerlink" href="#id56" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>link_path</dt><dd><p>路网线层数据的文件路径</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>node_path</dt><dd><p>路网点层数据的文件路径</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>link_gdf</dt><dd><p>路网线层数据GeoDataFrame，与link_path只能指定其中一个, 推荐采用传入link_gdf的方式</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>node_gdf</dt><dd><p>路网点层数据GeoDataFrame，与node_path只能指定其中一个, 推荐采用传入node_gdf的方式</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id57">
+<h4>6.2.2. 截断搜索参数<a class="headerlink" href="#id57" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>cut_off</dt><dd><p>路径搜索截断长度, 米, 默认1200.0m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>not_conn_cost</dt><dd><p>不连通路径的开销，默认1000.0m</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id58">
+<h4>6.2.3. 路径预计算参数<a class="headerlink" href="#id58" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>fmm_cache</dt><dd><p>是否启用预计算，若启用后，预计算结果会缓存在fmm_cache_fldr下，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>fmm_cache_fldr</dt><dd><p>存储预计算结果的目录，默认./</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>recalc_cache</dt><dd><p>是否重新预计算，默认True。取值False时，gotrackit会去fmm_cache_fldr下读取缓存，若读取不到则会自动重新计算</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_cn</dt><dd><p>大于0的整数，使用几个核进行路径预计算, 默认2</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_slice</dt><dd><p>大于0的整数，表示使用将路径结果切分为cache_slice部分进行数据标准化(大规模路网下增大该值可以防止内存溢出)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id59">
+<h4>6.2.4. 分层空间索引参数<a class="headerlink" href="#id59" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>is_hierarchical</dt><dd><p>是否启用层次关联，在超大路网、较长GPS轨迹的情况下开启为True，可以显著提升自子网络的空间关联效率，默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>grid_len</dt><dd><p>层次关联中的栅格边长(m)，默认2000m，一般默认即可</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id60">
+<h4>6.2.5. 平面投影系参数<a class="headerlink" href="#id60" title="Link to this heading"></a></h4>
+<ul>
+<li><dl>
+<dt>plain_crs</dt><dd><p>要使用的平面投影坐标系，默认None，用户若不指定，程序会依据路网的经纬度范围自动进行6度投影带的选择, 推荐使用程序自动</p>
+<p>若要手动指定：参见: <a class="reference internal" href="#id49">6度带划分规则</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>截止v0.3.5，用户只可以自行指定以上14个参数，其他的参数为内置参数(部分参数还未启用)，用户不可自行指定！</p>
+</section>
+</section>
+<section id="mapmatch">
+<span id="id61"></span><h3>6.3. 匹配接口参数解释 - MapMatch参数解释<a class="headerlink" href="#mapmatch" title="Link to this heading"></a></h3>
+<section id="id62">
+<h4>6.3.1. 项目标记参数<a class="headerlink" href="#id62" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>flag_name</dt><dd><p>标记字符名称, 会用于标记输出的可视化文件, 默认”test”</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id63">
+<h4>6.3.2. 基础参数(必须指定)<a class="headerlink" href="#id63" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>net</dt><dd><p>gotrackit路网对象, 必须指定</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>use_sub_net</dt><dd><p>bool，是否在子网络上进行计算, 默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gps_df</dt><dd><p>pd.DataFrame()，GPS数据, 必须指定</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id64">
+<h4>6.3.3. 时间列构建参数<a class="headerlink" href="#id64" title="Link to this heading"></a></h4>
+<ul>
+<li><dl>
+<dt>time_format</dt><dd><p>GPS数据中时间列的格式化字符串模板, 默认”%Y-%m-%d %H:%M:%S”，可以参照pandas中pd.to_datetime()函数的format参数</p>
+<p>参考：<a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.20/generated/pandas.to_datetime.html#">pd.to_datetime解释</a>、<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO_8601</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>time_unit</dt><dd><p>GPS数据中时间列的单位, 如果时间列是数值(秒或者毫秒,s 或者 ms), 系统会自动按照该参数构建时间列, 默认’s’。Gotrackit会先尝试使用time_format进行时间列构建，如果失败会再次尝试使用time_unit进行时间列构建</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id67">
+<h4>6.3.4. 候选范围参数<a class="headerlink" href="#id67" title="Link to this heading"></a></h4>
+<ul>
+<li><dl class="simple">
+<dt>gps_buffer</dt><dd><p>GPS的搜索半径, 单位米, 意为只选取每个gps点附近gps_buffer米范围内的路段作为初步候选路段, 默认200.0m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gps_route_buffer_gap</dt><dd><p>半径增量, gps_buffer + gps_route_buffer_gap 的半径范围用于计算子网络, 默认15.0m</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>top_k</dt><dd><p>选取每个GPS点buffer范围内的最近的top_k个路段，默认20。每个GPS点依据指定的gps_buffer建立圆形缓冲区，缓冲区关联的路段为该GPS点的初步候选路段，然后依据top_k参数选取离该GPS点最近的top_k个路段作为最终候选路段</p>
+<p>注意：对于dir为0的路段，实际会被拆分为两条拓扑相反的路段，如果某GPS的buffer范围内关联到了20条双向路段，top_k至少为40才能将这20条双向路段选为最终候选</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id68">
+<h4>6.3.5. 发射概率、状态转移概率参数<a class="headerlink" href="#id68" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>beta</dt><dd><p>大于0的值, 默认6.0m；该值越大, 状态转移概率对于距离差(米, 相邻投影点路径长度 与 相邻GPS点球面距离 的距离差)越不敏感</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gps_sigma</dt><dd><p>大于0的值, 默认30.0m；该值越大, 发射概率对距离(米, GPS点到候选路段的距离)越不敏感</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dis_para</dt><dd><p>距离(m)的缩放系数, 大于0的值, 默认0.1</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id69">
+<h4>6.3.6. GPS预处理参数 - 停留点处理<a class="headerlink" href="#id69" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>del_dwell</dt><dd><p>是否进行停留点识别并且删除停留点，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dwell_l_length</dt><dd><p>停留点识别距离阈值, 默认10m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dwell_n</dt><dd><p>超过连续dwell_n个相邻GPS点的距离小于dwell_l_length，那么这一组点就会被识别为停留点，默认2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id70">
+<h4>6.3.7. GPS预处理参数 - 点位降频<a class="headerlink" href="#id70" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>is_lower_f</dt><dd><p>是否对GPS数据进行数据降频, 适用于: 高频-高定位误差 GPS数据, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>lower_n</dt><dd><p>降频倍率, 默认2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id71">
+<h4>6.3.8. GPS预处理参数 - 滑动窗口平均<a class="headerlink" href="#id71" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>is_rolling_average</dt><dd><p>是否启用滑动窗口平均对GPS数据进行降噪, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>window</dt><dd><p>滑动窗口大小, 默认2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id72">
+<h4>6.3.9. GPS预处理参数 - 点位增密<a class="headerlink" href="#id72" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>dense_gps</dt><dd><p>是否对GPS数据进行增密, 默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dense_interval</dt><dd><p>当相邻GPS点的球面距离L超过dense_interval即进行增密, 进行 int(L / dense_interval) + 1  等分加密, 默认100.0</p>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="_images/gps_process.jpg" class="align-center" src="_images/gps_process.jpg" />
+</section>
+<hr class="docutils" />
+<section id="id73">
+<h4>6.3.10. 发射概率修正 - 航向角修正<a class="headerlink" href="#id73" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>use_heading_inf</dt><dd><p>是否利用GPS的差分方向向量修正发射概率(利用GPS前后点位大致估计航向角), 适用于: 低定位误差 GPS数据 或者 低频定位数据(配合加密参数), 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>heading_para_array</dt><dd><p>差分方向修正参数, 默认np.array([1.0, 1.0, 1.0, 0.1, 0.0001, 0.0001, 0.00001, 0.000001, 0.000001])</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>omitted_l</dt><dd><p>单位米，如果前后序GPS点的平均距离小于该值，则认为该GPS点的航向角不准确，不会在该点应用航向角限制，默认6.0m</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>对方向修正系数的解释：</p>
+<img alt="_images/heading_para_1.png" class="align-center" src="_images/heading_para_1.png" />
+<hr class="docutils" />
+<img alt="_images/heading_para_2.png" class="align-center" src="_images/heading_para_2.png" />
+</section>
+<hr class="docutils" />
+<section id="id74">
+<h4>6.3.11. 结果输出设置参数<a class="headerlink" href="#id74" title="Link to this heading"></a></h4>
+<ul>
+<li><dl class="simple">
+<dt>instant_output</dt><dd><p>是否每匹配完一条轨迹就存储csv匹配结果, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>visualization_cache_times</dt><dd><p>每匹配完visualization_cache_times辆车再进行结果(html、geojson可视化结果)的统一存储(可并发存储), 默认50</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>out_fldr</dt><dd><p>保存匹配结果的文件(html文件、geojson文件、csv文件)目录, 默认当前目录</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>user_field_list</dt><dd><p>GPS数据表中可以随匹配结果一同输出的字段列表， 例如:[‘gps_speed’, ‘origin_agent’]，若启用了滑动窗口平均，该参数自动失效，默认None</p>
+<p>这些字段必须在gps表中实际存在</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id75">
+<h4>6.3.12. 可视化输出参数<a class="headerlink" href="#id75" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>export_html</dt><dd><p>是否输出网页可视化结果html文件, 默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>use_gps_source</dt><dd><p>是否在HTML可视化结果中使用GPS源数据进行展示, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>export_all_agents</dt><dd><p>是否将所有agent的可视化存储于一个html文件中</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gps_radius</dt><dd><p>HTML可视化中GPS点的半径大小，单位米，默认8米</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>export_geo_res</dt><dd><p>是否输出匹配结果的geojson几何可视化文件, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>heading_vec_len</dt><dd><p>geojson几何可视化文件中航向向量的长度，默认15m</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id76">
+<h4>6.3.13. 网格参数搜索设置<a class="headerlink" href="#id76" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>use_para_grid</dt><dd><p>是否启用网格参数搜索</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>para_grid</dt><dd><p>网格参数对象</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="id77">
+<span id="id78"></span><h3>6.4. 常规匹配代码示例<a class="headerlink" href="#id77" title="Link to this heading"></a></h3>
+<p>用到的数据文件从Git仓库获取：<a class="reference external" href="https://github.com/zdsjjtTLG/TrackIt/tree/main/data">0327test.zip</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. 从gotrackit导入相关模块Net, MapMatch</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">gotrackit.MapMatch</span> <span class="kn">import</span> <span class="n">MapMatch</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># 1.读取GPS数据</span>
+<span class="linenos">11</span>    <span class="c1"># 这是一个有10辆车的GPS数据的文件, 已经做过了数据清洗以及行程切分</span>
+<span class="linenos">12</span>    <span class="c1"># 用于地图匹配的GPS数据需要用户自己进行清洗以及行程切分</span>
+<span class="linenos">13</span>    <span class="n">gps_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps/sample/0327sample.csv&#39;</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="nb">print</span><span class="p">(</span><span class="n">gps_df</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="c1"># gps_df = gps_df[gps_df[&#39;agent_id&#39;] == &#39;xa_car_4&#39;]</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>    <span class="c1"># 2.构建一个net, 要求路网线层和路网点层必须是WGS-84, EPSG:4326 地理坐标系</span>
+<span class="linenos">18</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos">19</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">20</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="linenos">22</span>                 <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">23</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>    <span class="c1"># 3. 匹配</span>
+<span class="linenos">26</span>    <span class="n">mpm</span> <span class="o">=</span> <span class="n">MapMatch</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">gps_df</span><span class="o">=</span><span class="n">gps_df</span><span class="p">,</span> <span class="n">gps_buffer</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">27</span>           <span class="n">use_sub_net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_heading_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">omitted_l</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+<span class="linenos">28</span>           <span class="n">del_dwell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dwell_l_length</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">dwell_n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">29</span>           <span class="n">export_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">export_geo_res</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_gps_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">30</span>           <span class="n">export_all_agents</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">31</span>           <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample&#39;</span><span class="p">,</span> <span class="n">dense_gps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">32</span>           <span class="n">gps_radius</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>    <span class="c1"># 第一个返回结果是匹配结果表</span>
+<span class="linenos">35</span>    <span class="c1"># 第二个是发生警告的相关信息</span>
+<span class="linenos">36</span>    <span class="c1"># 第三个是匹配错误的agent的id编号列表</span>
+<span class="linenos">37</span>    <span class="n">match_res</span><span class="p">,</span> <span class="n">may_error_info</span><span class="p">,</span> <span class="n">error_info</span> <span class="o">=</span> <span class="n">mpm</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="linenos">38</span>    <span class="nb">print</span><span class="p">(</span><span class="n">match_res</span><span class="p">)</span>
+<span class="linenos">39</span>    <span class="n">match_res</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample/match_res.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="match-res">
+<h4>6.4.1. 匹配结果表(match_res)字段含义<a class="headerlink" href="#match-res" title="Link to this heading"></a></h4>
+<table class="docutils align-default" id="id109">
+<caption><span class="caption-text">地图匹配结果表字段说明</span><a class="headerlink" href="#id109" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 21.4%" />
+<col style="width: 21.4%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字段名称</p></th>
+<th class="head"><p>字段含义</p></th>
+<th class="head"><p>字段类型</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>agent_id</p></td>
+<td><p>gps点所属agent_id</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>seq</p></td>
+<td><p>gps点的序列ID</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-even"><td><p>sub_seq</p></td>
+<td><p>gps点的子序列ID, 如果子序列&gt;0, 说明该点是在匹配后补出来的点, 称之为后补点, 不会去计算其在目标路段上的投影点</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-odd"><td><p>time</p></td>
+<td><p>gps定位时间</p></td>
+<td><p>datetime</p></td>
+</tr>
+<tr class="row-even"><td><p>loc_type</p></td>
+<td><p>gps点类型, 三类: s：源GPS点、d：增密点、c：后补点</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>link_id</p></td>
+<td><p>gps匹配路段的link_id，对应路网的link_id字段</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-even"><td><p>from_node</p></td>
+<td><p>gps匹配路段的起始节点(表征行车方向起点)</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_node</p></td>
+<td><p>gps匹配路段的终到节点(表征行车方向终点)</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-even"><td><p>lng</p></td>
+<td><p>gps点的经度, EPSG:4326</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>lat</p></td>
+<td><p>gps点的纬度, EPSG:4326</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>prj_lng</p></td>
+<td><p>gps点在匹配路段上对应匹配点的经度, EPSG:4326, 后补点的该值为空</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>prj_lat</p></td>
+<td><p>gps点在匹配路段上对应匹配点的纬度, EPSG:4326, 后补点的该值为空</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>match_heading</p></td>
+<td><p>gps匹配点的航向角(从正北方向开始顺时针扫过的角度, 0~360度), 后补点的该值为空</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>dis_to_next</p></td>
+<td><p>gps投影点与后序相邻gps投影点的路径距离(不考虑后补点), 后补点的该值为空</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>route_dis</p></td>
+<td><p>gps匹配点在匹配路段上与路段起点的路径距离, 后补点的该值为空</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>其他用户指定输出的字段</p></td>
+<td><p>参照参数user_field_list</p></td>
+<td><p>user diy</p></td>
+</tr>
+</tbody>
+</table>
+<p>关于sub_seq：</p>
+<img alt="_images/gps_segmentize.png" class="align-center" src="_images/gps_segmentize.png" />
+<hr class="docutils" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>对于dir为0的双向路段，例：link_id=12, from_node=2, to_node=3，匹配结果中匹配到link_id为12时，其(from_node, to_node) 可能为(2, 3) 也可能为 (3, 2), 这个由GPS的实际行车方向决定</p>
+</div>
+</section>
+<section id="id79">
+<h4>6.4.2. 警告信息和错误信息含义<a class="headerlink" href="#id79" title="Link to this heading"></a></h4>
+<p>地图匹配接口会返回三个结果，第一个是匹配结果表，第二个是警告的相关信息，第三个是匹配发生错误的agent_id编号列表</p>
+<ul>
+<li><dl>
+<dt>警告信息</dt><dd><p>发生警告的agent，其匹配结果，连同没有任何警告的agent，会一起会输出在match_res中</p>
+<p>警告信息may_error_info的数据结构是字典：键表示agent_id，值是一个表，记录了当前agent在匹配过程中发生警告的路段信息(可在HTML中可视化查看)</p>
+<p>对值(一个DataFrame)的示例解释，以下图第一行为例，一行代表了一次警告，我们只用关心from_ft列、to_ft列值的第2~3个元素(路段的起始节点)，匹配link(605186, 596721) 到 匹配link(98359, 258807) 之间不连通，表明了可能存在路段缺失</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="ne">UserWarning</span><span class="p">:</span> <span class="n">gps</span> <span class="n">seq</span><span class="p">:</span> <span class="mi">10</span> <span class="o">-&gt;</span> <span class="mi">11</span> <span class="n">状态转移出现问题</span><span class="p">,</span> <span class="n">from_link</span><span class="p">:(</span><span class="mi">605186</span><span class="p">,</span> <span class="mi">596721</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">to_link</span><span class="p">:(</span><span class="mi">98359</span><span class="p">,</span> <span class="mi">258807</span><span class="p">)</span>
+<span class="linenos">2</span><span class="ne">UserWarning</span><span class="p">:</span> <span class="n">gps</span> <span class="n">seq</span><span class="p">:</span> <span class="mi">111</span> <span class="o">-&gt;</span> <span class="mi">112</span> <span class="n">状态转移出现问题</span><span class="p">,</span> <span class="n">from_link</span><span class="p">:(</span><span class="mi">150627</span><span class="p">,</span> <span class="mi">38018</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">to_link</span><span class="p">:(</span><span class="mi">78195</span><span class="p">,</span> <span class="mi">26627</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/warn_info.jpg" class="align-center" src="_images/warn_info.jpg" />
+<hr class="docutils" />
+<ul class="simple">
+<li><dl class="simple">
+<dt>错误信息</dt><dd><p>error_info的数据结构是列表，记录的是匹配发生错误的agent_id，一般是GPS数据关联不到任何路网、或者GPS数据点不足两个、或者路网线层有重叠折点，对于这些错误gotrackit都会输出报错信息然后跳过该次匹配</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="id80">
+<h3>6.5. 启用路径预计算(存储)进行加速<a class="headerlink" href="#id80" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>启用路径预计算(存储)，如果网络较大，则对电脑的内存大小有较高的要求，如果计算过程中内存溢出，请尝试提高初始化Net时的cache_cn、cahce_slice，或者降低cut_off</p>
+</div>
+<p>在地图匹配的过程中, 在以下两个计算过程中开销较大：</p>
+<ul class="simple">
+<li><p>GPS点到邻近候选路段的投影参数</p></li>
+<li><p>候选路段到候选路段之间的最短路径计算开销</p></li>
+</ul>
+<p>然而，这部分的计算，在不同的agents车辆匹配过程中，很多部分都是重复计算项，那么我们能否基于一种预计算的思想，先将所有可能的最短路计算、投影参数计算预先计算出来呢？我们可能仅仅只需要在匹配前稍微多花一点时间来进行预计算，然后将这些预计算的结果存储在磁盘上，以后每次匹配只需要读取指定路径的预计算结果将其加载到内存, 我们即可以O(1)的时间复杂度获得这些最短路结果以及投影参数结果，gotrackit实现了这一过程，以下代码为使用预计算的匹配方式：</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>只要路网发生了任何变化,请重新计算路径缓存</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>计算路径缓存,请确保你的路段线型没有重复点,你可以使用 <a class="reference internal" href="#id38">清洗路网线层数据</a></p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="c1"># 构建net时指定fmm_cache参数为True, 表示在这次构建net对象时进行预计算</span>
+<span class="linenos"> 3</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos"> 4</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="linenos"> 7</span>                 <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+<span class="linenos"> 8</span>                 <span class="n">fmm_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmm_cache_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/&#39;</span><span class="p">,</span> <span class="n">recalc_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 9</span>                 <span class="n">cut_off</span><span class="o">=</span><span class="mf">800.0</span><span class="p">,</span>
+<span class="linenos">10</span>                 <span class="n">cache_slice</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>    <span class="c1"># fmm_cache_fldr用于指定存储预计算结果的文件目录</span>
+<span class="linenos">14</span>    <span class="c1"># cut_off为800m, 表示最短路径搜索过程中, 只计算最短路径距离小于800.0m的路径(考虑到相邻GPS点距离跨度不会太大)</span>
+<span class="linenos">15</span>    <span class="c1"># cache_slice=6, 表示使用将路径结果切分为6部分进行数据标准化(大规模路网防止内存溢出)</span>
+</pre></div>
+</div>
+<p>以上的路网构建的代码执行结束后, 会在r’./data/input/net/test/0402BUG/load/’下生成两个预计算结果文件, 笔者用深圳的路网(9w条link, 8w个节点), 预计算的时间大概为两分钟, 在使用的路网没有任何变化的情况下，下次使用该路网进行匹配可以直接指定预计算结果的路径即可, 此时直接指定recalc_cache=False, 意思为直接从fmm_cache_fldr中读取预计算结果, 不再重复预计算的过程</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="c1"># 构建net时指定fmm_cache参数为True, 表示在这次构建net对象时进行预计算</span>
+<span class="linenos"> 3</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos"> 4</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="linenos"> 7</span>                 <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+<span class="linenos"> 8</span>                 <span class="n">fmm_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmm_cache_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/&#39;</span><span class="p">,</span> <span class="n">recalc_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># recalc_cache=False意思为直接从fmm_cache_fldr中读取预计算结果, 不再重复预计算的过程</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>    <span class="c1"># 此时传入的net就带有预计算的结果, 匹配速度会提升</span>
+<span class="linenos">14</span>    <span class="n">mpm</span> <span class="o">=</span> <span class="n">MapMatch</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">gps_df</span><span class="o">=</span><span class="n">gps_df</span><span class="p">,</span> <span class="n">gps_buffer</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">15</span>           <span class="n">use_sub_net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_heading_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">omitted_l</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+<span class="linenos">16</span>           <span class="n">del_dwell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dwell_l_length</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">dwell_n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">17</span>           <span class="n">export_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">export_geo_res</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_gps_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">18</span>           <span class="n">export_all_agents</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">19</span>           <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample&#39;</span><span class="p">,</span> <span class="n">dense_gps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">20</span>           <span class="n">gps_radius</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="n">match_res</span><span class="p">,</span> <span class="n">may_error_info</span><span class="p">,</span> <span class="n">error_info</span> <span class="o">=</span> <span class="n">mpm</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="linenos">22</span>    <span class="nb">print</span><span class="p">(</span><span class="n">match_res</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>构建Net时预计算相关的参数含义如下：</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>fmm_cache</dt><dd><p>是否启用路径缓存预计算, 默认False</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_cn</dt><dd><p>使用几个核进行路径预计算, 默认2</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>fmm_cache_fldr</dt><dd><p>存储路径预计算结果的文件目录, 默认./</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>recalc_cache</dt><dd><p>是否重新计算路径缓存, 默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cut_off</dt><dd><p>路径搜索截断长度, 米, 默认1200.0m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_name</dt><dd><p>路径预存储的标志名称, 默认cache, 两个缓存文件的名称: {cache_name}_path_cache, {cache_name}_prj</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>cache_slice</dt><dd><p>对缓存进行切片(切为cache_slice份)后转换格式, 进行存储(防止大规模路网导致内存溢出), 默认2 * cache_cn, 如果内存溢出可以增大该值</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id81">
+<h3>6.6. 启用多核进行并行匹配<a class="headerlink" href="#id81" title="Link to this heading"></a></h3>
+<p>若想在多条轨迹上开启并行匹配,请将mpm.execute()替换为mpm.multi_core_execute(core_num=x),当您的agent数目大于50时,多核的效率提升才会较为明显</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. 从gotrackit导入相关模块Net, MapMatch</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">gotrackit.MapMatch</span> <span class="kn">import</span> <span class="n">MapMatch</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># 1.读取GPS数据</span>
+<span class="linenos">11</span>    <span class="c1"># 这是一个有150辆车的GPS数据的文件</span>
+<span class="linenos">12</span>    <span class="n">gps_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps/150_agents.csv&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="nb">print</span><span class="p">(</span><span class="n">gps_df</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>    <span class="c1"># 2.构建一个net, 要求路网线层和路网点层必须是WGS-84, EPSG:4326 地理坐标系</span>
+<span class="linenos">16</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos">17</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="linenos">20</span>                 <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+<span class="linenos">21</span>                 <span class="n">fmm_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmm_cache_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/&#39;</span><span class="p">,</span> <span class="n">recalc_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">22</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>    <span class="c1"># 3. 匹配</span>
+<span class="linenos">25</span>    <span class="n">mpm</span> <span class="o">=</span> <span class="n">MapMatch</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">gps_df</span><span class="o">=</span><span class="n">gps_df</span><span class="p">,</span> <span class="n">gps_buffer</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">26</span>           <span class="n">use_sub_net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_heading_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">27</span>           <span class="n">omitted_l</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">del_dwell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dwell_l_length</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">dwell_n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">28</span>           <span class="n">lower_n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">is_lower_f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">29</span>           <span class="n">is_rolling_average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">30</span>           <span class="n">dense_gps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">31</span>           <span class="n">export_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">export_geo_res</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_gps_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">32</span>           <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">33</span>           <span class="n">gps_radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span>    <span class="n">match_res</span><span class="p">,</span> <span class="n">may_error_info</span><span class="p">,</span> <span class="n">error_info</span> <span class="o">=</span> <span class="n">mpm</span><span class="o">.</span><span class="n">multi_core_execute</span><span class="p">(</span><span class="n">core_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos">36</span>    <span class="nb">print</span><span class="p">(</span><span class="n">match_res</span><span class="p">)</span>
+<span class="linenos">37</span>    <span class="n">match_res</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample/match_res.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>core_num</dt><dd><p>用几个核进行匹配, 默认1</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id82">
+<h3>6.7. 简化路网线型加速匹配<a class="headerlink" href="#id82" title="Link to this heading"></a></h3>
+<p>可以使用如下方法对路网线层的几何进行简化</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. 从gotrackit导入相关模块Net, MapMatch</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">gotrackit.MapMatch</span> <span class="kn">import</span> <span class="n">MapMatch</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos">11</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="c1"># 适当简化线型，simplify(x)中的x单位为m，该接口会使用道格拉斯-普克算法对线型进行简化，该值如选取的过大会导致所有link都退化为直线</span>
+<span class="linenos">15</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;你选定的平面投影坐标系&#39;</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="n">link</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="linenos">19</span>                 <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">20</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>    <span class="c1"># 匹配</span>
+<span class="linenos">23</span>    <span class="n">mpm</span> <span class="o">=</span> <span class="n">MapMatch</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">gps_df</span><span class="o">=</span><span class="n">gps_df</span><span class="p">,</span> <span class="n">gps_buffer</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">24</span>           <span class="n">use_sub_net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_heading_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">25</span>           <span class="n">omitted_l</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">del_dwell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dwell_l_length</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">dwell_n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">26</span>           <span class="n">lower_n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">is_lower_f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">27</span>           <span class="n">is_rolling_average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">28</span>           <span class="n">dense_gps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">29</span>           <span class="n">export_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">export_geo_res</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_gps_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">30</span>           <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample&#39;</span><span class="p">,</span>
+<span class="linenos">31</span>           <span class="n">gps_radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>    <span class="n">match_res</span><span class="p">,</span> <span class="n">may_error_info</span><span class="p">,</span> <span class="n">error_info</span> <span class="o">=</span> <span class="n">mpm</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="linenos">34</span>    <span class="nb">print</span><span class="p">(</span><span class="n">match_res</span><span class="p">)</span>
+<span class="linenos">35</span>    <span class="n">match_res</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/xa_sample/match_res.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id83">
+<h3>6.8. 利用分层索引加速空间关联效率<a class="headerlink" href="#id83" title="Link to this heading"></a></h3>
+<p>适用于超大规模网络下的长轨迹匹配，可以减少子网络的空间关联时间开销，初始化Net时指定is_hierarchical为True即可开启空间分层索引</p>
+</section>
+<section id="id84">
+<h3>6.9. 使用网格参数确定合理的匹配参数<a class="headerlink" href="#id84" title="Link to this heading"></a></h3>
+<p>本包支持对地图匹配接口中的下面四个参数执行网格搜索：</p>
+<p>beta、gps_sigma、omitted_l、use_heading_inf</p>
+<p>即：遍历这四个参数可能的组合，直到匹配结果没有警告，如果所有的参数组合都有警告，那么将输出最后一次参数组合的匹配结果，匹配结果还将返回参数组合对应的匹配警告数量</p>
+<p>使用网格参数搜索，你只需要构建一个网格参数类，并且指定各参数的取值列表即可</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. 从gotrackit导入相关模块Net, MapMatch</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">gotrackit.MapMatch</span> <span class="kn">import</span> <span class="n">MapMatch</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="n">gps_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/gps/dense_example/test999.geojson&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span>    <span class="c1"># 请留意shp文件的编码，可以显示指定encoding，确保字段没有乱码</span>
+<span class="linenos">13</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span> <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">fmm_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">16</span>             <span class="n">recalc_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fmm_cache_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian&#39;</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="c1"># 3. 新建一个网格参数对象</span>
+<span class="linenos">21</span>    <span class="c1"># 指定参数的取值范围列表</span>
+<span class="linenos">22</span>    <span class="c1"># 可指定四个参数列表</span>
+<span class="linenos">23</span>    <span class="c1"># beta_list: list[float] = None，gps_sigma_list: list[float] = None</span>
+<span class="linenos">24</span>    <span class="c1"># use_heading_inf_list: list[bool] = None，omitted_l_list: list[float] = None</span>
+<span class="linenos">25</span>    <span class="n">pgd</span> <span class="o">=</span> <span class="n">ParaGrid</span><span class="p">(</span><span class="n">use_heading_inf_list</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="n">beta_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">gps_sigma_list</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span>    <span class="c1"># 4. 匹配</span>
+<span class="linenos">28</span>    <span class="c1"># 传入网格参数：use_para_grid=True, para_grid=pgd</span>
+<span class="linenos">29</span>     <span class="n">mpm</span> <span class="o">=</span> <span class="n">MapMatch</span><span class="p">(</span><span class="n">net</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span> <span class="n">gps_df</span><span class="o">=</span><span class="n">gps_df</span><span class="p">,</span> <span class="n">is_rolling_average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">flag_name</span><span class="o">=</span><span class="s1">&#39;dense_example&#39;</span><span class="p">,</span>
+<span class="linenos">30</span>               <span class="n">export_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">export_geo_res</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">31</span>               <span class="n">gps_buffer</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+<span class="linenos">32</span>               <span class="n">out_fldr</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/dense_example&#39;</span><span class="p">,</span>
+<span class="linenos">33</span>               <span class="n">dense_gps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">34</span>               <span class="n">use_sub_net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dense_interval</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">use_gps_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_heading_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">35</span>               <span class="n">gps_radius</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">use_para_grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">para_grid</span><span class="o">=</span><span class="n">pgd</span><span class="p">)</span>
+<span class="linenos">36</span>    <span class="n">res</span><span class="p">,</span> <span class="n">warn_info</span><span class="p">,</span> <span class="n">error_info</span> <span class="o">=</span> <span class="n">mpm</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="linenos">37</span>    <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="linenos">38</span>    <span class="nb">print</span><span class="p">(</span><span class="n">warn_info</span><span class="p">)</span>
+<span class="linenos">39</span>    <span class="nb">print</span><span class="p">(</span><span class="n">error_info</span><span class="p">)</span>
+<span class="linenos">40</span>    <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pgd</span><span class="o">.</span><span class="n">search_res</span><span class="p">))</span>
+<span class="linenos">41</span>    <span class="n">res</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/match_visualization/dense_example/match_res.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8_sig&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span>    <span class="c1"># 可以查看不同的参数组合下，匹配过程中的警告数量</span>
+<span class="linenos">44</span>    <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pgd</span><span class="o">.</span><span class="n">search_res</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>使用参数网格进行匹配，系统会自动组合参数，并且输出不同参数组合下的警告数：</p>
+<img alt="_images/para_grid.jpg" class="align-center" src="_images/para_grid.jpg" />
+</section>
+<hr class="docutils" />
+<section id="id85">
+<h3>6.10. 匹配结果可视化<a class="headerlink" href="#id85" title="Link to this heading"></a></h3>
+<section id="html">
+<h4>6.10.1 HTML动画可视化<a class="headerlink" href="#html" title="Link to this heading"></a></h4>
+<p>地图匹配接口中的参数export_html控制是否输出HTML动画(较为耗时)</p>
+<p>HTML可视化需要连接网络(中国境内可能需要科学上网)，使用浏览器打开生成的html文件，按照下图点开时间轴播放器</p>
+<img alt="_images/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%93%8D%E4%BD%9C.gif" class="align-center" src="_images/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%93%8D%E4%BD%9C.gif" />
+<hr class="docutils" />
+<img alt="_images/show.png" class="align-center" src="_images/show.png" />
+<hr class="docutils" />
+<p>html可视化文件是我们对匹配结果进行排查的重要文件，它可以清晰的展示匹配过程：</p>
+<blockquote>
+<div><p><a class="reference external" href="https://www.bilibili.com/video/BV1qK421Y7hV">gotrackit地图匹配包参数详解与问题排查</a></p>
+</div></blockquote>
+</section>
+<section id="geojson">
+<h4>6.10.2 geojson矢量文件可视化<a class="headerlink" href="#geojson" title="Link to this heading"></a></h4>
+<p>地图匹配接口中的参数export_geo_res控制是否输出匹配结果geojson矢量图层(较为耗时)，一个agent的匹配矢量结果由四个文件组成：</p>
+<p>{flag_name}-{agent_id}-gps.geojson：gps点矢量图层</p>
+<p>{flag_name}-{agent_id}-match_link.geojson：匹配link矢量图层</p>
+<p>{flag_name}-{agent_id}-prj_l.geojson：投影线矢量图层</p>
+<p>{flag_name}-{agent_id}-prj_p.geojson：路段匹配点矢量图层</p>
+<p>{flag_name}-{agent_id}-heading_vec.geojson：路段匹配点航向向量</p>
+<p>可使用GIS软件可视化，如QGIS</p>
+</section>
+</section>
+<section id="id87">
+<h3>6.11. 匹配结果不正确的调参方法<a class="headerlink" href="#id87" title="Link to this heading"></a></h3>
+<section id="id88">
+<h4>6.11.1. 程序提示-预处理后GPS点不足两个,无法匹配<a class="headerlink" href="#id88" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>可能停留点识别参数不合理</dt><dd><p>可能你的GPS数据是高频定位数据, 相邻点的间距小于dwell_l_length, 此时恰好你开了停留点识别功能, 所有的GPS数据被当作停留点删除了, 你需要关掉停留点识别的开关, 再打开数据降频, 宏观路网匹配不需要这么高频的GPS定位</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是gps_buffer设置的太小</dt><dd><p>大部分GPS数据在gps_buffer内没有关联到任何路网, 那么这部分GPS数据会被删除</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是源数据问题</dt><dd><p>可能是此辆车的GPS数据点本身就不足两个</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id89">
+<h4>6.11.2. 在html可视化结果中看到匹配路径不连续<a class="headerlink" href="#id89" title="Link to this heading"></a></h4>
+<ul>
+<li><dl>
+<dt>可能是gps_buffer和top_k的值小了(70%的错误可能是这个原因)</dt><dd><p>每个GPS点依据指定的gps_buffer建立圆形缓冲区，缓冲区内关联到的路段为该GPS点的初步候选路段，然后依据top_k参数，从初步候选路段中选取离该GPS点最近的top_k个路段作为最终候选路段，
+如果GPS本身定位误差较大，且这两个值设定的比较小，可能会导致正确的路段没有被选为最终候选路段, 从而导致匹配路径不连续</p>
+<p>如果启用了增密参数，一般来讲，最好要增大gps_buffer和top_k的值</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是源轨迹点较为稀疏(相邻GPS点间距大于1000m), 但是没有启用轨迹点自动增密</dt><dd><p>增密轨迹点: dense_gps指定为True；dense_interval 推荐100 ~ 500，表示相邻GPS点的距离只要超过dense_interval，就会在这两个点之间进行增密</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是cut_off选小了</dt><dd><p>cut_off是路径搜索截断值, 默认1200m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是路网本身不连通</dt><dd><p>检查在路径断开的位置, 路网是否联通</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是GPS数据的时间列问题</dt><dd><p>可能是你的GPS数据定位时间精度不够，如前后两个点的定位时间都是2023-11-12 17:30，或者都是2023-11-12 17:30:55，本包在构建GPS对象时，会按照时间列排序，相同的定位时间可能导致两个点的实际前后顺序颠倒，从而影响匹配，所以确保你的GPS数据的定位时间没有相同值</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是停留点识别参数设置不合理</dt><dd><p>导致一些正常定位点被识别为停留点，然后被删除了</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>可能是gps_sigma、beta设定不合理</dt><dd><p>我们将GPS点到候选路段的距离称为prj_dis</p>
+<p>beta表征的是对匹配路径不连续的惩罚力度，这个值越大，惩罚力度越小， 在GPS数据误差较大时，有可能出现路径不连续的情况，此时可以调小beta，增加对不连续情况的惩罚，调大gps_sigma(gps_sigma表征的是对prj_dis的惩罚，gps_sigma值越小，对prj_dis的惩罚力度越大)，弱化GPS点定位误差的影响</p>
+<p><strong>调小beta, 调大gps_sigma</strong>：直观意义在于更加看重路径的连续性，可以容忍较大的prj_dis(即较大的定位误差)</p>
+<p><strong>调大beta, 调小gps_sigma</strong>：直观意义在于算法倾向于选择prj_dis小的路段作为匹配结果，而不看重匹配结果的路径连续性，当gps_sigma趋近于0，beta趋近于无穷大时，匹配算法就退化为最近邻匹配</p>
+<p>注意：gps_sigma、beta的大小是相对的，一般情况默认的gps_sigma、beta是合理的</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是初始化net时的not_conn_cost值小了</dt><dd><p>这个表征的是对于路径不连续的惩罚力度, 值越大, 惩罚力度越大, 越不可能转移到不连续的路段上</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>路径缓存未更新</dt><dd><p>启用了路径缓存，在路网结构变化后，没有重新计算路径缓存，实际使用的是旧版路网的缓存</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>可能是没有开启方向限制</dt><dd><p>没开using_heading_inf, 或者heading_para_array设置不合理</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>开了方向限制但是没有选择合理的停留点删除参数以及降频参数</dt><dd><p>开了using_heading_inf, 但是差分航向角的计算在路口受到了停留点的影响导致差分航向角计算失真</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>如果您仍然无法解决问题，请进群交流：</p>
+<img alt="_images/wxq.jpg" class="align-center" src="_images/wxq.jpg" />
+</section>
+<hr class="docutils" />
+<section id="id90">
+<h4>6.11.3. 确定合理参数的思路<a class="headerlink" href="#id90" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>首先，我们要对GPS数据的质量有一定的认识，通过使用GIS软件将GPS点打在地图上，同时叠加路网，此时可以利用距离测量工具大概得到GPS点到路段的距离，那么你的gps_buffer参数的选取就可以参考这个距离，如果绝大多数GPS点到匹配路段的距离都是x米左右，那么gps_buffer一定要大于x，偏向于保守的估计，我们可以取 x + 100为gps_buffer</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>top_k参数含义为：选取GPS定位点圆形(半径为gps_buffer)范围内最近的top_k个路段作为候选路段，默认20，在gps_buffer很大的情况下，继续增加gps_buffer的值意义不大，因为你的gps_buffer再大，最近的top_k个路段也不会发生改变</p></li>
+<li><dl class="simple">
+<dt>对于top_k，特别注意：</dt><dd><p>对于dir为0的路段，实际会被拆分为两条拓扑相反的路段，如果某GPS的buffer范围内关联到了20条双向路段，top_k至少为40才能将这20条双向路段选为最终候选</p>
+</dd>
+</dl>
+</li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>最短路搜索截断半径cut_off：这个值的选取也和GPS数据形态有关，默认1200m，如果你的GPS本身就是低频的数据，相邻GPS点的直线距离超过了1200米，那么建议cut_off也要调大一些。尤其是在对GPS数据做了降频的情况下，相邻GPS点的距离变的更大了</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>gps_sigma和beta可以使用网格参数进行搜索确定一组合适的参数值</p></li>
+</ul>
+</section>
+</section>
+<section id="id91">
+<h3>6.12. 关于匹配速度<a class="headerlink" href="#id91" title="Link to this heading"></a></h3>
+<p>关于匹配速度，影响匹配速度的参数有：</p>
+<ol class="arabic simple">
+<li><p>MapMatch接口参数：gps_buffer，top_k，use_sub_net，gps点的数量(GPS预处理参数也会影响点数：增密、降频)</p></li>
+<li><p>Net初始化接口：is_hierarchical、cut_off</p></li>
+</ol>
+<p>（1）如何看匹配速度？如果启用了子网络（use_sub），匹配的时间就是__generate_st  + create_computational_net 两个函数所花的时间，控制台会输出，如果没有启用子网络，那就是__generate_st所花的时间</p>
+<p>（2）路网初始化可能花费的时间会长一点，但是这个计算是一次性的，初始化完后，它可以提供给之后的每一次匹配去使用，不需要重复初始化，因为传入MapMatch的gps_df里面可以包含多个agent，每个agent匹配都是基于已经初始化好的路网</p>
+<p>（3）可视化输出的时间如HTML输出、geojson输出，花费的时间可能比匹配过程还要长，控制台输出的export_visualization costs 指的就是可视化文件的计算以及存储的耗时，如果经过一些测试，你得到了较好的参数组合，已经不需要去输出可视化文件来排错，那么你可以关掉可视化的输出</p>
+<p>（4）use_sub=True还是False，如何选择？如果是大网络，建议开启为True；大规模路网、长轨迹的情况下开启is_hierarchical为True，可以减少计算子路网的时间</p>
+<p>（5）gps_buffer和top_k直接影响到候选路段的数量，候选路段数量越多，计算越耗时，gps_buffer决定的是你的初始搜索范围，top_k决定的是搜索范围内的前top_k个路段会进入最终匹配计算，如果在当前gps_buffer的搜索范围内，初始候选路段数量已经超过了top_k，那么继续增大gps_buffer意义不大</p>
+<p>（6）gps点的数量和间距：如果你100个点花费的时间很长，有可能是因为你的GPS点是非常稀疏的点，比如说平均相邻间隔超过了3km，由于在相邻间隔大于100米时，匹配接口是会默认增密的，那么实际的GPS点数会增加，所以匹配速度会增加，当然你可以通过调节增密临界值dense_interval来控制增密的程度</p>
+<p>（7）cut_off，是路径搜索截断长度，如果你的GPS点很密，这个值可以降低一些，匹配速度会快一些，如果你的点很稀疏，且没有开启增密，那么这个值就要调大一些，不然有些路径搜索不出来</p>
+<p>（8）某种程度来说：GPS数据的定位误差也直接影响速度，因为由于高定位误差，迫使你不得不启用大范围gps_buffer和较大的top_k，因为正确的路段离GPS点太远了，那些离GPS点近的路段都不是正确的匹配路段</p>
+<p>相关类的参数和方法可参见：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="%E7%B1%BB%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB.html"><span class="doc">🔎类方法汇总</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="id92">
+<h2>7. 一些地信处理小工具<a class="headerlink" href="#id92" title="Link to this heading"></a></h2>
+<section id="id93">
+<h3>7.1.  切分栅格<a class="headerlink" href="#id93" title="Link to this heading"></a></h3>
+<p>传入一个geometry列是Polygon类型的面域GeoDataFrame，该函数可以帮助你切分栅格</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># 1. 从gotrackit导入栅格切分函数</span>
+<span class="linenos">2</span><span class="kn">from</span> <span class="nn">gotrackit.tools.grid</span> <span class="kn">import</span> <span class="n">get_grid_data</span>
+<span class="linenos">3</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">6</span>    <span class="n">region_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;region.shp&#39;</span><span class="p">)</span>
+<span class="linenos">7</span>    <span class="n">grid_gdf</span> <span class="o">=</span> <span class="n">get_grid_data</span><span class="p">(</span><span class="n">polygon_gdf</span><span class="o">=</span><span class="n">region_gdf</span><span class="p">,</span> <span class="n">meter_step</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">is_geo_coord</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">generate_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">8</span>    <span class="n">grid_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;grid.shp&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;gbk&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>函数参数解释：</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>polygon_gdf</dt><dd><p>gdf.GeoDataFrame, 面域数据</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>meter_step</dt><dd><p>float, 栅格边长区域大小, m</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>is_geo_coord</dt><dd><p>传入的面域文件是否是经纬度坐标，默认True</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>generate_index</dt><dd><p>是否输出栅格矩阵索引，默认True</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>栅格化前如下图：</p>
+<img alt="_images/before_grid.png" class="align-center" src="_images/before_grid.png" />
+<hr class="docutils" />
+<p>栅格化后如下图：</p>
+<img alt="_images/after_grid.png" class="align-center" src="_images/after_grid.png" />
+</section>
+<hr class="docutils" />
+<section id="id94">
+<h3>7.2.  坐标转换<a class="headerlink" href="#id94" title="Link to this heading"></a></h3>
+<p>提供了 GCJ-02、wgs84、百度 坐标系之间的相互转换接口</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">gotrackit.tools.coord_trans</span> <span class="kn">import</span> <span class="n">LngLatTransfer</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 5</span>    <span class="c1"># 新建转换类</span>
+<span class="linenos"> 6</span>    <span class="n">trans</span> <span class="o">=</span> <span class="n">LngLatTransfer</span><span class="p">()</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 1. 单个坐标点转换</span>
+<span class="linenos"> 9</span>    <span class="c1"># con_type含义: gc-84: GCJ-02向WGS84转换, 84-bd: WGS84向百度转换, 其他同理...</span>
+<span class="linenos">10</span>    <span class="n">trans_x</span><span class="p">,</span> <span class="n">trans_y</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">loc_convert</span><span class="p">(</span><span class="n">lng</span><span class="o">=</span><span class="mf">114.361</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">22.362</span><span class="p">,</span> <span class="n">con_type</span><span class="o">=</span><span class="s1">&#39;gc-84&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span>    <span class="c1"># 2.几何对象转换</span>
+<span class="linenos">13</span>    <span class="c1"># 支持shapely的点、线、面对象转换</span>
+<span class="linenos">14</span>    <span class="n">trans_line</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">obj_convert</span><span class="p">(</span><span class="n">geo_obj</span><span class="o">=</span><span class="n">LineString</span><span class="p">([(</span><span class="mf">114.325</span><span class="p">,</span> <span class="mf">22.36</span><span class="p">),</span> <span class="p">(</span><span class="mf">114.66</span><span class="p">,</span> <span class="mf">22.365</span><span class="p">),</span> <span class="p">(</span><span class="mf">114.321</span><span class="p">,</span> <span class="mf">22.452</span><span class="p">)]),</span>
+<span class="linenos">15</span>                                   <span class="n">con_type</span><span class="o">=</span><span class="s1">&#39;gc-84&#39;</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="nb">print</span><span class="p">(</span><span class="n">trans_line</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>    <span class="c1"># 3. 如果想直接转换读取进来的GeoDataFrame</span>
+<span class="linenos">19</span>    <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">trans</span><span class="o">.</span><span class="n">obj_convert</span><span class="p">(</span><span class="n">geo_obj</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">con_type</span><span class="o">=</span><span class="s1">&#39;gc-84&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="id95">
+<h3>7.3.  直线转弧线<a class="headerlink" href="#id95" title="Link to this heading"></a></h3>
+<p>预计v0.3.8更新</p>
+</section>
+<section id="id96">
+<h3>7.4.  地理配准<a class="headerlink" href="#id96" title="Link to this heading"></a></h3>
+<p>预计v0.3.8更新</p>
+</section>
+</section>
+<section id="id97">
+<h2>8. 常见报错以及解决方案<a class="headerlink" href="#id97" title="Link to this heading"></a></h2>
+<section id="id98">
+<h3>8.1. 构建net对象错误报坐标系不匹配<a class="headerlink" href="#id98" title="Link to this heading"></a></h3>
+<img alt="_images/bug_no_crs_error.png" class="align-center" src="_images/bug_no_crs_error.png" />
+<hr class="docutils" />
+<p>解决方案：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. 从gotrackit导入相关模块Net, MapMatch</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">gotrackit.map.Net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">gotrackit.MapMatch</span> <span class="kn">import</span> <span class="n">MapMatch</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 8</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_link.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/input/net/xian/modifiedConn_node.shp&#39;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="c1"># 如果还报错, 再加下面这个</span>
+<span class="linenos">15</span>    <span class="c1"># link.crs.srs = &#39;EPSG:4326&#39;</span>
+<span class="linenos">16</span>    <span class="c1"># node.crs.srs = &#39;EPSG:4326&#39;</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>    <span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">link_gdf</span><span class="o">=</span><span class="n">link</span><span class="p">,</span> <span class="n">node_gdf</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">my_net</span><span class="o">.</span><span class="n">init_net</span><span class="p">()</span>  <span class="c1"># net初始化</span>
+</pre></div>
+</div>
+</section>
+<section id="jupyternetplanar-crs">
+<h3>8.2. 使用jupyter报net对象无planar_crs属性<a class="headerlink" href="#jupyternetplanar-crs" title="Link to this heading"></a></h3>
+<img alt="_images/bug_no_planar_crs.png" class="align-center" src="_images/bug_no_planar_crs.png" />
+<hr class="docutils" />
+<p>解决方案：使用pycharm</p>
+</section>
+<section id="pyogrio-errors-fielderror">
+<h3>8.3. pyogrio.errors.FieldError<a class="headerlink" href="#pyogrio-errors-fielderror" title="Link to this heading"></a></h3>
+<p>fiona版本或者GDAL版本不兼容</p>
+<img alt="_images/fiona_bug.png" class="align-center" src="_images/fiona_bug.png" />
+<hr class="docutils" />
+<p>解决方案：相关地理信息库推荐以下版本：</p>
+<p>gdal(3.8.4)、shapely(2.0.3)、fiona(1.9.5)、pyproj(3.6.1)、geopandas(0.14.3)、keplergl(0.3.2)</p>
+</section>
+<section id="shapely">
+<h3>8.4.  shapely库警告<a class="headerlink" href="#shapely" title="Link to this heading"></a></h3>
+<p>出现警告信息：RuntimeWarning:invalid value encountered in line locate pointreturn lib.line locate point(line, other)</p>
+<p>该警告会影响匹配结果，出现该警告的原因是因为你的路网线层的几何中有重复点</p>
+<img alt="_images/dup_points_warning.png" class="align-center" src="_images/dup_points_warning.png" />
+<hr class="docutils" />
+<p>解决方案-示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>    <span class="c1"># 方案1：去除重复点后再构建Net</span>
+<span class="linenos"> 4</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/0304/道路双线20230131_84.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">link_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">link_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">remove_repeated_points</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 方案2：使用清洗接口后再构建Net</span>
+<span class="linenos"> 9</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/0304/道路双线20230131_84.shp&#39;</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">clean_link_geo</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">link_gdf</span><span class="p">,</span> <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32649&#39;</span><span class="p">,</span> <span class="n">l_threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="invalid-projection-epsg-nan">
+<h3>8.5.  Invalid projection: EPSG:nan<a class="headerlink" href="#invalid-projection-epsg-nan" title="Link to this heading"></a></h3>
+<p>境外路网构建失败，是BUG，更新gotrackit到最新版本即可解决</p>
+<img alt="_images/crs_error.png" class="align-center" src="_images/crs_error.png" />
+</section>
+<hr class="docutils" />
+<section id="id99">
+<h3>8.6.  输出的路网文件字段中：中文变为乱码<a class="headerlink" href="#id99" title="Link to this heading"></a></h3>
+<p>gotrackit存储路网文件时，默认编码为gbk，你需要检查你的原始路网文件的编码是否为gbk</p>
+</section>
+<hr class="docutils" />
+<section id="html-object-of-type-bytes-is-not-json-serializable">
+<h3>8.7.  输出HTML失败： Object of type bytes is not JSON serializable<a class="headerlink" href="#html-object-of-type-bytes-is-not-json-serializable" title="Link to this heading"></a></h3>
+<p>可能是路网文件编码问题，比如下图的错误原因是：gpd.read_file()读取路网时没有指定合适的编码，导致road_name列是bytes类型，但是gotrackit在输出HTML时会默认将用户路网的所有字段进行输出，所以导致了输出失败</p>
+<img alt="_images/json_serializable.png" class="align-center" src="_images/json_serializable.png" />
+<hr class="docutils" />
+<p>解决方案：读取shp文件时指定正确的编码 或者 删除有编码问题的字段再构建Net</p>
+<p>gotrackit：v0.3.1会对输出HTML的路网字段进行限制，只输出关键拓扑字段</p>
+</section>
+<section id="valueerror-cannot-convert-float-nan-to-integer">
+<h3>8.8.  计算发射矩阵出错:ValueError(cannot convert float NaN to integer )<a class="headerlink" href="#valueerror-cannot-convert-float-nan-to-integer" title="Link to this heading"></a></h3>
+<p>这个错误是因为路网线层中线型有重叠折点</p>
+<img alt="_images/dup_zd_error.png" class="align-center" src="_images/dup_zd_error.png" />
+<hr class="docutils" />
+<p>解决方案-示例代码如下：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>    <span class="c1"># 方案1：去除重复点后再构建Net</span>
+<span class="linenos"> 4</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/0304/道路双线20230131_84.shp&#39;</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">link_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">link_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">remove_repeated_points</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># 方案2：使用清洗接口后再构建Net</span>
+<span class="linenos"> 9</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./data/output/request/0304/道路双线20230131_84.shp&#39;</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="n">link_gdf</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">NetReverse</span><span class="o">.</span><span class="n">clean_link_geo</span><span class="p">(</span><span class="n">gdf</span><span class="o">=</span><span class="n">link_gdf</span><span class="p">,</span> <span class="n">plain_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:32649&#39;</span><span class="p">,</span> <span class="n">l_threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="valueerror-cannot-insert-node-id-already-exists">
+<h3>8.9. 路网获取报错/地图匹配报错:ValueError: cannot insert node_id, already exists<a class="headerlink" href="#valueerror-cannot-insert-node-id-already-exists" title="Link to this heading"></a></h3>
+<p>这个错误是因为geopandas版本为最新1.0.0引起的，最新版本参数有了较大变动，gotrackitv0.3.5目前还没有针对1.0.0做更新</p>
+<img alt="_images/0630BUG.png" class="align-center" src="_images/0630BUG.png" />
+<hr class="docutils" />
+<p>解决方案： 不要使用最新版的geopandas，降级到0.14.3</p>
+</section>
+<section id="html-one-of-the-arguments-is-of-incorrect-type">
+<h3>8.10. 输出HTML失败：One of the arguments is of incorrect type<a class="headerlink" href="#html-one-of-the-arguments-is-of-incorrect-type" title="Link to this heading"></a></h3>
+<img alt="_images/html_error.jpg" class="align-center" src="_images/html_error.jpg" />
+<hr class="docutils" />
+<p>已经定位到问题，目前正在测试阶段，预计0.3.7修复</p>
+</section>
+<section id="futurewarning">
+<h3>8.11. FutureWarning<a class="headerlink" href="#futurewarning" title="Link to this heading"></a></h3>
+<p>这个是警告，pandas提醒用户某个方法在未来会被舍弃，对匹配没有影响，如果不想看到该警告，可以在主程序加上以下代码：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">4</span>    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;future.no_silent_downcasting&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>该警告会在0.3.6版本中通过优化代码来消除</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%E7%AE%80%E4%BB%8B.html" class="btn btn-neutral float-left" title="💡简介" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E5%9C%B0%E5%9B%BE%E5%8C%B9%E9%85%8D%E6%B5%81%E7%A8%8B.html" class="btn btn-neutral float-right" title="🐧 地图匹配流程" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kai Tang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
