@@ -2,16 +2,16 @@
 ===================================
 
 
-1. 安装gotrackit
---------------------
+1. install gotrackit
+--------------------------
 
-1.1. 前置依赖库
-```````````````````````
-安装前确保python环境中有以下前置依赖库，括号中为作者使用版本(基于python3.11)，仅供参考
+1.1. pre-dependency library
+``````````````````````````````````````
+Before installation, make sure that the following pre-dependency libraries are available in the Python environment.The version in brackets is the version used by the author (based on Python 3.11). It is for reference only.
 
 * geopy(2.4.1)
 
-* gdal(3.4.3 或者 3.8.4)
+* gdal(3.4.3 or 3.8.4)
 
 * shapely(2.0.3)
 
@@ -30,14 +30,9 @@
 * keplergl(0.3.2)
 
 
-.. note::
+It is recommended to use Anaconda to install the above dependencies, using Python 3.11 version
 
-   截至gotrackit v0.3.5版本，暂不支持geopandas最新的v1.0.0版本，请使用geopandas v0.14.3版本
-
-
-安装上述依赖推荐使用Anaconda，使用python3.11版本
-
-GDAL若安装失败，推荐直接安装whl文件，下载地址：https://github.com/cgohlke/geospatial-wheels/releases
+If the GDAL installation fails, it is recommended to install the whl file directly，download link for GDAL：https://github.com/cgohlke/geospatial-wheels/releases
 
 .. image:: _static/images/gdal_wheel.png
     :align: center
@@ -45,180 +40,73 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 --------------------------------------------------------------------------------
 
 
-1.2. 安装gotrackit
-```````````````````````
-使用pip安装 ::
+1.2. install gotrackit
+```````````````````````````````````
+using pip ::
 
     pip install -i https://pypi.org/simple/ gotrackit
 
 
-已经安装，可以升级已有版本 ::
+already installed, you can upgrade the existing version ::
 
     pip install --upgrade  -i https://pypi.org/simple/ gotrackit
 
 
-
-2. 算法包概览
+2. overview
 --------------------
 
-2.1. 模块概览
-````````````````
+2.1. module overview
+`````````````````````````
 
-包括了五个模块：`路网生产`_ 、`GPS数据生产`_ 、`GPS数据行程切分`_ 、`地图匹配`_ 以及 `匹配过程可视化`_ 。
+It includes five modules：
+
+* `Road Network Optimization`_
+
+* `GPS Data Production`_
+
+* `Trip Segmentation`_
+
+* `Map Match`_ and `Matching Visualization`_
 
 
 
-.. _路网生产:
+.. _Road Network Optimization:
 
-2.1.1. 路网生产
+2.1.1. Road Network Optimization
+:::::::::::::::::::::::::::::::::::
+
+For specific code practice, see `Road Network Optimization Sample Code`_
+
+
+.. _GPS data production:
+
+2.1.2. GPS data production
+:::::::::::::::::::::::::::::::::::
+
+This module relies on road network files to simulate vehicle driving and generate GPS data. When users do not have actual GPS data, they can use this module to generate GPS data.
+
+For specific code practice, see `GPS Data Production Sample Code`_ 。
+
+.. _Trip Segmentation:
+
+2.1.3. Trip Segmentation
 ::::::::::::::::::::::::::
 
-.. note::
+* Example of a main trip
+    A car goes from home to the company, parks in the garage, and after turning off the engine, the car no longer generates GPS data. After getting off work, it starts again and generates GPS data again. If the time difference between the last positioning point when arriving at the company in the morning and the first positioning point when the car is started after getting off work exceeds group_gap_threshold, the main trip is split here
 
-   该路网获取方式利用的是高德开放平台的官方API - 路径规划接口，不涉及爬虫抓包！
+* Example of a sub-trip
+    A car goes from home to the company. Before arriving at the company, it refuels at a gas station. GPS points continue to be generated, but the positioning points are concentrated near the gas station, resulting in a stop. Then the trip from home to the gas station is a sub-trip.
 
-
-.. note::
-
-   任何非官方采购形式的路网获取方法都不可能获得完整的路网数据！
-
-
-.. note::
-
-   依据本开源包的开源协议：通过该方式获取的路网数据严禁用于商业行为，仅限于教育以及科学研究课题，如有商用需求请联系高德客服进行路网采购，感谢高德开放平台的免费接口！
-
-.. note::
-
-   本开源包获取路网的原理，和OSM之类的平台获取路网的原理，是不一样的：
-
-   1.osm是库里已有路网，用户框选获取属于查询获取；
-
-   2.gotrackit是基于路径规划API接口返回的路径进行分析计算，从而获取路网。所以OD构造的精度和数量直接决定了路网的完整度！请留意构造OD的方式和OD数量。
-
-路网生产工具用于帮助用户获取路网数据，以及对路网数据进行各种检查与优化，你只需寥寥几行代码便可以获得路网数据。
-
-路网生产的主要流程为：依据研究区域范围构造OD --> 基于OD请求路径规划 --> 基于路径规划结果执行空间优化实现路网逆向
-
-.. image:: _static/images/netreverse_tech_way.png
-    :align: center
-
---------------------------------------------------------------------------------
-
-本开源包将相关的方法都封装为了标准函数接口，您只用提供一个key便可以进行中国境内任意区域路网的获取。
+For specific code practice, see `行程切分代码示例`_
 
 
-* 构造OD
-    提供基于任意形状区域随机构造OD的方法；
+.. _Map Match:
 
-    提供基于地块构造形心出行OD的方法；
-
-    提供基于GPS数据精准构造带途径点OD的方法；
-
-    支持自定义构造OD。
-
-.. _od_type:
-
-.. image:: _static/images/od_gen.png
-    :align: center
-
---------------------------------------------------------------------------------
-
-三张图分别对应od_type参数为rand_od、region_od、gps_based
-
-构造OD非常重要，因为OD构造的越精准，路径规划所覆盖的道路路段就越全面，我们得到的路网覆盖率就越高。
-
-.. _OD表要求:
-
-如果您需要使用自定义OD，请提供以下字段要求的OD表：
-
-.. csv-table:: OD表字段说明
-    :header: "字段名称", "字段类型", "字段说明"
-    :widths: 15, 5, 40
-
-    "od_id","int","OD唯一编码，不允许为空"
-    "o_x","float","起点经度，不允许为空，GCJ-02坐标系"
-    "o_y","float","起点纬度，不允许为空，GCJ-02坐标系"
-    "d_x","float","终点经度，不允许为空，GCJ-02坐标系"
-    "d_y","float","终点纬度，不允许为空，GCJ-02坐标系"
-    "hh","int","请求时段(0~23)，如果对每个OD有具体的请求时段限制，请确保有该列，且将ignore_hh置为False，不允许有空值；如果没有时段限制, 该列可以不提供"
-    "way_points","string","途径点坐标串，最多支持10个途径点，允许为空值"
-
-样例OD数据如下：
-
-.. csv-table:: OD样例数据
-    :header: "od_id", "o_x", "o_y", "d_x", "d_y", "way_points"
-    :widths: 3, 5, 5, 5, 5, 10
-
-    "1","120.73054930354505","31.672649340942495","120.73338512634608","31.667515168299673","120.73176445980103,31.6705214428833"
-    "2","120.73050669059927","31.666431974714015","120.74717247617396","31.669917988588765","120.73119124695165,31.666929583950083;120.7380010705855,31.66916745090122"
-    "3", "120.74229535581601","31.660716341555","120.74250979515529","31.652820575113125",""
-
---------------------------------------------------------------------------------
-
-
-* 路径规划请求
-    您只需要申请一个 `开发者key <https://lbs.amap.com>`_ ；
-
-    支持自由请求、按照时段请求。
-
-
-* 空间优化
-    路径拆分：基于路径拓扑点拆分最小路段；
-
-    拓扑关联：生产点层，添加拓扑关系；
-
-    路段拓扑优化：以一定的限制规则将路段进行合并，支持属性限制、累计长度限制、最大转角限制、环检测；
-
-    重叠路段识别：部分路径距离非常近，但是却没有完全重合，本包可以进行识别与优化；
-
-    联通性校准：识别路网中潜在的不连通节点并进行处理.
-
-
-空间优化的相关类参数可见：:doc:`ClassMethod`
-
-
-空间优化的具体内容可以查看我的这篇博客：`从路径规划接口逆向路网的一种方法 <https://juejin.cn/post/7268187099526152247>`_
-
-
-具体的代码实操见 `路网生产代码示例`_
-
-
-.. _GPS数据生产:
-
-2.1.2. GPS数据生产
+2.1.4. Map Match
 ::::::::::::::::::::::::::
 
-该模块依托路网文件模拟车辆行驶并且产生GPS数据，当用户没有实际GPS数据时可以借助该模块生产GPS数据。
-
-
-基本流程为：
-
-.. image:: _static/images/GpsGenGraph.png
-    :align: center
-
-----------------------------------------
-
-具体的代码实操见 `GPS数据生产代码示例`_ 。
-
-
-.. _GPS数据行程切分:
-
-2.1.3. GPS数据行程切分
-::::::::::::::::::::::::::
-
-主行程举例： 一辆车从家出发到达公司，将车辆停在车库，熄火后，车辆不再产生GPS数据，下班后再次启动，GPS数据重新产生，早上到达公司的最后一个定位点和下班后启动车辆的第一个定位点，其时间差超过group_gap_threshold，则在此处切分主行程
-
-子行程举例： 一辆车从家出发到达公司，在到达公司之前，在加油站加油，GPS点持续产生，但是定位点集中在加油站附近，产生了停留，那么从家-加油站就是一段子行程
-
-具体的代码实操见 `行程切分代码示例`_
-
-
-.. _地图匹配:
-
-2.1.4. 地图匹配
-::::::::::::::::::::::::::
-
-依托路网文件、GPS数据，对GPS数据进行地图匹配，匹配结果给出每个GPS点实际的匹配路段信息。
+Relying on road network files and GPS data, map matching is performed on GPS data, and the matching results provide the actual matching road section information for each GPS point.
 
 基本流程为：
 
@@ -227,16 +115,15 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 
 ----------------------------------------
 
-具体的代码实操见 `地图匹配代码示例`_ 。
+For specific code practice, see `地图匹配代码示例`_ 。
 
 
-.. _匹配过程可视化:
+.. _Matching Visualization:
 
-2.1.5. kepler可视化
-::::::::::::::::::::::::::
+2.1.5. Kepler Visualization
+:::::::::::::::::::::::::::::::::::::
 
-
-将匹配结果统一输出到HTML文件，用户可以使用浏览器打开该文件播放匹配动画。
+The matching results are uniformly output to an HTML file, and users can use a browser to open the file to play the matching animation.
 
 基本流程为：
 
@@ -246,42 +133,39 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 ----------------------------------------
 
 
-具体的代码实操见下文示例代码。
+2.2. data requirements
+````````````````````````````
 
+The data involved are described as follows:
 
-2.2. 数据要求
-````````````````
+2.2.1. road network data
+::::::::::::::::::::::::::::::::::
 
-这三个模块所涉及的数据说明如下：
+.. _road network data requirements:
 
-2.2.1. 路网数据
-::::::::::::::::::::::::::
-
-.. _路网数据要求:
-
-路网由线层文件和点层文件组成，两个文件存在关联关系。`西安样例路网 <https://github.com/zdsjjtTLG/TrackIt/tree/main/data/input/net/xian>`_
+The road network consists of line layer files and point layer files, and there is an association between the two files。`Sample road network <https://github.com/zdsjjtTLG/TrackIt/tree/main/data/input/net/xian>`_
 
 .. note::
 
-    路网点层数据和线层数据的坐标系必须为：EPSG:4326
+    The coordinate system of the road network point layer data and line layer data must be: EPSG:4326
 
 
-(1) 路网-点层
-'''''''''''''
+(1) road network - node layer
+'''''''''''''''''''''''''''''''''''''
 
-一般是shp文件或者geojson文件，路网点层文件字段要求如下：
+Generally, it is a shp file or a geojson file. The node layer file field requirements are as follows:
 
-.. csv-table:: 节点层字段说明
-    :header: "字段名称", "字段类型", "字段说明"
+.. csv-table:: node layer field description
+    :header: "field name", "field type", "description"
     :widths: 15, 15, 40
 
-    "node_id","int","节点唯一编码, 一定是大于0的正整数"
-    "geometry","geometry","节点坐标几何列"
-    "其他非必需字段","...","..."
+    "node_id","int","Node unique code, must be a positive integer greater than 0"
+    "geometry","geometry","Coordinate Geometry Column"
+    "other non-required fields","...","..."
 
-样例数据如下：
+the sample data is as follows：
 
-.. csv-table:: 节点样例数据
+.. csv-table:: sample data of node layer
     :header: "node_id", "geometry"
     :widths: 3, 20
 
@@ -313,32 +197,32 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 
 .. note::
 
-   点层表的geometry字段中不允许出现MultiPoint类型，不支持三维坐标。
+   The MultiPoint type is not allowed in the geometry field of the node layer, and three-dimensional coordinates are not currently supported.
 
 
 
-(2) 路网-线层
-'''''''''''''
+(2) road network - link layer
+''''''''''''''''''''''''''''''''''''
 
-一般是shp文件或者geojson文件，路网线层文件字段要求如下：
+Generally, it is a shp file or a geojson file. The link layer file field requirements are as follows:
 
-.. csv-table:: 线层字段说明
-    :header: "字段名称", "字段类型", "字段说明"
+.. csv-table:: link layer field description
+    :header: "field name", "field type", "description"
     :widths: 10, 10, 30
 
-    "link_id","int","路段唯一编码, 一定是大于0的正整数"
-    "from_node","int","路段拓扑起点节点编号, 一定是大于0的正整数"
-    "to_node","int","路段拓扑终点节点编号, 一定是大于0的正整数"
-    "dir","int","路段方向，取值为0或者1， 0代表双向通行，1代表通行方向为路段拓扑正向"
-    "length","float","路段长度，单位米"
-    "geometry","geometry","路段几何线型"
-    "其他非必需字段","...","..."
+    "link_id","int","Unique code of the link, must be a positive integer greater than 0"
+    "from_node","int","The node code of the starting point of the road section topology, which must be a positive integer greater than 0"
+    "to_node","int","The node code of the end point of the road section topology, which must be a positive integer greater than 0"
+    "dir","int","link direction, the value is 0 or 1, 0 represents two-way traffic, 1 represents the traffic direction is the forward direction of the road section topology"
+    "length","float","Length of road section, in meters"
+    "geometry","geometry","link geometry"
+    "other non-required fields","...","..."
 
 
 
-样例数据如下：
+the sample data is as follows：
 
-.. csv-table:: 线层样例数据
+.. csv-table:: sample data of link layer
     :header: "link_id", "dir", "length", "from_node", "to_node", "road_name", "geometry"
     :widths: 5, 5,5,5,5,5,40
 
@@ -370,26 +254,24 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 
 .. note::
 
-   线层表的geometry字段中不允许出现MultiLineString类型，只允许LineString类型，不支持三维坐标。
+   The MultiLineString type is not allowed in the geometry field of the line layer table. Only the LineString type is allowed, and three-dimensional coordinates are not currently supported.
 
 
 
-(3) 点层、线层关联关系
-''''''''''''''''''''''''''
+(3) node layer and link layer association
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-按照以上样例数据准备路网文件，shp、geojson等格式都可以。
-
-样例数据在QGIS(或者TransCAD等其他GIS软件)中进行可视化，大概是这个样子：
+The sample data is visualized in QGIS (or other GIS software such as TransCAD), which looks like this:
 
 .. image:: _static/images/sample_net.png
     :align: center
 
-* 线层dir字段与拓扑方向
-    线层的箭头方向为拓扑方向(即link层geometry中的折点行进方向)，dir字段所描述的行车方向就是与之关联的，dir为1代表该条link是单向路段，行车方向与拓扑方向一致，dir为0代表该条link是双向路段
+* Link layer dir field and topology direction
+    The arrow direction of the link layer is the topological direction (i.e., the direction of travel of the vertex in the link layer geometry). The driving direction described by the dir field is associated with it. A dir value of 1 indicates that the link is a one-way section, and the driving direction is consistent with the topological direction. A dir value of 0 indicates that the link is a two-way section.
 
 
-* 点层node_id与线层from_node、to_node关联
-    Link层中：一条link的from_node、to_node属性对应节点层的node_id
+* association of link & ndoe
+    In the Link layer: the from_node and to_node attributes of a link correspond to the node_id of the node layer
 
 .. image:: _static/images/LinkNodeCon.png
     :align: center
@@ -397,16 +279,13 @@ GDAL若安装失败，推荐直接安装whl文件，下载地址：https://githu
 
 -------------------------------------
 
-在本地图匹配包中，使用Net对象来管理路网，用户需要指定Link层和Node层文件路径或者传入link层和node层的GeoDataFrame，便可以创建一个Net对象，这个Net对象是我们开展GPS数据生产、地图匹配的基准Net，这个Net对象提供了很多操作路网的方法，方便我们对路网进行操作。
+In this map matching package, the Net object is used to manage the road network. The user needs to specify the Link layer and Node layer file path or pass in the link layer and node layer GeoDataFrame to create a Net object. This Net object is the benchmark Net for our GPS data production and map matching. This Net object provides many methods for operating the road network, which facilitates our operations on the road network.
 
 .. image:: _static/images/create_net.png
     :align: center
 
 -------------------------------------
 
-
-
-如果您没有路网数据，请参考 `路网生产`_ 。
 
 
 2.2.2. GPS定位数据
@@ -452,212 +331,17 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
 3. 路网模块
 -------------------------
 
-该模块提供了一系列的方法帮助您生产gotrackit标准路网，亦或是 帮助您 将 其他数据来源的路网 转化为gotrackit标准路网。gotrackit的标准路网数据结构见：`路网数据要求`_
+该模块提供了一系列的方法帮助您生产gotrackit标准路网，亦或是 帮助您 将 其他数据来源的路网 转化为gotrackit标准路网。gotrackit的标准路网数据结构见：`road network data requirements`_
 
-.. _路网生产代码示例:
+.. _Road Network Optimization Sample Code:
 
-使用路网生产工具，先从gotrackit导入相关模块 ::
+使用Road Network Optimization工具，先从gotrackit导入相关模块 ::
 
     import gotrackit.netreverse.NetGen as ng
 
 
-3.1. 路网生产
+3.1. 路网优化
 ```````````````````````
-
-
-.. note::
-
-   该路网获取方式利用的是高德开放平台的官方API - 路径规划接口，不涉及爬虫抓包！
-
-
-.. note::
-
-   任何非官方采购形式的路网获取方法都不可能获得完整的路网数据！
-
-
-.. note::
-
-   依据本开源包的开源协议：通过该方式获取的路网数据严禁用于商业行为，仅限于教育以及科学研究课题，如有商用需求请联系高德客服进行路网采购，感谢高德开放平台的免费接口！
-
-
-.. note::
-
-   请注意：通过该方式获取的路网的坐标系是GCJ-02，一般的GPS数据坐标系都是WGS-84。
-
-.. note::
-
-   本开源包获取路网的原理，和osm之类的平台获取路网的原理，是不一样的：
-
-   1.osm是库里已有路网，用户框选获取属于查询获取；
-
-   2.gotrackit是基于路径规划API接口返回的路径进行分析计算，从而获取路网。所以OD构造的精度和数量直接决定了路网的完整度！请留意构造OD的方式和OD数量。
-
-
-路网生产的相关函数不需要您提供任何的空间地理信息文件，只需指定范围、和申请 `开发者key <https://lbs.amap.com>`_ 即可获取路网。
-
-
-
-3.1.1. 参数详解
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-* 初始化NetReverse类
-    flag_name：项目名称，必须指定；
-
-    net_out_fldr：最终路网的存储目录，必须指定
-
-    plain_crs：依据你的研究范围的经纬度(EPSG:4326)选择一个合适的平面投影坐标系，必须指定，参见: `6度带划分规则`_
-
-* 请求参数
-    key_list：开发者key值列表，必须指定
-
-    binary_path_fldr：请求路径源文件的存储目录(最好建立一个专门的目录)，必须指定
-
-    save_log_file：是否保存日志文件，非必须指定，默认False
-
-    log_fldr：日志的存储目录，非必须指定，默认None
-
-    min_lng，min_lat：矩形区域左下角经纬度坐标(GCJ-02坐标)，必须指定
-
-    w，h：矩形区域的宽度和高度(米)，必须指定，默认值2000，2000
-
-    od_type：生成OD的类型，必须指定，含义见：`od_type`_
-
-    od_num：生成的od数，od数目越多，请求的路径就越多，路网覆盖率就越完整，默认100个
-
-    gap_n，min_od_length：划分网格数、最小的od直线距离限制，非必须指定，默认100，1000，1200
-
-    指定矩形区域的左下点经纬度坐标(GCJ-02坐标系)，以及矩形区域的宽度和长度(单位米)，必须指定
-
-
-所有参数解释见 :doc:`类方法汇总`
-
-
-3.1.2. 基于矩形区域随机构造OD请求路径, 获取路网
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-示例代码如下：
-
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        nv = ng.NetReverse(flag_name='test_rectangle', net_out_fldr=r'./data/output/reverse/test_rectangle/',
-                       plain_crs='EPSG:32650', save_tpr_link=True, angle_threshold=40)
-
-        # 参数od_num：依据自己需求确定，od_num越大，请求的路径越多，路网覆盖率越高
-        nv.generate_net_from_request(key_list=['你的Key'],
-                                     log_fldr=r'./', save_log_file=True,
-                                     binary_path_fldr=r'./data/output/request/test_rectangle/',
-                                     w=1500, h=1500, min_lng=126.665019, min_lat=45.747539, od_type='rand_od',
-                                     od_num=200, gap_n=1000, min_od_length=800)
-
-运行该代码后，先在目录./data/output/request/test_rectangle/下生成路径源文件，然后在目录./data/output/reverse/test_rectangle/下生成FinalLink.shp和FinalNode.shp文件
-
-
-3.1.3. 基于自定义区域随机构造OD请求路径, 获取路网
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-我们通过读取diy_region.shp来指定我们构造随机OD的区域范围：
-
-.. image:: _static/images/diy_region.png
-    :align: center
-
--------------------------------------------------------
-
-示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        nv = ng.NetReverse(flag_name='test_diy_region', net_out_fldr=r'./data/output/reverse/test_diy_region/',
-                           plain_crs='EPSG:32650', save_tpr_link=True, angle_threshold=20)
-        target_region_gdf = gpd.read_file(r'./data/input/region/diy_region.shp')
-        print(target_region_gdf)
-
-        # 参数od_num：依据自己需求确定，od_num越大，请求的路径越多，路网覆盖率越高
-        nv.generate_net_from_request(key_list=['你的Key'],
-                                     log_fldr=r'./', save_log_file=True,
-                                     binary_path_fldr=r'./data/output/request/test_diy_region/',
-                                     region_gdf=target_region_gdf, od_type='rand_od', gap_n=1000,
-                                     min_od_length=1200, od_num=200)
-
-
-3.1.4. 基于区域-区域OD请求路径, 获取路网
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-读取交通小区文件，指定od_type为region_od，会自动构造两两地块形心之间的OD。使用该方法构造OD，需要确保面域文件中包含region_id字段。
-
-
-.. image:: _static/images/test_taz.png
-    :align: center
-
--------------------------------------------------------
-
-
-示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        nv = ng.NetReverse(flag_name='test_taz', net_out_fldr=r'./data/output/reverse/test_taz/',
-                           plain_crs='EPSG:32650', save_tpr_link=True, angle_threshold=20)
-        target_region_gdf = gpd.read_file(r'./data/input/region/simple_taz.shp')
-        print(target_region_gdf)
-
-        # 参数od_num在区域-区域OD下不生效，OD数 = N * N - N, N为区域数量
-        nv.generate_net_from_request(key_list=['你的Key'],
-                                     log_fldr=r'./', save_log_file=True,
-                                     binary_path_fldr=r'./data/output/request/test_taz/',
-                                     region_gdf=target_region_gdf, od_type='region_od')
-
-
-
-3.1.5. 基于自定义OD请求路径，获取路网
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-你可以通过自己的相关算法去构造OD，确保OD表符合 `OD表要求`_ ，然后可以使用自定义OD去请求路径、构造路网
-
-示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        nv = ng.NetReverse(flag_name='test_diy_od', net_out_fldr=r'./data/output/reverse/test_diy_od/',
-                           plain_crs='EPSG:32651', save_tpr_link=True, angle_threshold=20)
-        nv.generate_net_from_request(binary_path_fldr=r'./data/output/request/test_diy_od/',
-                                     key_list=['你的Key'],
-                                     od_file_path=r'./data/output/od/苏州市.csv', od_type='diy_od')
-
-        # 或者
-        # diy_od_df = pd.read_csv(r'./data/output/od/苏州市.csv')
-        # nv.generate_net_from_request(binary_path_fldr=r'./data/output/request/test_diy_od/',
-        #                              key_list=['你的Key'],
-        #                              od_df=diy_od_df,
-        #                              od_type='diy_od')
-
-
-本算法包提供了一个依据GPS数据来生产自定义OD的接口，参见 `途径点OD计算`_
-
-
-3.1.6. 解析路径源文件, 获取路网
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-如果已经有了请求好的路径源文件，可以直接从路径源文件中创建路网，只需要指定路径源文件目录和路径源文件名称列表
-
-示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        nv = ng.NetReverse(flag_name='test_pickle', net_out_fldr=r'./data/output/reverse/test_pickle/',
-                           plain_crs='EPSG:32650', save_tpr_link=True, angle_threshold=20)
-        nv.generate_net_from_pickle(binary_path_fldr=r'./data/output/request/test_taz/',
-                                    pickle_file_name_list=['14_test_taz_gd_path_1'])
 
 
 3.1.7. 基于已有路网线层, 生产点层
@@ -977,9 +661,9 @@ circle_process处理后如图
 
 本模块提供了一个接口，你只需要指定一个路网，该模块可以模拟行车并且生成轨迹数据、GPS数据，示例代码和参数解释如下：
 
-路网的数据要求见：`路网数据要求`_
+路网的数据要求见：`road network data requirements`_
 
-.. _GPS数据生产代码示例:
+.. _GPS Data Production Sample Code:
 
 .. code-block:: python
     :linenos:
@@ -1063,7 +747,7 @@ Net构建参数见：`构建Net的相关参数`_
     标志字符，默认agent
 
 
-5. GPS数据行程切分
+5. Trip Segmentation
 -----------------------------
 
 原始的GPS数据包含了一辆车的多次出行，我们需要对车辆的出行进行划分，GpsPreProcess提供了行程切分、带途径点信息的OD抽取这两大功能，你只需要传入GPS表数据即可。
@@ -1193,7 +877,7 @@ Net构建参数见：`构建Net的相关参数`_
     整数，OD的途径点数目，必须≤10，默认5个途径点
 
 
-6. 地图匹配
+6. Map Match
 -------------------------------------------------
 
 6.1. 所需数据
@@ -1201,7 +885,7 @@ Net构建参数见：`构建Net的相关参数`_
 
 使用地图匹配接口，你需要准备路网数据和GPS数据。
 
-路网数据要求：`路网数据要求`_ 、GPS数据要求：`GPS定位数据字段要求`_
+road network data requirements：`road network data requirements`_ 、GPS数据要求：`GPS定位数据字段要求`_
 
 匹配过程架构图如下：
 
