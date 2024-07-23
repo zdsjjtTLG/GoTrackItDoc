@@ -66,7 +66,9 @@ It includes five modules：
 
 * `Trip Segmentation`_
 
-* `Map Match`_ and `Matching Visualization`_
+* `Map Match`_
+
+* `Matching Visualization`_
 
 
 
