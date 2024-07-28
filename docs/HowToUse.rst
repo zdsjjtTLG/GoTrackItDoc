@@ -140,7 +140,7 @@ The matching results are uniformly output to an HTML file, and users can use a b
 
 The data involved are described as follows:
 
-2.2.1. road network data
+2.2.1. road network
 ::::::::::::::::::::::::::::::::::
 
 .. _road network data requirements:
@@ -152,7 +152,7 @@ The road network consists of line layer files and point layer files, and there i
     The coordinate system of the road network point layer data and line layer data must be: EPSG:4326
 
 
-(1) road network - node layer
+(1) node layer of road network
 '''''''''''''''''''''''''''''''''''''
 
 Generally, it is a shp file or a geojson file. The node layer file field requirements are as follows:
@@ -162,7 +162,7 @@ Generally, it is a shp file or a geojson file. The node layer file field require
     :widths: 15, 15, 40
 
     "node_id","int","Node unique code, must be a positive integer greater than 0"
-    "geometry","geometry","Coordinate Geometry Column"
+    "geometry","geometry","coordinate geometry column"
     "other non-required fields","...","..."
 
 the sample data is as follows：
@@ -202,8 +202,7 @@ the sample data is as follows：
    The MultiPoint type is not allowed in the geometry field of the node layer, and three-dimensional coordinates are not currently supported.
 
 
-
-(2) road network - link layer
+(2) link layer of road network
 ''''''''''''''''''''''''''''''''''''
 
 Generally, it is a shp file or a geojson file. The link layer file field requirements are as follows:
@@ -212,11 +211,11 @@ Generally, it is a shp file or a geojson file. The link layer file field require
     :header: "field name", "field type", "description"
     :widths: 10, 10, 30
 
-    "link_id","int","Unique code of the link, must be a positive integer greater than 0"
-    "from_node","int","The node code of the starting point of the road section topology, which must be a positive integer greater than 0"
-    "to_node","int","The node code of the end point of the road section topology, which must be a positive integer greater than 0"
+    "link_id","int","unique code of the link, must be a positive integer greater than 0"
+    "from_node","int","the node code of the starting point of the road section topology, which must be a positive integer greater than 0"
+    "to_node","int","the node code of the end point of the road section topology, which must be a positive integer greater than 0"
     "dir","int","link direction, the value is 0 or 1, 0 represents two-way traffic, 1 represents the traffic direction is the forward direction of the road section topology"
-    "length","float","Length of road section, in meters"
+    "length","float","length of road section, in meters"
     "geometry","geometry","link geometry"
     "other non-required fields","...","..."
 
@@ -260,7 +259,7 @@ the sample data is as follows：
 
 
 
-(3) node layer and link layer association
+(3) association of node & link
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 The sample data is visualized in QGIS (or other GIS software such as TransCAD), which looks like this:
@@ -290,28 +289,26 @@ In this map matching package, the Net object is used to manage the road network.
 
 
 
-2.2.2. GPS定位数据
-::::::::::::::::::::::::::
+2.2.2. GPS location data
+::::::::::::::::::::::::::::::
 
-.. _GPS定位数据字段要求:
+.. _data field requirements of GPS:
 
-GPS数据字段要求如下：
+The GPS data field requirements are as follows：
 
-.. csv-table:: GPS数据字段说明
-    :header: "字段名称", "字段类型", "字段说明"
+.. csv-table:: GPS data field requirements
+    :header: "field name", "field type", "description"
     :widths: 15, 15, 40
 
-    "agent_id","string","车辆唯一编码,准确来说这个字段标注的是车辆的某一次完整出行"
-    "lng","float","经度"
-    "lat","float","纬度"
-    "time","string","定位时间戳"
-    "其他非必需字段","...","..."
+    "agent_id","string","unique agent code. To be precise, this field marks a complete trip of the vehicle."
+    "lng","float","longitude"
+    "lat","float","latitude"
+    "time","string","positioning timestamp"
+    "other non-required fields","...","..."
 
-GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字段为gotrackit的内置计算字段
+the sample data is as follows：
 
-样例数据如下：
-
-.. csv-table:: GPS样例数据
+.. csv-table:: sample data of gps
     :header: "agent_id", "lng", "lat", "time"
     :widths: 5,10,10,10
 
@@ -322,48 +319,66 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
     "22413","113.864148301839","22.77953193554016","2024-01-15 16:02:29"
     "22413","113.86793876830578","22.78092681645836","2024-01-15 16:02:59"
 
-在本地图匹配包中，使用GpsPointsGdf对象来管理一辆车的一次出行轨迹数据，用户在构建GpsPointsGdf之前应该先对GPS数据做预处理如行程切分，然后使用一个车辆唯一编码agent_id来标注这次出行，GpsPointsGdf提供了很多操作GPS数据的方法
-
 .. image:: _static/images/gps_obj.png
     :align: center
 
 ----------------------------------------
 
 
-3. 路网模块
--------------------------
+3. Road Network Optimization
+-----------------------------------
 
-该模块提供了一系列的方法帮助您生产gotrackit标准路网，亦或是 帮助您 将 其他数据来源的路网 转化为gotrackit标准路网。gotrackit的标准路网数据结构见：`road network data requirements`_
+This module provides a series of methods to help you convert your road network data into the Gotrackit standard road network. The Gotrackit standard road network data structure can be found in：`road network data requirements`_
 
 .. _Road Network Optimization Sample Code:
 
-使用Road Network Optimization工具，先从gotrackit导入相关模块 ::
+use road network optimization tools，first from gotrackit import some modules ::
 
     import gotrackit.netreverse.NetGen as ng
 
 
-3.1. 路网优化
-```````````````````````
 
+.. _cleaning link layer:
 
-3.1.7. 基于已有路网线层, 生产点层
-:::::::::::::::::::::::::::::::::::::::::
+3.1. Clean your link layer data
+``````````````````````````````````````````````````````````````````````````````````
 
-如果你已经有了路网线层(从osm或者其他任何途径获取的)，缺少拓扑关联关系以及点层，你可以使用以下方式构建点层以及添加点层、线层的关联关系
+your link layer data may contain Multi type or z coordinates or link objects may contain a large number of overlapping points. You can use the static method clean_link_geo of the nv class to eliminate z coordinates and multi types.
 
-该接口为NetReverse类的静态方法
-
-示例代码如下：
+the sample code is as follows:
 
 .. code-block:: python
     :linenos:
 
     if __name__ == '__main__':
-        # 对link.shp的要求: 只需要有geometry字段即可, 但是geometry字段的几何对象必须为LineString类型(不允许Z坐标)
+
+        # reading link layer
+        df = gpd.read_file(r'./data/output/request/0304/道路双线20230131_84.shp')
+
+        # geometry-processing
+        # l_threshold means merging the vertex points whose distance is less than l_threshold meters in the line type, simplifying the road network and eliminating overlapping vertex points
+        # l_threshold is recommended to be 1m ~ 5m. Too large a value will cause distortion of line details.
+        # plain_crs is the planar projection coordinate system to use
+        link_gdf = ng.NetReverse.clean_link_geo(gdf=df, plain_crs='EPSG:32649', l_threshold=1.0)
+
+
+
+3.2. Based on the existing link layer, produce the node layer
+``````````````````````````````````````````````````````````````````````````````````
+
+If you already have a road network link layer (obtained from OSM or any other means), but lack topological relationships and node layers, you can use the following methods to build the node layer and add relationships between the node layer and link layer:
+
+this interface is a static method of the NetReverse class, the sample code is as follows:
+
+.. code-block:: python
+    :linenos:
+
+    if __name__ == '__main__':
+        # Requirements for link.shp: Only the geometry field is required, but the geometry object in the geometry field must be of LineString type (Z coordinates are not allowed)
         link_gdf = gpd.read_file(r'./data/output/create_node/link.shp')
         print(link_gdf)
-        # update_link_field_list是需要更新的路网基本属性字段：link_id，from_node，to_node，length，dir
-        # 示例中：link_gdf本身已有dir字段，所以没有指定更新dir
+        # update_link_field_list is the basic attribute field of the road network that needs to be updated：link_id，from_node，to_node，length，dir
+        # In the example: link_gdf already has a dir field, so no dir update is specified
         new_link_gdf, new_node_gdf, node_group_status_gdf = ng.NetReverse.create_node_from_link(link_gdf=link_gdf, using_from_to=False,
                                                                                      update_link_field_list=['link_id',
                                                                                                              'from_node',
@@ -376,91 +391,12 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
                                                                                      out_fldr=r'./data/output/create_node/')
 
 
-3.1.8. 启用多核并行逆向路网
-:::::::::::::::::::::::::::::::::::::::::
+3.3. check the connectivity of the road network and make repairs
+``````````````````````````````````````````````````````````````````````````````````
 
-若需要获取大范围的路网，我们推荐使用多核并行请求，即在初始化NetReverse类时，指定multi_core_reverse=True，reverse_core_num=x
+If you already have a road network link layer and node layer (and the field and topological association relationship meet the requirements of this algorithm package), you can use the following method to check the connectivity of the road network
 
-程序会自动将路网划分为x个子区域，在每个子区域内进行并行计算，示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        # 初始化ng.NetReverse类指定multi_core_reverse=True, reverse_core_num=x
-        nv = ng.NetReverse(flag_name='sh',
-                           net_out_fldr=r'./data/output/shanghai/net/',
-                           plain_crs='EPSG:32651', save_tpr_link=True, angle_threshold=30, multi_core_reverse=True,
-                           reverse_core_num=2)
-
-        # 然后可以使用nv.generate_net_from_pickle或者nv.generate_net_from_request或者nv.redivide_link_node进行路网生产或优化
-
-
-.. image:: _static/images/multi_region.png
-    :align: center
-
--------------------------------------------------------
-
-计算结束后，在net_out_fldr下会生成x个子文件夹，分别存放最终的子区域路网，如果你想将这些路网进行合并，请使用路网合并接口
-
-
-3.1.9. 合并gotrackit标准路网
-:::::::::::::::::::::::::::::::::::::::::
-
-合并多个地区的标准路网，示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-        fldr = r'F:\PyPrj\TrackIt\data\input\net\test\all_sichuan_path\net'
-        net_list = []
-        for i in range(0,6):
-            net_list.append([gpd.read_file(os.path.join(fldr, f'region-{i}', 'FinalLink.shp')),
-                             gpd.read_file(os.path.join(fldr, f'region-{i}', 'FinalNode.shp'))])
-
-        l, n = ng.NetReverse.merge_net(net_list=net_list, conn_buffer=0.2,
-                                       out_fldr=r'F:\PyPrj\TrackIt\data\input\net\test\all_sichuan_path\net\merge')
-
-
-
-
-3.2. 路网优化
-```````````````````````
-
-以下优化操作不是必须要做的，大家依据自己的路网情况选择使用即可
-
-.. _清洗路网线层数据:
-
-3.2.1. 清洗你的路网线层数据
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-如果你已经有了路网线层数据(从osm或者其他任何途径获取的), 你可能想使用nv.create_node_from_link函数来生产点层以及生产拓扑关联以得到标准的路网数据，但是nv.create_node_from_link可能会报错，因为你的路网线层数据可能包含了Multi类型或者是带有z坐标或者是线对象中含有大量的重叠点，你可以使用nv类的静态方法clean_link_geo来消除z坐标以及multi类型
-
-
-示例代码如下：
-
-.. code-block:: python
-    :linenos:
-
-    if __name__ == '__main__':
-
-        # 读取数据
-        df = gpd.read_file(r'./data/output/request/0304/道路双线20230131_84.shp')
-
-        # 处理geometry
-        # l_threshold表示将线型中距离小于l_threshold米的折点进行合并，简化路网，同时消除重叠折点
-        # l_threshold推荐 1m ~ 5m，过大会导致线型细节失真
-        # plain_crs是要使用的平面投影坐标系
-        link_gdf = ng.NetReverse.clean_link_geo(gdf=df, plain_crs='EPSG:32649', l_threshold=1.0)
-
-
-3.2.2. 基于已有标准路网, 检查路网的联通性并进行修复
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-如果你已经有了路网线层和点层(且字段和拓扑关联关系满足本算法包的要求)，你可以使用以下方式来检查路网的联通性
-
-示例代码如下：
+the sample code is as follows:
 
 .. code-block:: python
     :linenos:
@@ -469,17 +405,16 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
         link_gdf = gpd.read_file(r'./data/input/net/test/sz/FinalLink.shp')
         node_gdf = gpd.read_file(r'./data/input/net/test/sz/FinalNode.shp')
 
-        # net_file_type指的是输出路网文件的类型
+        # net_file_type refers to the type of output network file, supporting 'shp' and 'geojson'
         nv = ng.NetReverse(net_file_type='shp', conn_buffer=0.8, net_out_fldr=r'./data/input/net/test/sz/')
         new_link_gdf, new_node_gdf = nv.modify_conn(link_gdf=link_gdf, node_gdf=node_gdf, book_mark_name='sz_conn_test', generate_mark=True)
 
         print(new_link_gdf)
         print(new_node_gdf)
 
-在net_out_fldr下会生成联通性修复完成后的路网文件以及xml空间书签文件，将xml文件导入到QGIS可以查看修复的点位情况以便排查是否所有修复都是合理的
+Under net_out_fldr, net files(link layer and node layer) an xml spatial bookmark file will be generated after the connectivity repair is completed. Importing the xml file into QGIS can view the repaired points to check whether all repairs are reasonable.
 
-
-什么是联通性修复？
+What is connectivity repair?
 
 .. image:: _static/images/conn_1.png
     :align: center
@@ -492,28 +427,29 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
 --------------------------------------------------------------------------------
 
 
-3.2.3. 路段划分
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-你已经有了一套link和node文件, 你希望对link层进行路段重塑，即将长度大于L(m)的路段都进打断，同时点层数据也会随之自动变化
+3.4. 路段划分
+``````````````````````````````````````````````````````````````````````````````````
 
-该接口为NetReverse类的静态方法
+You already have a set of link and node files. You want to reshape the link layer, that is, to break the sections with a length greater than L(m). At the same time, the point layer data will also change automatically.
 
-划分前：
+This interface is a static method of the NetReverse class
+
+Before division:
 
 .. image:: _static/images/before_divide.png
     :align: center
 
 --------------------------------------------------------------------------------
 
-划分后：
+After division:
 
 .. image:: _static/images/after_divide.png
     :align: center
 
 --------------------------------------------------------------------------------
 
-从gotrackit导入相关模块 ::
+Import related modules from gotrackit ::
 
     import gotrackit.netreverse.NetGen as ng
 
@@ -526,25 +462,26 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
         node = gpd.read_file(r'./data/input/net/test/0317/node1.geojson')
 
         nv = ng.NetReverse()
-        # 执行划分路网
-        # divide_l: 所有长度大于divide_l的路段都将按照divide_l进行划分
-        # min_l: 划分后如果剩下的路段长度小于min_l, 那么此次划分将不被允许
+        # Execute the road network division
+        # divide_l: All road segments with length greater than divide_l will be divided according to divide_l
+        # min_l: If the remaining road length after division is less than min_l, then the division will not be allowed.
         new_link, new_node = nv.divide_links(link_gdf=link, node_gdf=node, divide_l=50, min_l=5.0)
 
         new_link.to_file(r'./data/input/net/test/0317/divide_link.geojson', driver='GeoJSON', encoding='gbk')
         new_node.to_file(r'./data/input/net/test/0317/divide_node.geojson', driver='GeoJSON', encoding='gbk')
 
 
-3.2.4. id重映射
+3.2.4. id remapping
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-从gotrackit导入相关模块 ::
+
+Import related modules from gotrackit ::
 
     import gotrackit.netreverse.NetGen as ng
 
-如果你的link表的link_id或者node表的node_id是一个非常大的整数, 使用这样的路网存在风险，你可以使用下面的函数进行ID重映射
+If the link_id in your link table or the node_id in the node table is a very large integer, there is a risk in using such a network. You can use the following function to remap the ID
 
-该接口为NetReverse类的静态方法
+This interface is a static method of the NetReverse class
 
 .. code-block:: python
     :linenos:
@@ -560,10 +497,10 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
         print(n[['node_id']])
 
 
-3.2.5. 路网路段、节点重塑
+3.2.5. Reshaping of road network
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-你已经有了一套link文件，但是其存在折点联通性问题，如下图：
+You already have a set of link files, but there are breakpoint connectivity issues, as shown below:
 
 .. image:: _static/images/before_redivide.jpg
     :align: center
@@ -571,30 +508,30 @@ GPS数据表中不可出现以下内置字段：gv_dx、gv_dy、gvl，这些字�
 --------------------------------------------------------------------------------
 
 
-可以使用该接口进行路段和节点的重塑以及联通性的优化，你只需要输入一个线层，该函数会帮你重塑节点划分以及路段划分，并且修复联通性
+You can use this interface to reshape the road segments and nodes and optimize connectivity. You only need to input a line layer, and this function will help you reshape the node division and road segment division, and repair the connectivity.
 
 .. code-block:: python
     :linenos:
 
     if __name__ == '__main__':
-        # 读取数据
+        # reading data
         origin_link = gpd.read_file(r'./data/input/net/test/0402BUG/load/test_link.geojson')
         print(origin_link)
 
-        # 为防止线层线型有重复点，先做清洗
+        # cleaning
         origin_link = ng.NetReverse.clean_link_geo(gdf=origin_link, l_threshold=1.0, plain_crs='EPSG:32650')
 
-        # multi_core_merge=True表示启用多进程进行拓扑优化
-        # merge_core_num表示启用两个核
+        # multi_core_merge=True means enabling multi-process for topology optimization
+        # merge_core_num indicates that two cores are enabled
         nv = ng.NetReverse(net_out_fldr=r'./data/input/net/test/0402BUG/redivide',
                            plain_crs='EPSG:32650', flag_name='new_divide', multi_core_merge=True,
                            merge_core_num=2)
 
-        # 路段、节点重新划分、联通性修复，新的网络文件在net_out_fldr下生成
+        # Road sections and nodes are re-divided, connectivity is repaired, and new network files are generated under net_out_fldr
         nv.redivide_link_node(link_gdf=origin_link)
 
 
-重塑修复后：
+After reshaping:
 
 .. image:: _static/images/after_redivide.jpg
     :align: center
@@ -754,7 +691,7 @@ Net构建参数见：`构建Net的相关参数`_
 
 原始的GPS数据包含了一辆车的多次出行，我们需要对车辆的出行进行划分，GpsPreProcess提供了行程切分、带途径点信息的OD抽取这两大功能，你只需要传入GPS表数据即可。
 
-确保GPS数据满足 `GPS定位数据字段要求`_ 。
+确保GPS数据满足 `data field requirements of GPS`_ 。
 
 .. _行程切分代码示例:
 
@@ -887,7 +824,7 @@ Net构建参数见：`构建Net的相关参数`_
 
 使用地图匹配接口，你需要准备路网数据和GPS数据。
 
-road network data requirements：`road network data requirements`_ 、GPS数据要求：`GPS定位数据字段要求`_
+road network data requirements：`road network data requirements`_ 、GPS数据要求：`data field requirements of GPS`_
 
 匹配过程架构图如下：
 
@@ -1299,7 +1236,7 @@ road network data requirements：`road network data requirements`_ 、GPS数据�
 
 .. note::
 
-   计算路径缓存,请确保你的路段线型没有重复点,你可以使用 `清洗路网线层数据`_
+   计算路径缓存,请确保你的路段线型没有重复点,你可以使用 `cleaning link layer`_
 
 .. code-block:: python
     :linenos:

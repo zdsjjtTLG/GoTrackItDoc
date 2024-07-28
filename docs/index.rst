@@ -27,16 +27,22 @@ It matches the vehicle's GPS trajectory data to the road network through probabi
 -----------------------------------------------------
 
 
-* Application of MapMatch
-    travel navigation: General Navigation、Lane Level Navigation、Traffic behavior warning
+The application areas of Map-Matching are as follows：
 
-    traffic monitoring: Real-time traffic calculation、Intersection delay calculation、Real-time public transportation、Traffic monitoring
+* Travel navigation
+    General Navigation、Lane Level Navigation、Traffic behavior warning
 
-    traffic management: Traffic tracing analysis、Travel behavior analysis、Traffic congestion analysis
+* Traffic monitoring
+    Real-time traffic calculation、Intersection delay calculation、Real-time public transportation、Traffic monitoring
 
-    carbon emission accounting: Emissions accounting、Road network emission characteristics
+* Traffic management
+    Traffic tracing analysis、Travel behavior analysis、Traffic congestion analysis
 
-    traffic modeling and other directions: Road network integration、Bus/road network matching
+* Carbon emission accounting
+    Emissions accounting、Road network emission characteristics
+
+* Traffic modeling and other directions
+    Road network integration、Bus/road network matching
 
 
 .. note::
