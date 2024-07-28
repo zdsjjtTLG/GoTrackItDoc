@@ -428,7 +428,7 @@ What is connectivity repair?
 
 
 
-3.4. 路段划分
+3.4. road segmentation
 ``````````````````````````````````````````````````````````````````````````````````
 
 You already have a set of link and node files. You want to reshape the link layer, that is, to break the sections with a length greater than L(m). At the same time, the point layer data will also change automatically.
@@ -471,9 +471,8 @@ Import related modules from gotrackit ::
         new_node.to_file(r'./data/input/net/test/0317/divide_node.geojson', driver='GeoJSON', encoding='gbk')
 
 
-3.2.4. id remapping
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+3.5. id remapping
+``````````````````````````````````````````````````````````````````````````````````
 
 Import related modules from gotrackit ::
 
@@ -497,8 +496,8 @@ This interface is a static method of the NetReverse class
         print(n[['node_id']])
 
 
-3.2.5. Reshaping of road network
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+3.6. Reshaping of road network
+``````````````````````````````````````````````````````````````````````````````````
 
 You already have a set of link files, but there are breakpoint connectivity issues, as shown below:
 
@@ -522,7 +521,7 @@ You can use this interface to reshape the road segments and nodes and optimize c
         origin_link = ng.NetReverse.clean_link_geo(gdf=origin_link, l_threshold=1.0, plain_crs='EPSG:32650')
 
         # multi_core_merge=True means enabling multi-process for topology optimization
-        # merge_core_num indicates that two cores are enabled
+        # merge_core_num indicates that two cpu-cores are enabled
         nv = ng.NetReverse(net_out_fldr=r'./data/input/net/test/0402BUG/redivide',
                            plain_crs='EPSG:32650', flag_name='new_divide', multi_core_merge=True,
                            merge_core_num=2)
@@ -538,13 +537,11 @@ After reshaping:
 
 --------------------------------------------------------------------------------
 
+3.7. Processing loop
+``````````````````````````````````````````````````````````````````````````````````
+gotrackit does not allow loops or links with the same (from_node, to_node) in the network (as shown below). These links will be automatically identified and deleted when building the Net. If you want to keep these links, please use circle_process to process the network.
 
-3.2.6. 处理环路和相同(from_node，to_node)的路段
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-gotrackit不允许路网出现环路以及(from_node，to_node)相同的link存在(如下图), 在构建Net时会自动识别这些link并且进行删除, 如果你想保留这些link请使用circle_process进行路网处理
-
-该接口为NetReverse类的静态方法
+This interface is a static method of the NetReverse class
 
 .. image:: _static/images/circle_before.jpg
     :align: center
@@ -566,10 +563,9 @@ gotrackit不允许路网出现环路以及(from_node，to_node)相同的link存�
         l = gpd.read_file('./data/input/net/test/0506yg/link.shp')
         n = gpd.read_file('./data/input/net/test/0506yg/node.shp')
 
-        # 处理环路和相同from_node - to_node的link
+        # Processing loop
         new_link, new_node = ng.NetReverse.circle_process(link_gdf=l, node_gdf=n)
 
-        # circle_process处理后输出的路网是平面投影坐标系, 需要转化为EPSG:4326
         new_link = new_link.to_crs('EPSG:4326')
         new_node = new_node.to_crs('EPSG:4326')
 
@@ -591,8 +587,7 @@ circle_process处理后如图
 --------------------------------------------------------------------------------
 
 
-路网模块函数方法的相关参数见 :doc:`ClassMethod`
-
+For relevant parameters of the road network module function method, see :doc:`ClassMethod`
 
 
 4. GPS数据生产
