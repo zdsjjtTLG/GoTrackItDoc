@@ -13,7 +13,7 @@ Author: Tang Kai
 
 Email：tangkai@zhechengdata.com、794568794@qq.com
 
-Project source code：`GitHub <https://github.com/zdsjjtTLG/TrackIt>`_ --- Current version v0.3.7
+Project source code：`GitHub <https://github.com/zdsjjtTLG/TrackIt>`_ --- Current version v0.3.10
 
 GoTrackIt is a Map-Matching python package based on the Hidden Markov Model.
 
@@ -45,7 +45,7 @@ The application areas of Map-Matching are as follows：
 
 .. note::
 
-   This project is in a period of frequent upgrades and iterations. The current version is v0.3.7. Please update in time.
+   This project is in a period of frequent upgrades and iterations. The current version is v0.3.10. Please update in time.
 
 .. note::
     Due to the differences in computers of different users, it is difficult to unify the CRS output format in Geopandas. Starting from v0.3.5, the CRS check for geographic vector files has been completely removed. Users need to ensure that the CRS of the input geometry vector layer is EPSG:4326.
