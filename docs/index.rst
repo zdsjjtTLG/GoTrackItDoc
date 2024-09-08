@@ -1,12 +1,10 @@
 Welcome to GoTrackIt's documentation!
 =========================================
 
+
 .. note::
 
     The English document has not yet been fully translated...
-
-.. note::
-    If you want to get accurate document information, please read the Chinese document. The English document is expected to be completed before September.
 
 
 Read UserManual in ：`Chinese <https://gotrackit.readthedocs.io/en/latest/index.html>`_
