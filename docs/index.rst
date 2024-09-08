@@ -21,7 +21,7 @@ GoTrackIt is a Map-Matching python package based on the Hidden Markov Model.
 
 It matches the vehicle's GPS trajectory data to the road network through probabilistic graph modeling, and obtains the standardized spatiotemporal trajectory of the vehicle.It can effectively support travel navigation, traffic monitoring, traffic management, carbon emission accounting, traffic modeling and other directions.
 
-.. image:: _static/images/MapMatch.PNG
+.. image:: _static/images/MapMatch-en.PNG
     :align: center
 
 -----------------------------------------------------
@@ -60,5 +60,6 @@ Document Content
 
     Introduction
     HowToUse
+    QuickStart
     ClassMethod
     IterationRecords

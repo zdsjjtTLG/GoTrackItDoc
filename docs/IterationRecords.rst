@@ -1,337 +1,317 @@
-🖥️IterationRecords
-===================================
-
+🖥️Iteration record
+==================================
 
 1. v0.1.1
 --------------------
 
-* 更新日期
+* Update date
     2023.12.15
 
+* Update description
+    - Launched HMM matching core function
 
-* 更新说明
-    - 上线HMM匹配核心功能
-
-    - 上线kepler可视化结果模块
-
+    - Launched kepler visualization result module
 
 2. v0.1.3
 --------------------
 
-* 更新日期
+* Update date
     2023.12.29
 
-
-* 更新说明
-    - 新增样例GPS数据生产功能
-
+* Update description
+    - Added sample GPS data production function
 
 3. v0.1.5
 --------------------
 
-* 更新日期
+* Update date
     2024.01.25
 
-
-* 更新说明
-    - 新增基于路径逆向生产路网功能模块
-
+* Update description
+    - Added path-based reverse production road network function module
 
 4. v0.1.6
 --------------------
 
-* 更新日期
+* Update date
     2024.02.11
 
+* Update description
+    - Fixed GPS interpolation BUG
 
-* 更新说明
-    - 修复GPS插值BUG
+    - Added projection point information and path distance between adjacent observations to the matching results
 
-    - 匹配结果新增投影点信息以及相邻观测之间的路径距离
-
-    - 路网逆向模块优化
-
-
-
+    - Optimized the road network reverse module
 
 5. v0.1.7
 --------------------
 
-* 更新日期
+* Update date
     2024.03.06
 
+* Update description
+    - Improved map matching efficiency
 
-* 更新说明
-    - 地图匹配效率提升
+    - Fixed the BUG that caused floating point underflow due to probability multiplication
 
-    - 修复概率连乘导致浮点数下溢的BUG
+    - Added road network connectivity repair function
 
-    - 新增路网联通性修复功能
+    - Optimized the road network reverse module
 
-    - 路网逆向模块优化
+    - Added GPS point actual section information to the GPS generation module
 
-    - GPS生成模块新增GPS点实际路段信息
-
-    - 匹配结果新增数据检查接口
-
+    - Added data check interface to the matching results
 
 6. v0.1.8
 --------------------
 
-* 更新日期
+* Update date
     2024.03.17
 
+* Update description
+    - Fixed the connectivity check BUG in road network generation
 
-* 更新说明
-    - 修复路网生成中的连通性校核BUG
-
-    - 地图匹配过程中，针对"GPS数据没有关联到任何路网"给出报错提示
-
+    - In the map matching process, an error message is given for "GPS data is not associated with any road network"
 
 7. v0.1.9
 --------------------
 
-* 更新日期
+* Update date
     2024.03.29
 
+* Update Notes
+    - Added GPS densification function
 
-* 更新说明
-    - 增加GPS增密功能
+    - Introduced GPS point differential direction vector to correct emission probability
 
-    - 引入GPS点差分方向向量来修正发射概率
+    - Upgraded map matching interface, easier to use, and exposed more adjustable parameters
 
-    - 地图匹配接口升级，使用更加简单，暴露了更多的可调参数
+    - Construction of Net object is limited to: the input link and node data must be WGS-84 EPSG:4326 geographic coordinates, the plane projection coordinate system no longer needs to be manually specified, and the 6-degree zone can be automatically determined
 
-    - 构建Net对象限制为：输入的link和node的数据必须为WGS-84 EPSG:4326地理坐标，平面投影坐标系不再需要手动指定，可自动进行6度带的确定
+    - Added road network processing function: section division function
 
-    - 增加了路网处理函数：路段划分功能
+    - Added road network processing function: section-link_id field, from_node field, to_node field, node-node_id field remapping function
 
-    - 增加了路网处理函数：路段-link_id字段、from_node字段、to_node字段，节点-node_id字段重映射函数
+    - Fixed the bug of negative speed in GPS generation interface
 
-    - 修复GPS生成接口中速度为负数的BUG
+    - Fixed the problem of memory overflow caused by too large node ID during Net initialization
 
-    - 修复Net初始化过程中由于节点ID过大导致内存溢出的问题
-
-    - 新增路径缓存开关、ID缓存开关参数
-
+    - Added path cache switch and ID cache switch parameters
 
 8. v0.2.0
 --------------------
 
-* 更新日期
+* Update Date
     2024.04.12
 
+* Update Notes
+    - Added multi-process parameters in the matching process and multi-process parameters in the topology optimization process
 
-* 更新说明
-    - 匹配过程增加多进程参数，拓扑优化过程增加多进程参数
+    - Selection of GPS candidate sections: In addition to buffer selection, the top_k parameter is introduced to specify the nearest top_k sections in the buffer as candidate sections
 
-    - GPS候选路段的选择：除开buffer选择外引入了top_k参数，用于指定buffer内最近的top_k个路段作为候选路段
+    - Added GPS point stop point recognition function
 
-    - 增加GPS点停留点识别功能
+    - Fixed the BUG of inconsistent coordinates in the matching results, now unified as EPSG:4326
 
-    - 修正匹配结果中坐标不一致的BUG，现统一为EPSG:4326
+    - Added the function of extracting OD with waypoints based on GPS data
 
-    - 增加依据GPS数据提取带途径点OD的功能
+    - Added road network processing functions: road section and node reshaping
 
-    - 增加了路网处理函数：路段、节点重塑
-
-    - 修复了部分BUG
-
+    - Fixed some bugs
 
 9. v0.2.1
 --------------------
 
-* 更新日期
+* Update date
     2024.04.18
 
+* Update description
+    - Removed geo_res_fldr from the map matching interface, geojson files and html are stored in the same directory, specify html_fldr, and add other storage parameters (see document)
 
-* 更新说明
-    - 地图匹配接口移除geo_res_fldr, geojson文件和html存储在一个目录下，指定html_fldr即可，以及增加其他存储参数(见文档)
+    - Added warning section information in the HTML file. If a warning appears in this match, Then there will be an extra layer in the HTML file, which records the road sections where the GPS state transfer is wrong
 
-    - HTML文件中新增警告路段信息，若该次匹配中出现警告, 则在HTML文件中会多一个图层，该图层记录了GPS状态转移出错的路段
+    - Improved the stop point identification function
 
-    - 停留点识别功能改进
-
-    - BUG修复
-
+    - Bug fixes
 
 10. v0.2.2
 --------------------
 
-* 更新日期
+* Update date
     2024.04.27
 
+* Update notes
+    - Vectorization transformation, while introducing the path pre-calculation mechanism, greatly improving the matching efficiency
 
-* 更新说明
-    - 向量化改造, 同时引入路径预计算机制, 匹配效率大幅度提升
+    - Remove the multi-core matching interface on a single track, and add a parallel matching interface on multiple tracks
 
-    - 移除在单条轨迹上的多核匹配接口, 新增多条轨迹上的并行匹配接口
+    - Optimize the error reporting mechanism, add output warning information and error information, and facilitate user backtracking
 
-    - 报错机制优化, 新增输出警告信息、错误信息, 方便用户回溯
-
-    - BUG修复
-
+    - Bug fixes
 
 11. v0.2.3
 --------------------
 
-* 更新日期
+* Update date
     2024.05.07
 
+* Update notes
 
-* 更新说明
+    - Optimize the efficiency of the map matching interface, a slight improvement compared to v0.2.2
 
-    - 地图匹配接口效率优化, 相较于v0.2.2小幅度提升
+    - Optimize the error reporting mechanism of the map matching interface
 
-    - 地图匹配接口报错机制优化
+    - Remove the html_fldr parameter from the map matching interface, and use out_fldr instead
 
-    - 地图匹配接口移除html_fldr参数, 使用out_fldr替代
+    - The map matching interface adds an instant output switch instant_output. When turned on, the result is stored immediately after each matched track
 
-    - 地图匹配接口增加即时输出开关instant_output, 打开后, 每匹配完一条轨迹马上进行结果存储
+    - Road network construction: crs judgment BUG fixed, overseas road network construction failure BUG fixed
 
-    - 路网构建: crs判断BUG修复、境外路网构建失败BUG修复
-
-    - 增加 环路 处理功能
-
+    - Add loop processing function
 
 12. v0.2.4
 --------------------
 
-* 更新日期
+* Update date
     2024.05.08
 
+* Update description
 
-* 更新说明
-
-    - 地图匹配接口效率优化, 相较于v0.2.3小幅度提升
-
+    - Map matching interface efficiency optimization, slightly improved compared to v0.2.3
 
 13. v0.2.7
 --------------------
 
-* 更新日期
+* Update date
     2024.05.19
 
+* Update description
 
-* 更新说明
+    - Map matching interface efficiency optimization, slightly improved compared to v0.2.4
 
-    - 地图匹配接口效率优化, 相较于v0.2.4小幅度提升
+    - Added grid parameter search to help users determine reasonable matching parameters
 
-    - 新增网格参数搜索，帮助用户确定合理的匹配参数
-
-    - BUG修复
-
+    - BUG fixed
 
 14. v0.2.9
 --------------------
 
-* 更新日期
+* Update date
     2024.06.03
 
+* Update description
 
-* 更新说明
+    - Sample GPS generation module: interface simplification, bug fixes
 
-    - 样例GPS生成模块：接口简化、BUG修复
+    - Road network reverse module-request function optimization
 
-    - 路网逆向模块-请求函数优化
+    - GPS-based OD production interface: efficiency optimization
 
-    - 基于GPS生产OD的接口：效率优化
+    - Online GPS trip segmentation interface
 
-    - 上线GPS行程切分接口
+    - Connectivity repair module BUG (extremely low probability, but very harmful) fixed
 
-    - 联通性修复模块BUG(极低概率, 但是危害很大)修复
-
-    - 地图匹配BUG(极低概率, 但是危害很大)修复
+    - Map matching BUG (extremely low probability, but very harmful) fixed
 
 15. v0.3.0
 --------------------
 
-* 更新日期
+* Update date
     2024.06.10
 
+* Update description
 
-* 更新说明
+    - Road network reverse module: add multi-core parallel reverse parameters to improve the efficiency of large-scale road network acquisition
 
-    - 路网逆向模块：加入多核并行逆向参数，提升大范围路网获取效率
+    - Road network reverse module: launch multi-region road network merging interface
 
-    - 路网逆向模块：上线多区域路网合并接口
+    - Map matching: introduce spatial hierarchical indexing mechanism to improve the spatial correlation efficiency of large-scale road networks and long trajectories
 
-    - 地图匹配：引入空间分层索引机制，提升大规模路网、长轨迹的空间关联效率
+    - Map matching: minor BUG fixes, partial code writing optimization
 
-    - 地图匹配：小BUG修复、部分code写法优化
-
-    - 地图匹配：移除两个参数：max_increment_times、increment_buffer
-
-
+    - Map matching: remove two parameters: max_increment_times, increment_buffer
 
 16. v0.3.1
 --------------------
 
-* 更新日期
+* Updated on
     2024.06.16
 
+* Updated instructions
 
-* 更新说明
+    - Improved robustness of the program
 
-    - 程序健壮性提升
-
-    - 地图匹配接口：路网线层几何列重复点优化
-
-
+    - Map matching interface: Optimized duplicate points in the geometry column of the road network layer
 
 17. v0.3.3
 --------------------
 
-* 更新日期
+* Updated on
     2024.06.24
 
+* Updated instructions
+    - Map matching interface: Optimized the penalty logic for disconnected paths.
 
-* 更新说明
-    - 地图匹配接口：不连通路径惩罚逻辑优化.
+    - Map matching interface: Added the user_field_list parameter to allow users to specify the relevant fields of the GPS table to be output together with the matching results, to avoid users from making secondary associations after the matching is completed.
 
-    - 地图匹配接口：增加user_field_list参数，允许用户指定GPS表的相关字段连同匹配结果一同输出，避免用户在匹配结束后进行二次关联.
+    - Map matching interface: Optimized the output of the matching result fields, and added loc_type to identify: source GPS data points, densified points, and supplementary points.
 
-    - 地图匹配接口：匹配结果字段输出优化，增加loc_type用于标识：源GPS数据点、增密点、后补点.
+    - Map matching interface: Optimized the output of the matching result fields, and added the route_dis field to identify the path distance between the matching point on the matching section and the starting point of the section.
 
-    - 地图匹配接口：匹配结果字段输出优化，增加route_dis字段，用于标识匹配点在匹配路段上和路段起点的路径距离.
-
-    - 地图匹配接口：匹配结果 - 新增匹配点航向角、航向向量的数据.
-
-
+    - Map matching interface: Matching results - Added matching point heading angle and heading vector data.
 
 18. v0.3.5
 --------------------
 
-* 更新日期
+* Updated on
     2024.06.29
 
+* Updated instructions
+    - Completely removed crs check for geographic vector files. Users need to ensure that the crs of the input geometry vector layer is EPSG:4326.
 
-* 更新说明
-    - 全面移除对地理矢量文件的crs检查，用户自己需要确保输入的几何矢量图层的crs为EPSG:4326.
+    - Map matching interface: redundant calculation code removed.
 
-    - 地图匹配接口：冗余计算代码剔除.
-
-    - 平面投影坐标系参数：老版本部分接口参数名称为plain_prj，现统一为plain_crs.
-
+    - Plane projection coordinate system parameters: some interface parameter names in the old version are plain_prj, now unified as plain_crs.
 
 19. v0.3.6
 --------------------
 
-* 更新日期
+* Updated on
     2024.07.02
 
-
-* 更新说明
-    - 兼容geopandas-v1.0.0
-
-
+* Updated instructions
+    - Compatible with geopandas-v1.0.0
 
 19. v0.3.7
 --------------------
 
-* 更新日期
+* Updated on
     2024.07.11
 
+* Updated instructions
+    - Fixed the BUG that caused some VsCode users to fail to visualize output.
 
-* 更新说明
-    - 针对部分VsCode用户可视化输出失败的BUG，进行了修复.
+20. v0.3.8
+--------------------
+
+* Update date
+    2024.08.31
+
+* Update description
+    - Road network optimization module: node/section reshaping BUG fixed
+    - Road network optimization module: point layer creation BUG fixed
+    - Road network generation module: added high-precision map analysis
+    - Road network reverse module: added planning strategy
+    - Trajectory preprocessing module: integrated preprocessing interface, added Kalman filter preprocessing, line type simplification preprocessing
+    - Map matching module: added real-time continuous matching interface
+    - Map matching interface: optimize HTML storage time, improve efficiency by 40%
+    - Other BUG fixed
+
+21. v0.3.10
+--------------------
+
+* Update date
+    2024.09.04
+
+* Update description
+    - Fixed time series calculation BUG
