@@ -47,7 +47,10 @@ Download sample data from GitHub repository：`QuickStart-Match-1 <https://githu
 
         # Build a matching class
         # Specify the HTML visualization file to be output
-        mpm = MapMatch(net=my_net, gps_buffer=120, flag_name='general_sample',
+        # Specify the project flag character flag_name='general_sample', which can be customized by the user
+        # The values of the gps data time column are all in the form of 2022-05-12 16:27:46, so the specified time column format is '%Y-%m-%d %H:%M:%S'
+        # Regarding the determination of gps_buffer, the road network and gps data need to be visualized together using gis software to roughly determine the distance between GPS data and candidate sections
+        mpm = MapMatch(net=my_net, gps_buffer=120, flag_name='general_sample', time_format='%Y-%m-%d %H:%M:%S',
                        use_heading_inf=True, omitted_l=6.0, export_html=True, del_dwell=False,
                        out_fldr=r'./data/output/match_visualization/QuickStart-Match-1', dense_gps=False,
                        gps_radius=20.0)
@@ -59,6 +62,25 @@ Download sample data from GitHub repository：`QuickStart-Match-1 <https://githu
         match_res, warn_info, error_info = mpm.execute(gps_df=gps_df)
         match_res.to_csv(fr'./data/output/match_visualization/QuickStart-Match-1/general_match_res.csv',
                          encoding='utf_8_sig', index=False)
+
+How to determine gps_buffer is related to the size of the GPS positioning error. As shown in the figure below, we visualize the GPS data and the road network together in QGIS
+
+.. image:: _static/images/quick_start/general.png
+    :align: center
+
+--------------------------------------------------------------------------------
+
+It can be seen that the positioning frequency of GPS points is not low, and the positioning point is not far from the road, about 85 meters. In order to ensure that all GPS points can be associated with the candidate road sections, it is more appropriate to take gps_buffer=120 meters
+
+
+.. image:: _static/images/quick_start/general_dis.png
+    :align: center
+
+--------------------------------------------------------------------------------
+
+
+
+
 
 1.4. Match code 2 - sparse gps data
 ``````````````````````````````````````
@@ -91,7 +113,7 @@ Download sample data from GitHub repository：`QuickStart-Match-1 <https://githu
         # Since most of the track points are densified points, we need to increase gps_buffer to ensure that the track points are associated with the road segments
         # Since we have already densified the GPS data in advance, we do not need to use the densification in MapMatch - dense_gps=False
         mpm = MapMatch(net=my_net, gps_buffer=700, top_k=20, flag_name='sparse_sample',
-                       export_html=True,
+                       export_html=True, time_format='%Y-%m-%d %H:%M:%S',
                        out_fldr=r'./data/output/match_visualization/QuickStart-Match-1', dense_gps=False,
                        gps_radius=15.0)
 
@@ -102,6 +124,22 @@ Download sample data from GitHub repository：`QuickStart-Match-1 <https://githu
         match_res, warn_info, error_info = mpm.execute(gps_df=gps_df)
         match_res.to_csv(fr'./data/output/match_visualization/QuickStart-Match-1/general_match_res.csv',
                          encoding='utf_8_sig', index=False)
+
+
+As shown in the figure below, we can see that after the GPS points are densified, the densified points are far away from the candidate sections, about 350 meters (the blue points are the source data points, and the red points are the densified points)
+
+.. image:: _static/images/quick_start/dense.png
+    :align: center
+
+--------------------------------------------------------------------------------
+
+In order to ensure that all densification points can be associated with candidate sections, we consider more redundancy and take the values of gps_buffer=700 and top_k=20, that is, the nearest 20 sections within 700 meters of each GPS point are selected as candidate sections.
+
+.. image:: _static/images/quick_start/dense_dis.png
+    :align: center
+
+--------------------------------------------------------------------------------
+
 
 
 1.5. Result output and visualization
