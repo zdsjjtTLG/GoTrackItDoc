@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to GoTrackIt’s documentation! &mdash; GoTrackItDoc 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b489f392"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="💡Introduction" href="Introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            GoTrackItDoc
+          </a>
+              <div class="version">
+                0.3.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">💡Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HowToUse.html">🚀 HowToUse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ClassMethod.html">🔎ClassMethod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IterationRecords.html">🖥️IterationRecords</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GoTrackItDoc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to GoTrackIt’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-gotrackit-s-documentation">
+<h1>Welcome to GoTrackIt’s documentation!<a class="headerlink" href="#welcome-to-gotrackit-s-documentation" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The English document has not yet been fully translated…</p>
+</div>
+<p>Read UserManual in ：<a class="reference external" href="https://gotrackit.readthedocs.io/en/latest/index.html">Chinese</a></p>
+<p>Author: Tang Kai</p>
+<p>Email：<a class="reference external" href="mailto:tangkai&#37;&#52;&#48;zhechengdata&#46;com">tangkai<span>&#64;</span>zhechengdata<span>&#46;</span>com</a>、<a class="reference external" href="mailto:794568794&#37;&#52;&#48;qq&#46;com">794568794<span>&#64;</span>qq<span>&#46;</span>com</a></p>
+<p>Project source code：<a class="reference external" href="https://github.com/zdsjjtTLG/TrackIt">GitHub</a> — Current version v0.3.7</p>
+<p>GoTrackIt is a Map-Matching python package based on the Hidden Markov Model.</p>
+<p>It matches the vehicle’s GPS trajectory data to the road network through probabilistic graph modeling, and obtains the standardized spatiotemporal trajectory of the vehicle.It can effectively support travel navigation, traffic monitoring, traffic management, carbon emission accounting, traffic modeling and other directions.</p>
+<img alt="_images/MapMatch.PNG" class="align-center" src="_images/MapMatch.PNG" />
+<hr class="docutils" />
+<ul>
+<li><dl>
+<dt>Application of MapMatch</dt><dd><p>travel navigation: General Navigation、Lane Level Navigation、Traffic behavior warning</p>
+<p>traffic monitoring: Real-time traffic calculation、Intersection delay calculation、Real-time public transportation、Traffic monitoring</p>
+<p>traffic management: Traffic tracing analysis、Travel behavior analysis、Traffic congestion analysis</p>
+<p>carbon emission accounting: Emissions accounting、Road network emission characteristics</p>
+<p>traffic modeling and other directions: Road network integration、Bus/road network matching</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This project is in a period of frequent upgrades and iterations. The current version is v0.3.7. Please update in time.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the differences in computers of different users, it is difficult to unify the CRS output format in Geopandas. Starting from v0.3.5, the CRS check for geographic vector files has been completely removed. Users need to ensure that the CRS of the input geometry vector layer is EPSG:4326.</p>
+</div>
+<section id="document-content">
+<h2>Document Content<a class="headerlink" href="#document-content" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">💡Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#about-gotrackit">1. About Gotrackit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#mapmatch-problem">2. MapMatch Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#related-video-tutorials">3. Related video tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HowToUse.html">🚀 HowToUse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#install-gotrackit">1. install gotrackit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#pre-dependency-library">1.1. pre-dependency library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id1">1.2. install gotrackit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#overview">2. overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#module-overview">2.1. module overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#road-network-optimization">2.1.1. Road Network Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#gps-data-production">2.1.2. GPS data production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#trip-segmentation">2.1.3. Trip Segmentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#map-match">2.1.4. Map Match</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#kepler-visualization">2.1.5. Kepler Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#data-requirements">2.2. data requirements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#road-network-data">2.2.1. road network data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="HowToUse.html#road-network-node-layer">(1) road network - node layer</a></li>
+<li class="toctree-l5"><a class="reference internal" href="HowToUse.html#road-network-link-layer">(2) road network - link layer</a></li>
+<li class="toctree-l5"><a class="reference internal" href="HowToUse.html#node-layer-and-link-layer-association">(3) node layer and link layer association</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#gps">2.2.2. GPS定位数据</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id7">3. 路网模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id8">3.1. 路网优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id9">3.1.7. 基于已有路网线层, 生产点层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id10">3.1.8. 启用多核并行逆向路网</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#gotrackit">3.1.9. 合并gotrackit标准路网</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id11">3.2. 路网优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id12">3.2.1. 清洗你的路网线层数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id14">3.2.2. 基于已有标准路网, 检查路网的联通性并进行修复</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id15">3.2.3. 路段划分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id">3.2.4. id重映射</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id16">3.2.5. 路网路段、节点重塑</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#from-node-to-node">3.2.6. 处理环路和相同(from_node，to_node)的路段</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id17">4. GPS数据生产</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#tripgeneration">4.1. TripGeneration初始化参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#generate-rand-trips">4.2. generate_rand_trips相关参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id18">5. Trip Segmentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id19">5.1. 行程切分</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#gpspreprocess">5.1.1. 初始化GpsPreProcess的相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#trip-segmentations">5.1.2. 类方法trip_segmentations相关参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id23">5.1.3. 如何理解主行程和子行程？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#gpsod">5.2. 从GPS数据计算途径点OD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#sampling-waypoints-od">5.2.1. sampling_waypoints_od相关参数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id24">6. Map Match</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id25">6.1. 所需数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#net">6.2. 匹配接口参数解释 - 构建Net的参数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id28">6.2.1. 路网参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id29">6.2.2. 截断搜索参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id30">6.2.3. 路径预计算参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id31">6.2.4. 分层空间索引参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id32">6.2.5. 平面投影系参数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#mapmatch">6.3. 匹配接口参数解释 - MapMatch参数解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id34">6.3.1. 项目标记参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id35">6.3.2. 基础参数(必须指定)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id36">6.3.3. 时间列构建参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id39">6.3.4. 候选范围参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id40">6.3.5. 发射概率、状态转移概率参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id41">6.3.6. GPS预处理参数 - 停留点处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id42">6.3.7. GPS预处理参数 - 点位降频</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id43">6.3.8. GPS预处理参数 - 滑动窗口平均</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id44">6.3.9. GPS预处理参数 - 点位增密</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id45">6.3.10. 发射概率修正 - 航向角修正</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id46">6.3.11. 结果输出设置参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id47">6.3.12. 可视化输出参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id48">6.3.13. 网格参数搜索设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id49">6.4. 常规匹配代码示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#match-res">6.4.1. 匹配结果表(match_res)字段含义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id51">6.4.2. 警告信息和错误信息含义</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id52">6.5. 启用路径预计算(存储)进行加速</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id53">6.6. 启用多核进行并行匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id54">6.7. 简化路网线型加速匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id55">6.8. 利用分层索引加速空间关联效率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id56">6.9. 使用网格参数确定合理的匹配参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id57">6.10. 匹配结果可视化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#html">6.10.1 HTML动画可视化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#geojson">6.10.2 geojson矢量文件可视化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id59">6.11. 匹配结果不正确的调参方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id60">6.11.1. 程序提示-预处理后GPS点不足两个,无法匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id61">6.11.2. 在html可视化结果中看到匹配路径不连续</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HowToUse.html#id62">6.11.3. 确定合理参数的思路</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id63">6.12. 关于匹配速度</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id64">7. 一些地信处理小工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id65">7.1.  切分栅格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id66">7.2.  坐标转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id67">7.3.  直线转弧线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id68">7.4.  地理配准</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HowToUse.html#id69">8. 常见报错以及解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id70">8.1. 构建net对象错误报坐标系不匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#jupyternetplanar-crs">8.2. 使用jupyter报net对象无planar_crs属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#pyogrio-errors-fielderror">8.3. pyogrio.errors.FieldError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#shapely">8.4.  shapely库警告</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#invalid-projection-epsg-nan">8.5.  Invalid projection: EPSG:nan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#id71">8.6.  输出的路网文件字段中：中文变为乱码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#html-object-of-type-bytes-is-not-json-serializable">8.7.  输出HTML失败： Object of type bytes is not JSON serializable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#valueerror-cannot-convert-float-nan-to-integer">8.8.  计算发射矩阵出错:ValueError(cannot convert float NaN to integer )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#valueerror-cannot-insert-node-id-already-exists">8.9. 路网获取报错/地图匹配报错:ValueError: cannot insert node_id, already exists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#html-one-of-the-arguments-is-of-incorrect-type">8.10. 输出HTML失败：One of the arguments is of incorrect type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToUse.html#futurewarning">8.11. FutureWarning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ClassMethod.html">🔎ClassMethod</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ClassMethod.html#netreverse">1. NetReverse类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClassMethod.html#id1">1.1. NetReverse类初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#NetReverse"><code class="docutils literal notranslate"><span class="pre">NetReverse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id2">(1)  第一组（总体信息）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id3">(2)  第二组（路径解析、拆分参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id4">(3)  第三组（拓扑关联参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id5">(4)  第四组（拓扑优化参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id7">(5)  第五组（重叠路段处理参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id8">(6)  第六组（联通性修复参数）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#id10">(7)  第七组（分区逆向参数）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ClassMethod.html#id11">1.2. 初始化中三个并行参数的区别</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#multi-core-parse">(1)  multi_core_parse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#multi-core-merge">(2) multi_core_merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#multi-core-reverse">(3) multi_core_reverse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ClassMethod.html#id12">1.3. NetReverse类方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#generate-net-from-request">(1) generate_net_from_request</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.generate_net_from_request"><code class="docutils literal notranslate"><span class="pre">NetReverse.generate_net_from_request</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#generate-net-from-pickle">(2) generate_net_from_pickle</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.generate_net_from_pickle"><code class="docutils literal notranslate"><span class="pre">NetReverse.generate_net_from_pickle</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#create-node-from-link">(3) create_node_from_link</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.create_node_from_link"><code class="docutils literal notranslate"><span class="pre">NetReverse.create_node_from_link</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#topology-optimization">(4) topology_optimization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.topology_optimization"><code class="docutils literal notranslate"><span class="pre">NetReverse.topology_optimization</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#modify-conn">(5) modify_conn</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.modify_conn"><code class="docutils literal notranslate"><span class="pre">NetReverse.modify_conn</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ClassMethod.html#redivide-link-node">(4) redivide_link_node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ClassMethod.html#NetReverse.redivide_link_node"><code class="docutils literal notranslate"><span class="pre">NetReverse.redivide_link_node</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IterationRecords.html">🖥️IterationRecords</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-1">1. v0.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-3">2. v0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-5">3. v0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-6">4. v0.1.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-7">5. v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-8">6. v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-1-9">7. v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-0">8. v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-1">9. v0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-2">10. v0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-3">11. v0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-4">12. v0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-7">13. v0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-2-9">14. v0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-0">15. v0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-1">16. v0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-3">17. v0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-5">18. v0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-6">19. v0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IterationRecords.html#v0-3-7">19. v0.3.7</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Introduction.html" class="btn btn-neutral float-right" title="💡Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kai Tang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
